@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons';
+import IonicIcons from 'react-native-vector-icons/Ionicons';
+
 const SampleScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Sample Screen</Text>
         <TouchableOpacity style={styles.searchButton}>
-          <Icon name="search" size={24} color="#4CAF50" />
+          <IonicIcons name="search" size={24} color="#4CAF50" />
         </TouchableOpacity>
       </View>
       <View style={styles.content}>
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FAFAFA',
   },
   header: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#379237',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   addButton: {
-    backgroundColor: '#FFEB3B',
+    backgroundColor: '#54B435',
     padding: 16,
     borderRadius: 8,
     alignItems: 'center',
@@ -86,11 +87,11 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   activeTab: {
-    backgroundColor: '#F57C00',
+    backgroundColor: '#54B435',
     borderRadius: 16,
   },
   tabText: {
-    color: '#212121',
+    color: '#F0FF42',
     fontSize: 16,
   },
   activeTabText: {
