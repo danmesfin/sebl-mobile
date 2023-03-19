@@ -1,55 +1,69 @@
 import {createSlice} from '@reduxjs/toolkit';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-
-const initialState = {
-  currentUser: null,
-  isLoading: false,
-  error: null,
-};
+import firebase from '../../../firebaseConfig';
 
 export const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: {
+    user: null,
+    loading: false,
+    error: null,
+  },
   reducers: {
-    setCurrentUser: (state, action) => {
-      state.currentUser = action.payload;
+    setUser: (state, action) => {
+      state.user = action.payload;
+      state.loading = false;
+      state.error = null;
     },
     setLoading: (state, action) => {
-      state.isLoading = action.payload;
+      state.loading = action.payload;
     },
     setError: (state, action) => {
       state.error = action.payload;
+      state.loading = false;
+    },
+    clearUser: state => {
+      state.user = null;
     },
   },
 });
 
-export const {setCurrentUser, setLoading, setError} = authSlice.actions;
-
-export const login = (email, password) => async dispatch => {
-  dispatch(setLoading(true));
+// Async action to log in a user
+export const loginUser = (email, password) => async dispatch => {
   try {
-    const userCredential = await firebase
+    dispatch(setLoading(true));
+    const {user} = await firebase
       .auth()
       .signInWithEmailAndPassword(email, password);
-    dispatch(setCurrentUser(userCredential.user));
-    dispatch(setLoading(false));
+    dispatch(setUser(user));
   } catch (error) {
-    dispatch(setError(error));
-    dispatch(setLoading(false));
+    dispatch(setError(error.message));
   }
 };
 
-export const logout = () => async dispatch => {
-  dispatch(setLoading(true));
+// Async action to sign up a new user
+export const signUpUser = (email, password) => async dispatch => {
   try {
-    await firebase.auth().signOut();
-    dispatch(setCurrentUser(null));
-    dispatch(setLoading(false));
+    dispatch(setLoading(true));
+    const {user} = await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password);
+    dispatch(setUser(user));
   } catch (error) {
-    dispatch(setError(error));
-    dispatch(setLoading(false));
+    dispatch(setError(error.message));
   }
 };
 
+// Async action to sign out the current user
+export const signOutUser = () => async dispatch => {
+  try {
+    dispatch(setLoading(true));
+    await firebase.auth().signOut();
+    dispatch(clearUser());
+  } catch (error) {
+    dispatch(setError(error.message));
+  }
+};
+
+// Export the actions and reducer
+export const {setUser, setLoading, setError, clearUser} = authSlice.actions;
 export default authSlice.reducer;
