@@ -1,14 +1,23 @@
 import React from 'react';
 import {Provider} from 'react-redux';
 import store from './src/store/store';
-import CounterScreen from './src/screens/counterScreen';
-import SampleScreen from './src/screens/Sample/SampleScreen';
-import LoginScreen from './src/screens/Auth/signInScreen';
+import AuthNavigator from './src/Navigations/AuthNavigation';
+import {NavigationContainer} from '@react-navigation/native';
+
+import 
 
 const App = () => {
   return (
     <Provider store={store}>
-      <LoginScreen />
+         <NavigationContainer>
+      <Stack.Navigator headerMode="none">
+        {user ? (
+          <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
+        ) : (
+          <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
     </Provider>
   );
 };

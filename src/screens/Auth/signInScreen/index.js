@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, Button} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {loginUser} from '../redux/auth';
+import {loginUser} from '../../../redux/authSlice';
 
 const SignInScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
