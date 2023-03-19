@@ -10,6 +10,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-firebase/app": "^17.3.2",
+    "@react-native-firebase/auth": "^17.3.2",
     "@reduxjs/toolkit": "^1.9.3",
     "firebase": "^9.18.0",
     "react": "18.2.0",
