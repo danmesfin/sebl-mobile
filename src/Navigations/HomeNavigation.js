@@ -2,10 +2,10 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/Home/HomeScreen';
-import CommunityScreen from '../screens/CommunityScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import {Icon} from 'react-native-elements';
-import {primaryColor, secondaryColor} from '../styles/colors';
+import CommunityScreen from '../screens/Community/CommunityScreen';
+import ProfileScreen from '../screens/Profile/ProfileScreen';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {primaryColor, secondaryColor} from '../styles/theme';
 
 const Tab = createBottomTabNavigator();
 
