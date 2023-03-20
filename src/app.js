@@ -14,7 +14,7 @@ const MainApp = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator headerShown="false">
+      <Stack.Navigator screenOptions={{headerShown: false}}>
         {user ? (
           <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
         ) : (

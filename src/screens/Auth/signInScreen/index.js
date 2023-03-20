@@ -20,7 +20,18 @@ const SignInScreen = ({navigation}) => {
   const handleSignUpNavigation = () => {
     navigation.navigate('SignUp');
   };
-
+  const handleFirebaseErrors = errorMessage => {
+    switch (errorMessage) {
+      case 'auth/user-not-found':
+        return 'User not found. Please check your email.';
+      case 'auth/wrong-password':
+        return 'Incorrect password. Please try again.';
+      case 'auth/invalid-email':
+        return 'Invalid email address. Please check and try again.';
+      default:
+        return 'An unknown error occurred. Please try again later.';
+    }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign In</Text>
@@ -45,7 +56,7 @@ const SignInScreen = ({navigation}) => {
         disabled={isLoading}>
         Sign In
       </Button>
-      {error && <Text style={styles.error}>{error}</Text>}
+      {error && <Text style={styles.error}>{handleFirebaseErrors(error)}</Text>}
       <View style={styles.footer}>
         <Text style={styles.footerText}>Don't have an account?</Text>
         <TouchableOpacity onPress={handleSignUpNavigation}>
@@ -77,7 +88,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   button: {
-    padding: 5,
+    width: '100%',
+    marginTop: 20,
     backgroundColor: Colors.accent,
   },
   footer: {

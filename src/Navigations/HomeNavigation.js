@@ -19,29 +19,38 @@ const HomeNavigator = () => {
       <Tab.Screen
         name="Home"
         component={HomeScreen}
-        options={{
-          tabBarIcon: ({color}) => (
-            <Icon name="home" type="font-awesome" color={color} />
-          ),
-        }}
+        options={
+          ({
+            tabBarIcon: ({color}) => (
+              <Icon name="home" type="font-awesome" color={color} />
+            ),
+          },
+          {headerShown: false})
+        }
       />
       <Tab.Screen
         name="Community"
         component={CommunityScreen}
-        options={{
-          tabBarIcon: ({color}) => (
-            <Icon name="users" type="font-awesome" color={color} />
-          ),
-        }}
+        options={
+          ({
+            tabBarIcon: ({color}) => (
+              <Icon name="users" type="font-awesome" color={color} />
+            ),
+          },
+          {headerShown: false})
+        }
       />
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{
-          tabBarIcon: ({color}) => (
-            <Icon name="user" type="font-awesome" color={color} />
-          ),
-        }}
+        options={
+          ({
+            tabBarIcon: ({color}) => (
+              <Icon name="user" type="font-awesome" color={color} />
+            ),
+          },
+          {headerShown: false})
+        }
       />
     </Tab.Navigator>
   );
