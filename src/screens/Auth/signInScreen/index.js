@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
 import {Button} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,6 +26,7 @@ const SignInScreen = ({navigation}) => {
   const handleSignUpNavigation = () => {
     navigation.navigate('SignUp');
   };
+
   const handleFirebaseErrors = errorMessage => {
     switch (errorMessage) {
       case 'auth/user-not-found':
@@ -32,6 +39,7 @@ const SignInScreen = ({navigation}) => {
         return 'An unknown error occurred. Please try again later.';
     }
   };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign In</Text>
@@ -56,6 +64,7 @@ const SignInScreen = ({navigation}) => {
         disabled={isLoading}>
         Sign In
       </Button>
+      {isLoading && <ActivityIndicator size="large" color={Colors.accent} />}
       {error && <Text style={styles.error}>{handleFirebaseErrors(error)}</Text>}
       <View style={styles.footer}>
         <Text style={styles.footerText}>Don't have an account?</Text>
@@ -102,6 +111,10 @@ const styles = StyleSheet.create({
   footerLink: {
     color: Colors.accent,
     paddingHorizontal: 2,
+  },
+  error: {
+    color: 'red',
+    marginTop: 10,
   },
 });
 export default SignInScreen;
