@@ -56,15 +56,19 @@ const SignInScreen = ({navigation}) => {
         onChangeText={value => setPassword(value)}
         secureTextEntry={true}
       />
-      <Button
-        mode="contained"
-        onPress={handleLogin}
-        style={styles.button}
-        loading={isLoading}
-        disabled={isLoading}>
-        Sign In
-      </Button>
-      {isLoading && <ActivityIndicator size="large" color={Colors.accent} />}
+
+      {isLoading ? (
+        <ActivityIndicator size="large" color={Colors.accent} />
+      ) : (
+        <Button
+          mode="contained"
+          onPress={handleLogin}
+          style={styles.button}
+          loading={isLoading}
+          disabled={isLoading}>
+          Sign In
+        </Button>
+      )}
       {error && <Text style={styles.error}>{handleFirebaseErrors(error)}</Text>}
       <View style={styles.footer}>
         <Text style={styles.footerText}>Don't have an account?</Text>

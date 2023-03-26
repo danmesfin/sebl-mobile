@@ -4,7 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../screens/Home/HomeScreen';
 import CommunityScreen from '../screens/Community/CommunityScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {primaryColor, secondaryColor} from '../styles/theme';
 
 const Tab = createBottomTabNavigator();
@@ -22,7 +22,7 @@ const HomeNavigator = () => {
         options={
           ({
             tabBarIcon: ({color}) => (
-              <Icon name="home" type="font-awesome" color={color} />
+              <FontAwesome name="home" type="font-awesome" color={color} />
             ),
           },
           {headerShown: false})
@@ -34,7 +34,7 @@ const HomeNavigator = () => {
         options={
           ({
             tabBarIcon: ({color}) => (
-              <Icon name="users" type="font-awesome" color={color} />
+              <FontAwesome name="users" type="font-awesome" color={color} />
             ),
           },
           {headerShown: false})
@@ -46,7 +46,7 @@ const HomeNavigator = () => {
         options={
           ({
             tabBarIcon: ({color}) => (
-              <Icon name="user" type="font-awesome" color={color} />
+              <FontAwesome name="user" type="font-awesome" color={color} />
             ),
           },
           {headerShown: false})

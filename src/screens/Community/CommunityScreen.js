@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Colors from '../../styles/theme';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const mockPosts = [
   {
@@ -25,9 +26,38 @@ const mockPosts = [
   },
 ];
 
+const crops = [
+  'Tomatoes',
+  'Potatoes',
+  'Peppers',
+  'Corn',
+  'Wheat',
+  'Soybeans',
+  'Cotton',
+  'Rice',
+];
+
 const CommunityScreen = () => {
   return (
     <View style={styles.container}>
+      <View style={styles.searchContainer}>
+        <Icon name="search" size={18} color={Colors.textLight} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search"
+          placeholderTextColor={Colors.textLight}
+        />
+      </View>
+      <View style={styles.filterContainer}>
+        <Text style={styles.filterTitle}>Filter</Text>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {crops.map(crop => (
+            <TouchableOpacity style={styles.cropButton} key={crop}>
+              <Text style={styles.cropButtonText}>{crop}</Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {mockPosts.map(post => (
           <View style={styles.postCard} key={post.id}>
@@ -49,19 +79,9 @@ const CommunityScreen = () => {
           </View>
         ))}
       </ScrollView>
-      <View style={styles.askQuestionContainer}>
-        <TextInput
-          style={styles.askQuestionInput}
-          placeholder="Ask a question..."
-          placeholderTextColor={Colors.textLight}
-        />
-        <TouchableOpacity style={styles.attachImageIcon}>
-          <Text style={styles.attachImageText}>Attach Image</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.postButton}>
-          <Text style={styles.postButtonText}>Post</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.floatingButton}>
+        <Icon name="plus" size={24} color="#fff" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -70,38 +90,67 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.secondary,
+    paddingTop: 20,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  searchInput: {
+    flex: 1,
+    marginLeft: 8,
+    color: Colors.textLight,
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    marginBottom: 16,
+  },
+  filterTitle: {
+    fontWeight: 'bold',
+    marginRight: 8,
+    color: Colors.textLight,
+  },
+  cropButton: {
+    backgroundColor: Colors.secondaryDark,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    marginHorizontal: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cropButtonText: {
+    color: Colors.textLight,
+    fontWeight: 'bold',
   },
   scrollContainer: {
     padding: 16,
   },
   postCard: {
-    borderRadius: 10,
-    backgroundColor: Colors.secondaryDark,
+    backgroundColor: Colors.secondaryLight,
+    borderRadius: 8,
     marginBottom: 16,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-
-    elevation: 6,
+    overflow: 'hidden',
   },
   postImage: {
     width: '100%',
     height: 200,
-    marginBottom: 16,
   },
   postInfo: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
+    padding: 16,
   },
   postedBy: {
     fontWeight: 'bold',
-    marginRight: 8,
+    color: Colors.textDark,
   },
   date: {
     color: Colors.textLight,
@@ -109,57 +158,42 @@ const styles = StyleSheet.create({
   commentContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingBottom: 16,
   },
   commentInput: {
     flex: 1,
-    backgroundColor: Colors.secondary,
-    padding: 8,
-    borderRadius: 20,
     marginRight: 8,
+    backgroundColor: Colors.secondary,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Colors.primary,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    color: Colors.textLight,
   },
   commentButton: {
     backgroundColor: Colors.primary,
-    padding: 8,
     borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   commentButtonText: {
     color: '#fff',
     fontWeight: 'bold',
   },
-  askQuestionContainer: {
-    flexDirection: 'row',
+  floatingButton: {
+    position: 'absolute',
+    bottom: 32,
+    right: 32,
+    backgroundColor: Colors.primary,
+    borderRadius: 50,
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.secondary,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
-  askQuestionInput: {
-    flex: 1,
-    backgroundColor: Colors.secondaryDark,
-    padding: 8,
-    borderRadius: 20,
-    marginRight: 8,
-  },
-  attachImageIcon: {
-    backgroundColor: Colors.primary,
-    borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginRight: 8,
-  },
-  attachImageText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  postButton: {
-    backgroundColor: Colors.primary,
-    borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
-  postButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
   },
 });
 
