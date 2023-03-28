@@ -6,7 +6,6 @@ import CommunityScreen from '../screens/Community/CommunityScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Color from '../styles/theme';
-import {NavigationContainer} from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
