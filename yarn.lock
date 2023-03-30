@@ -6782,7 +6782,7 @@ react-native-vector-icons@*, react-native-vector-icons@^9.2.0:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native@*, react-native@>=0.59, react-native@0.71.4:
+react-native@*, react-native@^0.41.2, react-native@>=0.59, react-native@0.71.4:
   version "0.71.4"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.71.4.tgz"
   integrity sha512-3hSYqvWrOdKhpV3HpEKp1/CkWx8Sr/N/miCrmUIAsVTSJUR7JW0VvIsrV9urDhUj/s6v2WF4n7qIEEJsmTCrPw==
@@ -7647,6 +7647,11 @@ text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/text-table/-/text-table-0.2.0.tgz"
   integrity sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==
+
+tflite-react-native@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/tflite-react-native/-/tflite-react-native-0.0.5.tgz"
+  integrity sha512-aBajq5yQQ8UiB92tIk+v9BIKZTFGwCTHegfefISgnXwqPiPAAvKhdX6Vb80kJFPTUjXB53w/NZQT9qCyVBYMyA==
 
 throat@^5.0.0:
   version "5.0.0"

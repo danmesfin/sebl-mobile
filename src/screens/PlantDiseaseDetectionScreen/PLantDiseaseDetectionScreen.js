@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
-import Tflite from 'react-native-tflite';
+import Tflite from 'tflite-react-native';
 
 const PlantDiseaseDetectionScreen = ({route}) => {
   const {imageUri} = route.params;

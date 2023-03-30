@@ -26,7 +26,8 @@
     "react-native-screens": "^3.20.0",
     "react-native-tflite": "^0.0.2",
     "react-native-vector-icons": "^9.2.0",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "tflite-react-native": "^0.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
