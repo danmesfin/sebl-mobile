@@ -1,14 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, TouchableOpacity, Platform} from 'react-native';
+import {View, Text, Image, Platform, StyleSheet} from 'react-native';
 import Tflite from 'tflite-react-native';
 
 const tflite = new Tflite();
 
 const PlantDiseaseDetectionScreen = ({route, navigation}) => {
   const [result, setResult] = useState({});
-
   const {image} = route.params;
-  console.log('image uri init', image);
+  console.log('route.params:', route.params);
+  console.log('image uri', image);
 
   useEffect(() => {
     tflite.loadModel(
@@ -21,10 +21,9 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
           console.log(err);
         } else {
           console.log('load', res);
-          console.log('image uri', image);
           tflite.runModelOnImage(
             {
-              path: 'file:///data/user/0/com.seblfarmassist/cache/' + image,
+              path: image,
               imageMean: Platform.OS === 'android' ? 128 : 0,
               imageStd: Platform.OS === 'android' ? 128 : 1,
               numResults: 1,
@@ -45,27 +44,48 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
   }, [image]);
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={styles.container}>
       {result && result.label ? (
         <View>
           <Image
             source={{
-              uri: 'file:///data/user/0/com.seblfarmassist/cache/' + image,
+              uri: image,
             }}
-            style={{width: 200, height: 200}}
+            style={styles.image}
           />
-          <Text style={{fontSize: 20, fontWeight: 'bold', marginTop: 20}}>
-            Prediction: {result.label}
-          </Text>
-          <Text style={{marginTop: 10}}>
+          <Text style={styles.prediction}>Prediction: {result.label}</Text>
+          <Text style={styles.confidence}>
             Confidence: {(result.confidence * 100).toFixed(2)}%
           </Text>
         </View>
       ) : (
-        <Text>Loading...</Text>
+        <Text style={styles.loading}>Loading...</Text>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 200,
+    height: 200,
+  },
+  prediction: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginTop: 20,
+  },
+  confidence: {
+    marginTop: 10,
+  },
+  loading: {
+    textAlign: 'center',
+  },
+});
 
 export default PlantDiseaseDetectionScreen;

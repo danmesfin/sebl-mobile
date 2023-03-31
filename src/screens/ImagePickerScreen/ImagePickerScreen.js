@@ -1,9 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const ImagePickerScreen = ({navigation}) => {
   const [imageUri, setImageUri] = useState(null);
+
+  // callback function needed
+  useEffect(() => {
+    if (imageUri) {
+      navigation.navigate('PlantDiseaseNavigator', {
+        screen: 'Plant Disease Detection',
+        params: {image: imageUri},
+      });
+    }
+  }, [imageUri, navigation]);
 
   const handleSelectPicture = async launchType => {
     if (launchType === 'library') {
@@ -15,9 +25,17 @@ const ImagePickerScreen = ({navigation}) => {
         quality: 1,
       };
       launchImageLibrary(options, response => {
-        if (response.assets) {
-          setImageUri(response.assets[0].fileName);
-          navigation.navigate('Plant Disease Detection', {image: imageUri});
+        if (response.didCancel) {
+          console.log('User cancelled');
+        } else if (response.errorMessage) {
+          console.log('Camera Error: ', response.errorMessage);
+          console.log('Error code: ', response.errorCode);
+        } else if (response.assets) {
+          console.log('response', response.assets);
+          setImageUri(response.assets[0].uri);
+          // update here .. naviagte only if imageUri is not null
+        } else {
+          console.log('Unkonwn error');
         }
       });
     } else if (launchType === 'camera') {
@@ -35,11 +53,8 @@ const ImagePickerScreen = ({navigation}) => {
           console.log('Camera Error: ', response.errorMessage);
           console.log('Error code: ', response.errorCode);
         } else if (response.assets) {
-          setImageUri(response.assets[0].fileName);
-          navigation.navigate('PlantDiseaseNavigator', {
-            screen: 'Plant Disease Detection',
-            params: {image: imageUri},
-          });
+          // console.log('response', response.assets);
+          setImageUri(response.assets[0].uri);
         } else {
           console.log('Unkonwn error');
         }
@@ -52,7 +67,7 @@ const ImagePickerScreen = ({navigation}) => {
       {imageUri ? (
         <Image
           source={{
-            uri: 'file:///data/user/0/com.seblfarmassist/cache/' + imageUri,
+            uri: imageUri,
           }}
           style={styles.previewImage}
         />
