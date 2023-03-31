@@ -36,11 +36,10 @@ const ImagePickerScreen = ({navigation}) => {
           console.log('Error code: ', response.errorCode);
         } else if (response.assets) {
           setImageUri(response.assets[0].fileName);
-          navigation.navigate(
-            'PlantDiseaseNavigato',
-            {screen: 'Plant Disease Detection'},
-            {image: imageUri},
-          );
+          navigation.navigate('PlantDiseaseNavigator', {
+            screen: 'Plant Disease Detection',
+            params: {image: imageUri},
+          });
         } else {
           console.log('Unkonwn error');
         }
