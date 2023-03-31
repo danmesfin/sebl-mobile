@@ -1,48 +1,53 @@
-/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {View} from 'react-native';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Color from '../styles/theme';
 import HomeScreen from '../screens/Home/HomeScreen';
 import CommunityScreen from '../screens/Community/CommunityScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Color from '../styles/theme';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 const HomeNavigator = () => {
   return (
-    <Tab.Navigator
-      screenOptions={({route}) => ({
-        tabBarIcon: ({color, size}) => {
-          let iconName;
-
-          if (route.name === 'Home') {
-            iconName = 'home';
-          } else if (route.name === 'Community') {
-            iconName = 'users';
-          } else if (route.name === 'Profile') {
-            iconName = 'user';
-          }
-
-          return <Icon name={iconName} size={size} color={color} />;
-        },
-      })}
-      tabBarOptions={{
-        activeTintColor: Color.primary,
-        inactiveTintColor: Color.secondaryLight,
-      }}>
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{headerTitle: 'Sebl'}}
-      />
-      <Tab.Screen name="Community" component={CommunityScreen} />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
-        options={{headerShown: false}}
-      />
-    </Tab.Navigator>
+    <View style={{flex: 1}}>
+      <Tab.Navigator
+        barStyle={{backgroundColor: Color.white}}
+        activeColor={Color.primary}
+        inactiveColor={Color.secondaryLight}>
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarIcon: ({color}) => (
+              <Icon name="home" color={color} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Community"
+          component={CommunityScreen}
+          options={{
+            tabBarLabel: 'Community',
+            tabBarIcon: ({color}) => (
+              <Icon name="users" color={color} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            tabBarLabel: 'Profile',
+            tabBarIcon: ({color}) => (
+              <Icon name="user" color={color} size={24} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </View>
   );
 };
 
