@@ -1,5 +1,8 @@
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+apply plugin: "com.google.gms.google-services"
 
 import com.android.build.OutputFile
 
@@ -93,9 +96,10 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.reactivenativestarter"
+    namespace "com.seblfarmassist"
+
     defaultConfig {
-        applicationId "com.reactivenativestarter"
+        applicationId "com.seblfarmassist"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -146,13 +150,17 @@ android {
 
         }
     }
+     aaptOptions {
+        noCompress 'tflite'
+    }
 }
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-
+    implementation('com.google.firebase:firebase-bom:31.2.3')
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
+    implementation project(':tflite-react-native')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
