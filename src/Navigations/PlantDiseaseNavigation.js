@@ -9,7 +9,9 @@ const Stack = createStackNavigator();
 
 const PlantDiseaseNavigation = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName="Select Image"
+      options={{headerShown: false}}>
       <Stack.Screen name="Select Image" component={ImagePickerScreen} />
       <Stack.Screen
         name="Plant Disease Detection"

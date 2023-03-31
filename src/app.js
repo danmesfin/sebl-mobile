@@ -15,14 +15,16 @@ const MainApp = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {user ? (
-          <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
-        ) : (
           <>
-            <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
+            <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
             <Stack.Screen
               name="PlantDiseaseNavigator"
               component={PlantDiseaseNavigation}
             />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
           </>
         )}
       </Stack.Navigator>

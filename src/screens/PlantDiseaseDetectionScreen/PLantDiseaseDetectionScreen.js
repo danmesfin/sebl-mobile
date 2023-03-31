@@ -2,17 +2,26 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import Tflite from 'tflite-react-native';
 
+let tflite = new Tflite();
+
 const PlantDiseaseDetectionScreen = ({route}) => {
   const {imageUri} = route.params;
   const [result, setResult] = useState(null);
 
   useEffect(() => {
-    Tflite.loadModel({
-      model: 'plant_disease_model.tflite',
-      labels: 'plant_labels.txt',
-    })
+    tflite
+      .loadModel(
+        {
+          model: 'model.tflite',
+          labels: 'labels.txt',
+        },
+        // (err, res) => {
+        //   if (err) console.log(err);
+        //   else console.log(res);
+        // },
+      )
       .then(() => {
-        Tflite.runModelOnImage(
+        tflite.runModelOnImage(
           {
             path: imageUri,
             inputShape: [1, 224, 224, 3],
@@ -21,7 +30,11 @@ const PlantDiseaseDetectionScreen = ({route}) => {
             outputType: 'float32',
           },
           (err, res) => {
-            setResult(res);
+            if (err) {
+              console.log('error', err);
+            } else {
+              setResult(res);
+            }
           },
         );
       })
@@ -29,7 +42,7 @@ const PlantDiseaseDetectionScreen = ({route}) => {
         console.log(err);
       });
     return () => {
-      Tflite.unloadModel();
+      tflite.unloadModel();
     };
   }, [imageUri]);
 

@@ -106,10 +106,6 @@ android {
         versionName "1.0"
     }
 
-    aaptOptions {
-        noCompress 'tflite'
-    }
-
     splits {
         abi {
             reset()
@@ -154,6 +150,9 @@ android {
 
         }
     }
+     aaptOptions {
+        noCompress 'tflite'
+    }
 }
 
 dependencies {
@@ -161,8 +160,7 @@ dependencies {
     implementation("com.facebook.react:react-android")
     implementation('com.google.firebase:firebase-bom:31.2.3')
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.0.0")
-
-    compile project(':tflite-react-native')
+    implementation project(':tflite-react-native')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {

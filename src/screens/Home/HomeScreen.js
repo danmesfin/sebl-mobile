@@ -33,7 +33,11 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.sectionTitle}>Diagnose Crop</Text>
           <TouchableOpacity
             style={styles.diagnoseButton}
-            onPress={() => navigation.navigate('ScanPlantLeaf')}>
+            onPress={() =>
+              navigation.navigate('PlantDiseaseNavigator', {
+                screen: 'Select Image',
+              })
+            }>
             <Text style={styles.diagnoseButtonText}>
               Scan plant leaf to diagnose plant disease
             </Text>
