@@ -16,12 +16,12 @@ const MainApp = () => {
   const {user} = useSelector(state => state.auth);
 
   useEffect(() => {
-    // Load any data or resources needed by the app here
-    // ...
+    const timer = setTimeout(() => {
+      SplashScreen.hide();
+      setAppReady(true);
+    }, 3000); // 3 seconds
 
-    // After loading is done, hide the splash screen
-    SplashScreen.hide();
-    setAppReady(true);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!appReady) {
@@ -32,11 +32,11 @@ const MainApp = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Splash"
           component={SplashScreen}
           options={{headerShown: false}}
-        />
+        /> */}
         {user ? (
           <>
             <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
