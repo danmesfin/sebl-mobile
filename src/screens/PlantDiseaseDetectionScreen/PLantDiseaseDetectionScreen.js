@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  Platform,
 } from 'react-native';
 import {StackActions} from '@react-navigation/native';
 import Tflite from 'tflite-react-native';
@@ -36,12 +37,12 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
               numResults: 1,
               threshold: 0.05,
             },
-            (err, res) => {
+            (error, response) => {
               if (err) {
-                console.log(err);
+                console.log(error);
               } else {
-                console.log('run', res);
-                setResult(res[0]);
+                console.log('run', response);
+                setResult(response[0]);
               }
             },
           );
@@ -49,10 +50,6 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
       },
     );
   }, [image]);
-
-  const handleBackPress = () => {
-    navigation.dispatch(StackActions.pop(2));
-  };
 
   return (
     <View style={styles.container}>
@@ -66,10 +63,6 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
           </Text>
         </View>
       </ScrollView>
-
-      <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
-        <Text style={styles.backButtonText}>Back</Text>
-      </TouchableOpacity>
     </View>
   );
 };
