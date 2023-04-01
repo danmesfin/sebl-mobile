@@ -6,47 +6,69 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import WeatherSection from '../../components/Weather';
+import theme from '../../styles/theme';
+import {Image} from 'react-native';
 
 const HomeScreen = ({navigation}) => {
   return (
-    <ScrollView style={styles.ScrollViewContent}>
+    <ScrollView style={styles.scrollViewContent}>
       <View style={styles.container}>
-        <View style={styles.section}>
+        <View style={styles.myCrops}>
           <Text style={styles.sectionTitle}>My Crops</Text>
           <View style={styles.cropIconsContainer}>
             <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
-              {/* Insert crop icon here */}
+              <Image
+                source={require('../../../assets/icons/apple.png')}
+                style={styles.cropIconImage}
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
-              {/* Insert crop icon here */}
+              <Image
+                source={require('../../../assets/icons/carrot.jpg')}
+                style={styles.cropIconImage}
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
-              {/* Insert crop icon here */}
+              <Image
+                source={require('../../../assets/icons/corn.png')}
+                style={styles.cropIconImage}
+              />
             </TouchableOpacity>
             <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
-              {/* Insert crop icon here */}
+              <Image
+                source={require('../../../assets/icons/tomato.jpg')}
+                style={styles.cropIconImage}
+              />
             </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.section}>
+          <View style={styles.diagnosePlantSection}>
+            <Text style={styles.sectionTitle}>Diagnose Plant Diseases</Text>
+            <TouchableOpacity
+              style={styles.diagnoseButton}
+              onPress={() =>
+                navigation.navigate('PlantDiseaseNavigator', {
+                  screen: 'Select Image',
+                })
+              }>
+              <Text style={styles.diagnoseButtonText}>
+                Scan plant leaf to diagnose plant disease
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Cultivation Tips</Text>
+          <View style={styles.tipContainer}>
+            {/* Insert cultivation tips here */}
           </View>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Diagnose Crop</Text>
-          <TouchableOpacity
-            style={styles.diagnoseButton}
-            onPress={() =>
-              navigation.navigate('PlantDiseaseNavigator', {
-                screen: 'Select Image',
-              })
-            }>
-            <Text style={styles.diagnoseButtonText}>
-              Scan plant leaf to diagnose plant disease
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Cultivation Tips</Text>
-          {/* Insert cultivation tips here */}
+          <Text style={styles.sectionTitle}>Weather</Text>
+          <WeatherSection />
         </View>
       </View>
     </ScrollView>
@@ -56,61 +78,75 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
-    justifyContent: 'center',
-    paddingBottom: 40,
+    backgroundColor: theme.secondaryDark,
   },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 16,
   },
   section: {
-    backgroundColor: 'white',
+    backgroundColor: theme.secondaryDark,
+    padding: 16,
     borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    marginVertical: 8,
+    marginBottom: 16,
     width: '100%',
-    paddingHorizontal: 16,
-    paddingVertical: 24,
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
+    color: theme.textPrimary,
     marginBottom: 16,
+  },
+  myCrops: {
+    backgroundColor: theme.primaryDark,
+    padding: 16,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    marginBottom: 16,
+    width: '100%',
+  },
+  diagnosePlantSection: {
+    backgroundColor: theme.secondaryDark,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: theme.PrimaryBorder,
+    borderRadius: 10,
+    marginBottom: 16,
+    width: '100%',
   },
   cropIconsContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
   cropIcon: {
-    backgroundColor: '#F3F3F3',
+    backgroundColor: theme.secondary,
+    width: '22%',
+    aspectRatio: 1,
     borderRadius: 10,
-    height: 80,
-    width: '48%',
-    alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: 8,
+    alignItems: 'center',
+  },
+  cropIconImage: {
+    width: '60%',
+    height: '60%',
+    resizeMode: 'contain',
   },
   diagnoseButton: {
-    backgroundColor: '#F3F3F3',
+    backgroundColor: theme.primaryLight,
+    padding: 12,
     borderRadius: 10,
-    height: 80,
-    width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 16,
   },
   diagnoseButtonText: {
-    fontSize: 16,
-    color: '#000',
+    color: theme.textPrimary,
+    fontSize: 18,
+  },
+  tipContainer: {
+    backgroundColor: theme.primaryLight,
+    borderRadius: 10,
+    padding: 16,
   },
 });
 
