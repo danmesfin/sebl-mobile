@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {StackActions} from '@react-navigation/native';
 import Tflite from 'tflite-react-native';
 import theme from '../../styles/theme';
@@ -63,6 +64,11 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
           </Text>
         </View>
       </ScrollView>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.dispatch(StackActions.popToTop())}>
+        <Icon name="chevron-left" size={24} color={'White'} />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -93,7 +99,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 30,
     left: 20,
-    backgroundColor: theme.secondary,
     padding: 10,
     borderRadius: 5,
   },

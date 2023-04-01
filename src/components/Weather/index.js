@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
   },
   weatherDescription: {
     fontSize: 16,
-    color: '#666',
+    color: '#000000',
     marginBottom: 5,
   },
 });

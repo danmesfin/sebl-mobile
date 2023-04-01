@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: theme.textPrimary,
     marginBottom: 16,
@@ -117,11 +117,12 @@ const styles = StyleSheet.create({
   },
   cropIconsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   cropIcon: {
     backgroundColor: theme.secondary,
-    width: '22%',
+    width: '16%',
+    marginHorizontal: 4,
     aspectRatio: 1,
     borderRadius: 10,
     justifyContent: 'center',
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   diagnoseButtonText: {
-    color: theme.textPrimary,
+    color: theme.textLight,
     fontSize: 18,
   },
   tipContainer: {
