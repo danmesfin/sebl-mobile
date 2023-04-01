@@ -1,14 +1,22 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, Image, Platform, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from 'react-native';
+import {StackActions} from '@react-navigation/native';
 import Tflite from 'tflite-react-native';
+import theme from '../../styles/theme';
 
 const tflite = new Tflite();
 
 const PlantDiseaseDetectionScreen = ({route, navigation}) => {
   const [result, setResult] = useState({});
   const {image} = route.params;
-  console.log('route.params:', route.params);
-  console.log('image uri', image);
 
   useEffect(() => {
     tflite.loadModel(
@@ -29,12 +37,12 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
               numResults: 1,
               threshold: 0.05,
             },
-            (err, res) => {
+            (error, response) => {
               if (err) {
-                console.log(err);
+                console.log(error);
               } else {
-                console.log('run', res);
-                setResult(res[0]);
+                console.log('run', response);
+                setResult(response[0]);
               }
             },
           );
@@ -45,22 +53,16 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
 
   return (
     <View style={styles.container}>
-      {result && result.label ? (
-        <View>
-          <Image
-            source={{
-              uri: image,
-            }}
-            style={styles.image}
-          />
+      <ScrollView>
+        <Image source={{uri: image}} style={styles.image} resizeMode="cover" />
+
+        <View style={styles.textContainer}>
           <Text style={styles.prediction}>Prediction: {result.label}</Text>
           <Text style={styles.confidence}>
             Confidence: {(result.confidence * 100).toFixed(2)}%
           </Text>
         </View>
-      ) : (
-        <Text style={styles.loading}>Loading...</Text>
-      )}
+      </ScrollView>
     </View>
   );
 };
@@ -68,23 +70,36 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'white',
   },
   image: {
-    width: 200,
-    height: 200,
+    width: '100%',
+    height: 300,
+  },
+  textContainer: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   prediction: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 20,
+    color: theme.text,
   },
   confidence: {
     marginTop: 10,
+    color: theme.textLight,
   },
-  loading: {
-    textAlign: 'center',
+  backButton: {
+    position: 'absolute',
+    top: 30,
+    left: 20,
+    backgroundColor: theme.secondary,
+    padding: 10,
+    borderRadius: 5,
+  },
+  backButtonText: {
+    color: theme.text,
+    fontWeight: 'bold',
   },
 });
 
