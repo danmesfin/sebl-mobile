@@ -53,7 +53,9 @@ const SignUpScreen = ({navigation}) => {
         Sign Up
       </Button>
       <View style={styles.footer}>
-        <Text style={styles.orText}>OR</Text>
+        <Text style={styles.orText}>
+          ____________________ OR ____________________
+        </Text>
         <Button
           mode="contained"
           style={styles.button}
@@ -92,7 +94,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.accent,
   },
   orText: {
-    justifyContent: 'center',
+    alignContent: 'center',
+    marginHorizontal: 20,
   },
   footer: {
     flexDirection: 'column',
