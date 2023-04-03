@@ -8,7 +8,7 @@ const CustomSplashScreen = () => {
         style={styles.logo}
         source={require('../../../android/app/src/main/res/mipmap-xhdpi/ic_launcher.png')}
       />
-      <Text style={styles.title}>Your App Name</Text>
+      <Text style={styles.title}>Sebl</Text>
     </View>
   );
 };

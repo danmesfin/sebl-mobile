@@ -7,42 +7,15 @@ import {
   ScrollView,
 } from 'react-native';
 import WeatherSection from '../../components/Weather';
+import CultivationTips from '../../components/Cultivation';
 import theme from '../../styles/theme';
-import {Image} from 'react-native';
+import MyCrops from './MyCrops';
 
 const HomeScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.scrollViewContent}>
       <View style={styles.container}>
-        <View style={styles.myCrops}>
-          <Text style={styles.sectionTitle}>My Crops</Text>
-          <View style={styles.cropIconsContainer}>
-            <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
-              <Image
-                source={require('../../../assets/icons/apple.png')}
-                style={styles.cropIconImage}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
-              <Image
-                source={require('../../../assets/icons/carrot.jpg')}
-                style={styles.cropIconImage}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
-              <Image
-                source={require('../../../assets/icons/corn.png')}
-                style={styles.cropIconImage}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
-              <Image
-                source={require('../../../assets/icons/tomato.jpg')}
-                style={styles.cropIconImage}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
+        <MyCrops />
         <View style={styles.section}>
           <View style={styles.diagnosePlantSection}>
             <Text style={styles.sectionTitle}>Diagnose Plant Diseases</Text>
@@ -60,15 +33,14 @@ const HomeScreen = ({navigation}) => {
           </View>
         </View>
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Cultivation Tips</Text>
-          <View style={styles.tipContainer}>
-            {/* Insert cultivation tips here */}
-          </View>
-        </View>
-
-        <View style={styles.section}>
           <Text style={styles.sectionTitle}>Weather</Text>
           <WeatherSection />
+        </View>
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Cultivation Tips</Text>
+          <View style={styles.tipContainer}>
+            <CultivationTips />
+          </View>
         </View>
       </View>
     </ScrollView>
