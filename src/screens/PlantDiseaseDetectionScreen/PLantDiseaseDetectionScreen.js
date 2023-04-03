@@ -67,7 +67,7 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
       <TouchableOpacity
         style={styles.backButton}
         onPress={() => navigation.dispatch(StackActions.popToTop())}>
-        <Icon name="chevron-left" size={24} color={'White'} />
+        <Icon name="chevron-left" size={24} color={'white'} />
       </TouchableOpacity>
     </View>
   );

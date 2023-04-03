@@ -44,12 +44,13 @@ const MyCrops = () => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+    backgroundColor: theme.primary,
   },
   section: {
     backgroundColor: theme.secondaryDark,
     padding: 16,
     borderRadius: 10,
-    marginBottom: 16,
+    // marginBottom: 16,
     width: '100%',
   },
   sectionTitle: {
