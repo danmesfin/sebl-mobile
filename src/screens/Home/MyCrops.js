@@ -113,13 +113,14 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   cardRow: {
+    marginTop: 16,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   card: {
     backgroundColor: theme.secondary,
-    width: '48%',
-    aspectRatio: 1,
+    width: '40%',
+    aspectRatio: 1.5,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
