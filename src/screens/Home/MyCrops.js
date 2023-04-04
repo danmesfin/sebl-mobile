@@ -35,7 +35,25 @@ const MyCrops = () => {
             />
           </TouchableOpacity>
         </View>
-        {/*Add two cards here cultivation tips and pest control */}
+      </View>
+      {/*Add two cards here cultivation tips and pest control */}
+      <View style={styles.container}>
+        <View style={styles.cardRow}>
+          <TouchableOpacity style={[styles.card, styles.shadowProp]}>
+            <Image
+              source={require('../../../assets/icons/cultivation-tips.png')}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Cultivation Tips</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.card}>
+            <Image
+              source={require('../../../assets/icons/pest-control.png')}
+              style={styles.cardImage}
+            />
+            <Text style={styles.cardTitle}>Pest Control</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -44,7 +62,7 @@ const MyCrops = () => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    backgroundColor: theme.primary,
+    // backgroundColor: theme.primary,
   },
   section: {
     backgroundColor: theme.secondaryDark,
@@ -93,6 +111,40 @@ const styles = StyleSheet.create({
     width: '60%',
     height: '60%',
     resizeMode: 'contain',
+  },
+  cardRow: {
+    marginTop: 16,
+    marginBottom: 8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  card: {
+    backgroundColor: theme.secondary,
+    marginHorizontal: 4,
+    width: '40%',
+    aspectRatio: 1.5,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: theme.PrimaryBorder,
+  },
+  cardImage: {
+    width: '60%',
+    height: '60%',
+    resizeMode: 'contain',
+  },
+  cardTitle: {
+    marginTop: 8,
+    fontWeight: 'bold',
+    color: theme.textPrimary,
+    fontSize: 16,
+  },
+  shadowProp: {
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 });
 
