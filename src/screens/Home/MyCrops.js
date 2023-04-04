@@ -36,6 +36,24 @@ const MyCrops = () => {
           </TouchableOpacity>
         </View>
         {/*Add two cards here cultivation tips and pest control */}
+        <View style={styles.container}>
+          <View style={styles.cardRow}>
+            <TouchableOpacity style={styles.card}>
+              <Image
+                source={require('../../../assets/icons/cultivation-tips.png')}
+                style={styles.cardImage}
+              />
+              <Text style={styles.cardTitle}>Cultivation Tips</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.card}>
+              <Image
+                source={require('../../../assets/icons/pest-control.png')}
+                style={styles.cardImage}
+              />
+              <Text style={styles.cardTitle}>Pest Control</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -93,6 +111,29 @@ const styles = StyleSheet.create({
     width: '60%',
     height: '60%',
     resizeMode: 'contain',
+  },
+  cardRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  card: {
+    backgroundColor: theme.secondary,
+    width: '48%',
+    aspectRatio: 1,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardImage: {
+    width: '60%',
+    height: '60%',
+    resizeMode: 'contain',
+  },
+  cardTitle: {
+    marginTop: 8,
+    fontWeight: 'bold',
+    color: theme.textPrimary,
+    fontSize: 16,
   },
 });
 
