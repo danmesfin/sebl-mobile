@@ -3,6 +3,7 @@ import AuthNavigator from './Navigations/AuthNavigation';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeNavigator from './Navigations/HomeNavigation';
+import CultivationTipsScreen from './screens/CultivationTipsScreen';
 import {useSelector} from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -43,6 +44,10 @@ const MainApp = () => {
             <Stack.Screen
               name="PlantDiseaseNavigator"
               component={PlantDiseaseNavigation}
+            />
+            <Stack.Screen
+              name="Cultivation Tips"
+              component={CultivationTipsScreen}
             />
           </>
         ) : (

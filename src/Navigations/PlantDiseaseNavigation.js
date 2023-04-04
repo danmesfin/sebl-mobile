@@ -16,6 +16,7 @@ const PlantDiseaseNavigation = () => {
       <Stack.Screen
         name="Plant Disease Detection"
         component={PlantDiseaseDetectionScreen}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
