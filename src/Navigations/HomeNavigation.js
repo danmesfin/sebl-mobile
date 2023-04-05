@@ -6,6 +6,7 @@ import Color from '../styles/theme';
 import HomeScreen from '../screens/Home/HomeScreen';
 import CommunityScreen from '../screens/Community/CommunityScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
+import theme from '../styles/theme';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -13,7 +14,7 @@ const HomeNavigator = () => {
   return (
     <View style={{flex: 1}}>
       <Tab.Navigator
-        barStyle={{backgroundColor: Color.white}}
+        barStyle={{backgroundColor: theme.secondary}}
         activeColor={Color.primary}
         inactiveColor={Color.secondaryLight}>
         <Tab.Screen
