@@ -34,15 +34,7 @@ export const loadImage = (email, password) => async dispatch => {};
 export const detectDisease = (email, password) => async dispatch => {};
 
 // Async action to sign out the current user
-export const clearImage = () => async dispatch => {
-  //   try {
-  //     dispatch(setLoading(true));
-  //     await firebase.auth().signOut();
-  //     dispatch(clearUser());
-  //   } catch (error) {
-  //     dispatch(setError(error.message));
-  //   }
-};
+export const clearImage = () => async dispatch => {};
 
 // Export the actions and reducer
 export const {setUser, setLoading, setError, clearUser} = authSlice.actions;
