@@ -28,17 +28,7 @@ export const authSlice = createSlice({
 });
 
 // Async action to log in a user
-export const loadImage = (email, password) => async dispatch => {
-  //   try {
-  //     dispatch(setLoading(true));
-  //       const {user} = await firebase
-  //        .auth()
-  //       .signInWithEmailAndPassword(email, password);
-  //     dispatch(setUser(user));
-  //   } catch (error) {
-  //     dispatch(setError(error.message));
-  //   }
-};
+export const loadImage = (email, password) => async dispatch => {};
 
 // Async action to sign up a new user
 export const detectDisease = (email, password) => async dispatch => {
