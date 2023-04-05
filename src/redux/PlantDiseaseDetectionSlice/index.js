@@ -31,17 +31,7 @@ export const authSlice = createSlice({
 export const loadImage = (email, password) => async dispatch => {};
 
 // Async action to sign up a new user
-export const detectDisease = (email, password) => async dispatch => {
-  //   try {
-  //     dispatch(setLoading(true));
-  //     const {user} = await firebase
-  //       .auth()
-  //       .createUserWithEmailAndPassword(email, password);
-  //     dispatch(setUser(user));
-  //   } catch (error) {
-  //     dispatch(setError(error.message));
-  //   }
-};
+export const detectDisease = (email, password) => async dispatch => {};
 
 // Async action to sign out the current user
 export const clearImage = () => async dispatch => {
