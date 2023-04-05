@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 
-export const authSlice = createSlice({
+export const detectDiseaseSlice = createSlice({
   name: 'DiseaseDetection',
   initialState: {
     image: null,
@@ -37,5 +37,6 @@ export const detectDisease = (email, password) => async dispatch => {};
 export const clearImage = () => async dispatch => {};
 
 // Export the actions and reducer
-export const {setUser, setLoading, setError, clearUser} = authSlice.actions;
-export default authSlice.reducer;
+export const {setUser, setLoading, setError, clearUser} =
+  detectDiseaseSlice.actions;
+export default detectDiseaseSlice.reducer;
