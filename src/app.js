@@ -40,7 +40,7 @@ const MainApp = () => {
           component={SplashScreen}
           options={{headerShown: false}}
         /> */}
-        {user ? (
+        {true ? (
           <>
             {/* <Drawer.Navigator initialRouteName="Home">
               <Drawer.Screen name="Home" component={HomeNavigator} />
