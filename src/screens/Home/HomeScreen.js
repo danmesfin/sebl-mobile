@@ -73,8 +73,8 @@ const styles = StyleSheet.create({
   myCrops: {
     backgroundColor: theme.primaryDark,
     padding: 16,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
     marginBottom: 16,
     width: '100%',
   },
