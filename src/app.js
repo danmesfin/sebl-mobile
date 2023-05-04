@@ -10,6 +10,7 @@ import SplashScreen from 'react-native-splash-screen';
 
 import PlantDiseaseNavigation from './Navigations/PlantDiseaseNavigation';
 import CustomSplashScreen from './screens/SplashScreen/SplashScreen';
+import CreatePostScreen from './screens/create-post-screen';
 
 const Stack = createStackNavigator();
 // const Drawer = createDrawerNavigator();
@@ -55,6 +56,7 @@ const MainApp = () => {
               name="PlantDiseaseNavigator"
               component={PlantDiseaseNavigation}
             />
+            <Stack.Screen name="create-post" component={CreatePostScreen} />
             <Stack.Screen
               name="Cultivation Tips"
               component={CultivationTipsScreen}
