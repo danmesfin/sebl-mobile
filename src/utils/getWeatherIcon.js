@@ -39,3 +39,5 @@ const getWeatherIcons = weatherCode => {
   }
   return icon;
 };
+
+export default getWeatherIcons;

@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: -40,
     marginTop: 0,
-    marginBottom: 8,
+    marginBottom: 4,
     flexDirection: 'row',
     justifyContent: 'center',
   },
@@ -156,11 +156,13 @@ const styles = StyleSheet.create({
   },
   diagnoseSection: {
     backgroundColor: '#fff',
+    // paddingVertical: 20,
     paddingLeft: 20,
   },
   diagnoseContainer: {
     backgroundColor: theme.primaryLight,
-    padding: 16,
+    padding: 10,
+    paddingLeft: 26,
     borderTopLeftRadius: 50,
     borderBottomLeftRadius: 50,
     marginBottom: 16,
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 10,
     alignItems: 'center',
-    marginTop: 16,
+    marginTop: 10,
   },
   diagnoseButtonText: {
     color: '#fff',
