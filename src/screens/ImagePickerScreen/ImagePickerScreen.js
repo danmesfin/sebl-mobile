@@ -33,7 +33,7 @@ const ImagePickerScreen = ({navigation}) => {
         } else if (response.assets) {
           console.log('response', response.assets);
           setImageUri(response.assets[0].uri);
-          // update here .. naviagte only if imageUri is not null
+          // updated here .. naviagte only if imageUri is not null
         } else {
           console.log('Unkonwn error');
         }
@@ -105,9 +105,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
+    gap: 8,
     justifyContent: 'space-around',
-    alignItems: 'center',
+    //alignItems: 'center',
     marginTop: 20,
   },
   button: {
@@ -117,6 +118,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   buttonText: {
+    textAlign: 'center',
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',

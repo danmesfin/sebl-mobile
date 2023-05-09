@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from 'react-native';
 import WeatherSection from '../../components/Weather';
 import CultivationTips from '../../components/Cultivation';
@@ -14,9 +15,30 @@ import MyCrops from './MyCrops';
 const HomeScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.scrollViewContent}>
-      <View style={styles.container}>
-        <MyCrops />
-        <View style={styles.section}>
+      <MyCrops />
+      <View style={styles.topContainer}>
+        {/*Add two cards here cultivation tips and pest control */}
+        <View style={styles.container}>
+          <View style={styles.cardRow}>
+            <TouchableOpacity style={[styles.card, styles.shadowProp]}>
+              <Image
+                source={require('../../../assets/icons/cultivation-tips.png')}
+                style={styles.cardImage}
+              />
+              <Text style={styles.cardTitle}>Cultivation Tips</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.card}>
+              <Image
+                source={require('../../../assets/icons/pest-control.png')}
+                style={styles.cardImage}
+              />
+              <Text style={styles.cardTitle}>Pest Control</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+      <View style={styles.diagnoseSection}>
+        <View style={styles.diagnoseContainer}>
           <Text style={styles.sectionTitle}>Plant Health</Text>
           <TouchableOpacity
             style={styles.diagnoseButton}
@@ -26,10 +48,12 @@ const HomeScreen = ({navigation}) => {
               })
             }>
             <Text style={styles.diagnoseButtonText}>
-              Diagnose plant diseases
+              Diagnose plant diseases --{'>'}
             </Text>
           </TouchableOpacity>
         </View>
+      </View>
+      <View style={styles.container}>
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Weather</Text>
           <WeatherSection />
@@ -46,13 +70,21 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
-    backgroundColor: theme.background,
+    backgroundColor: theme.primaryDark,
   },
   container: {
     flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    backgroundColor: theme.background,
+    backgroundColor: '#fff',
+  },
+  topContainer: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   section: {
     backgroundColor: theme.surface,
@@ -63,11 +95,78 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: theme.text,
+    color: '#fff',
+    marginBottom: 16,
+  },
+  myCrops: {
+    backgroundColor: theme.primaryDark,
+    padding: 16,
+    height: 160,
+    width: '100%',
+  },
+
+  cropIconsContainer: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+  },
+  cropIcon: {
+    backgroundColor: theme.secondary,
+    width: '16%',
+    marginHorizontal: 4,
+    aspectRatio: 1,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cropIconImage: {
+    width: '60%',
+    height: '60%',
+    resizeMode: 'contain',
+  },
+  cardRow: {
+    position: 'relative',
+    top: -40,
+    marginTop: 0,
+    marginBottom: 8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  card: {
+    backgroundColor: theme.secondary,
+    marginHorizontal: 4,
+    width: '50%',
+    aspectRatio: 1.5,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    //borderWidth: 0.1,
+    //borderColor: theme.PrimaryBorder,
+    elevation: 10,
+  },
+  cardImage: {
+    width: '60%',
+    height: '60%',
+    resizeMode: 'contain',
+  },
+  cardTitle: {
+    marginTop: 8,
+    fontWeight: 'bold',
+    color: theme.orange,
+    fontSize: 16,
+  },
+  diagnoseSection: {
+    backgroundColor: '#fff',
+    paddingLeft: 20,
+  },
+  diagnoseContainer: {
+    backgroundColor: theme.primaryLight,
+    padding: 16,
+    borderTopLeftRadius: 50,
+    borderBottomLeftRadius: 50,
     marginBottom: 16,
   },
   diagnoseButton: {
-    backgroundColor: theme.primary,
+    backgroundColor: '#A4BE7B',
     padding: 12,
     borderRadius: 10,
     alignItems: 'center',
