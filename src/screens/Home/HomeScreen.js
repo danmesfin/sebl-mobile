@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 50,
     borderBottomLeftRadius: 50,
     marginBottom: 16,
+    elevation: 5,
   },
   diagnoseButton: {
     backgroundColor: '#A4BE7B',
