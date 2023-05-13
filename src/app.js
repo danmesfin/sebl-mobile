@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {StatusBar} from 'react-native';
 import AuthNavigator from './Navigations/AuthNavigation';
 import {NavigationContainer} from '@react-navigation/native';
 // import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -35,6 +36,7 @@ const MainApp = () => {
 
   return (
     <NavigationContainer>
+      <StatusBar barStyle="dark-content" />
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {/* <Stack.Screen
           name="Splash"

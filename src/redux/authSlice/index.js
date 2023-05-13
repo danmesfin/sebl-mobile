@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import firebase from '../../../firebaseConfig';
+import {firebase} from '../../../firebaseConfig';
 
 export const authSlice = createSlice({
   name: 'auth',
