@@ -12,6 +12,7 @@ import SplashScreen from 'react-native-splash-screen';
 import PlantDiseaseNavigation from './Navigations/PlantDiseaseNavigation';
 import CustomSplashScreen from './screens/SplashScreen/SplashScreen';
 import CreatePostScreen from './screens/create-post-screen';
+import SelectCropScreen from './screens/CultivationTipsScreen/select-crop-screen';
 
 const Stack = createStackNavigator();
 // const Drawer = createDrawerNavigator();
@@ -63,6 +64,7 @@ const MainApp = () => {
               name="Cultivation Tips"
               component={CultivationTipsScreen}
             />
+            <Stack.Screen name="select-crop" component={SelectCropScreen} />
           </>
         ) : (
           <>

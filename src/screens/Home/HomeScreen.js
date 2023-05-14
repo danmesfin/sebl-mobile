@@ -20,7 +20,9 @@ const HomeScreen = ({navigation}) => {
         {/*Add two cards here cultivation tips and pest control */}
         <View style={styles.container}>
           <View style={styles.cardRow}>
-            <TouchableOpacity style={[styles.card, styles.shadowProp]}>
+            <TouchableOpacity
+              style={[styles.card, styles.shadowProp]}
+              onPress={() => navigation.navigate('select-crop')}>
               <Image
                 source={require('../../../assets/icons/cultivation-tips.png')}
                 style={styles.cardImage}
