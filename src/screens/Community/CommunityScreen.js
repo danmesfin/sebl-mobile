@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -38,6 +38,15 @@ const crops = [
 ];
 
 const CommunityScreen = ({navigation}) => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    fetch('https://sebl.onrender.com/posts')
+      .then(response => response.json())
+      .then(data => setPosts(data))
+      .catch(error => console.error(error));
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -59,26 +68,25 @@ const CommunityScreen = ({navigation}) => {
         </ScrollView>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {mockPosts.map(post => (
+        {posts.map(post => (
           <View style={styles.postCard} key={post.id}>
-            <Image source={{uri: post.image}} style={styles.postImage} />
-            <View style={styles.postInfo}>
-              <Text style={styles.postedBy}>{post.postedBy}</Text>
-              <Text style={styles.date}>{post.date}</Text>
-            </View>
-            <View style={styles.commentContainer}>
-              <TextInput
-                style={styles.commentInput}
-                placeholder="Add a comment..."
-                placeholderTextColor={Colors.textLight}
+            <TouchableOpacity style={styles.postImageContainer}>
+              <Image
+                source={{uri: post.post_image_url}}
+                style={styles.postImage}
               />
-              <TouchableOpacity style={styles.commentButton}>
-                <Text style={styles.commentButtonText}>Post</Text>
-              </TouchableOpacity>
+            </TouchableOpacity>
+            <View>
+              <Text>{post.title}</Text>
+            </View>
+            <View style={styles.postInfo}>
+              <Text style={styles.postedBy}>{post.author}</Text>
+              <Text style={styles.date}>{post.date}</Text>
             </View>
           </View>
         ))}
       </ScrollView>
+
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('create-post', {

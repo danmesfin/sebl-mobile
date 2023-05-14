@@ -5,9 +5,11 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  StyleSheet,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
+import colors from '../../styles/theme';
 
 const TipsViewScreen = ({route, navigation}) => {
   const {cropType, category, title} = route.params;
@@ -29,33 +31,63 @@ const TipsViewScreen = ({route, navigation}) => {
   }, [category, cropType, title]);
 
   return (
-    <View style={{flex: 1}}>
-      <View style={{flexDirection: 'row', alignItems: 'center', margin: 10}}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={20} />
-        </TouchableOpacity>
-        <Text style={{fontWeight: 'bold', fontSize: 20, marginLeft: 10}}>
-          {title}
-        </Text>
-      </View>
+    <View style={styles.container}>
       {isLoading ? (
         <ActivityIndicator
           size="large"
           color="#0000ff"
-          style={{marginTop: 20}}
+          style={{
+            marginTop: 120,
+          }}
         />
       ) : (
-        <ScrollView style={{flex: 1, padding: 10}}>
-          {tips.map(tip => (
-            <View key={tip.id} style={{marginBottom: 10}}>
-              <Text style={{fontWeight: 'bold', fontSize: 16}}>{tip.id}</Text>
-              <Text>{tip.content}</Text>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.tipsContainer}>
+            <View style={styles.tipsId}>
+              <Text style={styles.tipsIdText}>{tips.id}</Text>
             </View>
-          ))}
+            <Text style={styles.tipsContent}>{tips.content}</Text>
+          </View>
         </ScrollView>
       )}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 10,
+  },
+  scrollView: {
+    flex: 1,
+    padding: 10,
+  },
+  tipsContainer: {
+    marginBottom: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    elevation: 3,
+    padding: 20,
+  },
+  tipsId: {
+    marginBottom: 20,
+    elevation: 5,
+  },
+  tipsIdText: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    color: 'black',
+  },
+  tipsContent: {
+    fontSize: 18,
+    marginTop: 10,
+    color: 'black',
+  },
+});
 
 export default TipsViewScreen;

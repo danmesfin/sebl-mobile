@@ -15,9 +15,10 @@ const categories = [
 const CultivationCategorySelectionScreen = ({route, navigation}) => {
   const {cropType} = route.params;
 
-  const handleCategoryPress = (category, title) => {
+  const handleCategoryPress = (crop, category, title) => {
+    console.log(crop + category + title);
     navigation.navigate('view-tip-screen', {
-      cropType,
+      cropType: crop,
       category,
       title,
     });
@@ -30,7 +31,7 @@ const CultivationCategorySelectionScreen = ({route, navigation}) => {
           key={category.id}
           style={styles.card}
           onPress={() =>
-            handleCategoryPress(category.category, category.title)
+            handleCategoryPress(cropType, category.category, category.title)
           }>
           <Text style={styles.icon}>{category.icon}</Text>
           <Text style={styles.title}>{category.title}</Text>

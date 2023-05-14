@@ -71,7 +71,11 @@ const MainApp = () => {
               name="tip-in-detail-screen"
               component={CultivationCategorySelectionScreen}
             />
-            <Stack.Screen name="view-tip-screen" component={TipsViewScreen} />
+            <Stack.Screen
+              name="view-tip-screen"
+              component={TipsViewScreen}
+              options={{headerShown: true, headerTitle: ''}}
+            />
           </>
         ) : (
           <>
