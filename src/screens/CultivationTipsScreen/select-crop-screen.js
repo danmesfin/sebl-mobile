@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -16,7 +16,7 @@ const cropsData = [
   },
   {
     id: 2,
-    name: 'Carrots',
+    name: 'Corn',
     image: require('../../../assets/icons/apple.png'),
   },
   {
@@ -45,7 +45,9 @@ const CropCard = ({crop, navigation}) => {
   return (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigation.navigate('tip-in-detail-screen')}>
+      onPress={() =>
+        navigation.navigate('tip-in-detail-screen', {cropType: crop.name})
+      }>
       <Image source={crop.image} style={styles.image} />
       <Text style={styles.title}>{crop.name}</Text>
     </TouchableOpacity>
@@ -53,6 +55,8 @@ const CropCard = ({crop, navigation}) => {
 };
 
 const SelectCropScreen = ({navigation}) => {
+  const [selectedCrop, setSelectedCrop] = useState('');
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.row}>

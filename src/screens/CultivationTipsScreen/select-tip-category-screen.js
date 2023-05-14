@@ -1,26 +1,26 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {StyleSheet, ScrollView, TouchableOpacity, Text} from 'react-native';
 
 const categories = [
-  {id: 'cropSelection', title: 'Crop Selection', icon: '🌱'},
-  {id: 'soilPreparation', title: 'Soil Preparation', icon: '🌱'},
-  {id: 'seedSelection', title: 'Seed Selection', icon: '🌱'},
-  {id: 'seedSowing', title: 'Seed Sowing', icon: '🌱'},
-  {id: 'irrigation', title: 'Irrigation', icon: '🌱'},
-  {id: 'fertilizers', title: 'Fertilizers', icon: '🌱'},
-  {id: 'weedManagement', title: 'Weed Management', icon: '🌱'},
-  {id: 'harvesting', title: 'Harvesting', icon: '🌱'},
+  {title: 'Crop Selection', category: 'cropSelection', icon: '🌱'},
+  {title: 'Soil Preparation', category: 'soilPreparation', icon: '🌱'},
+  {title: 'Seed Selection', category: 'seedSelection', icon: '🌱'},
+  {title: 'Seed Sowing', category: 'seedSowing', icon: '🌱'},
+  {title: 'Irrigation', category: 'irrigation', icon: '🌱'},
+  {title: 'Fertilizers', category: 'fertilizers', icon: '🌱'},
+  {title: 'Weed Management', category: 'weedManagement', icon: '🌱'},
+  {title: 'Harvesting', category: 'harvesting', icon: '🌱'},
 ];
 
-const CultivationCategorySelectionScreen = ({navigation}) => {
-  const handleCategoryPress = categoryId => {
-    navigation.navigate('CultivationTipDetail', {categoryId});
+const CultivationCategorySelectionScreen = ({route, navigation}) => {
+  const {cropType} = route.params;
+
+  const handleCategoryPress = (category, title) => {
+    navigation.navigate('view-tip-screen', {
+      cropType,
+      category,
+      title,
+    });
   };
 
   return (
@@ -29,7 +29,9 @@ const CultivationCategorySelectionScreen = ({navigation}) => {
         <TouchableOpacity
           key={category.id}
           style={styles.card}
-          onPress={() => handleCategoryPress(category.id)}>
+          onPress={() =>
+            handleCategoryPress(category.category, category.title)
+          }>
           <Text style={styles.icon}>{category.icon}</Text>
           <Text style={styles.title}>{category.title}</Text>
         </TouchableOpacity>
