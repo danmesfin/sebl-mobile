@@ -13,6 +13,7 @@ import PlantDiseaseNavigation from './Navigations/PlantDiseaseNavigation';
 import CustomSplashScreen from './screens/SplashScreen/SplashScreen';
 import CreatePostScreen from './screens/create-post-screen';
 import SelectCropScreen from './screens/CultivationTipsScreen/select-crop-screen';
+import CultivationCategorySelectionScreen from './screens/CultivationTipsScreen/select-tip-category-screen';
 
 const Stack = createStackNavigator();
 // const Drawer = createDrawerNavigator();
@@ -65,6 +66,10 @@ const MainApp = () => {
               component={CultivationTipsScreen}
             />
             <Stack.Screen name="select-crop" component={SelectCropScreen} />
+            <Stack.Screen
+              name="tip-in-detail-screen"
+              component={CultivationCategorySelectionScreen}
+            />
           </>
         ) : (
           <>

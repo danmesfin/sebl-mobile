@@ -41,25 +41,23 @@ const cropsData = [
   },
 ];
 
-const CropCard = ({crop}) => {
+const CropCard = ({crop, navigation}) => {
   return (
     <TouchableOpacity
       style={styles.card}
-      onPress={() =>
-        console.log(`Navigate to ${crop.name} cultivation tips screen`)
-      }>
+      onPress={() => navigation.navigate('tip-in-detail-screen')}>
       <Image source={crop.image} style={styles.image} />
       <Text style={styles.title}>{crop.name}</Text>
     </TouchableOpacity>
   );
 };
 
-const SelectCropScreen = () => {
+const SelectCropScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.row}>
         {cropsData.map(crop => (
-          <CropCard key={crop.id} crop={crop} />
+          <CropCard key={crop.id} crop={crop} navigation={navigation} />
         ))}
       </View>
     </ScrollView>
