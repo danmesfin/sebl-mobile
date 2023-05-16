@@ -1,22 +1,13 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 
-const Card = ({
-  id,
-  likes_count,
-  author,
-  dislikes_count,
-  post_image_url,
-  created_at,
-  title,
-  content,
-}) => {
+const Card = ({item}) => {
   return (
     <View style={styles.card}>
-      <Image source={{uri: post_image_url}} style={styles.cardImage} />
+      <Image source={{uri: item.post_image_url}} style={styles.cardImage} />
       <View style={styles.cardContent}>
-        <Text style={styles.cardTitle}>{title}</Text>
-        <Text style={styles.cardText}>{content}</Text>
+        <Text style={styles.cardTitle}>{item.title}</Text>
+        <Text style={styles.cardText}>{item.content}</Text>
       </View>
     </View>
   );

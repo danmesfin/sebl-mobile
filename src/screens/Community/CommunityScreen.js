@@ -7,9 +7,11 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  FlatList,
 } from 'react-native';
 import Colors from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Card from '../../components/post-card';
 
 const mockPosts = [
   {
@@ -67,7 +69,12 @@ const CommunityScreen = ({navigation}) => {
           ))}
         </ScrollView>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <FlatList
+        data={posts}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <Card item={item} />}
+      />
+      {/* <ScrollView contentContainerStyle={styles.scrollContainer}>
         {posts.map(post => (
           <View style={styles.postCard} key={post.id}>
             <TouchableOpacity style={styles.postImageContainer}>
@@ -85,7 +92,7 @@ const CommunityScreen = ({navigation}) => {
             </View>
           </View>
         ))}
-      </ScrollView>
+      </ScrollView> */}
 
       <TouchableOpacity
         onPress={() =>
@@ -110,7 +117,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    marginBottom: 16,
+    marginBottom: 8,
   },
   searchInput: {
     flex: 1,
@@ -121,7 +128,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    marginBottom: 16,
+    marginBottom: 8,
   },
   filterTitle: {
     fontWeight: 'bold',
@@ -133,15 +140,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: Colors.primary,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: 4,
+    paddingVertical: 2,
     marginHorizontal: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
   cropButtonText: {
     color: Colors.textLight,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
   },
   scrollContainer: {
     padding: 16,
