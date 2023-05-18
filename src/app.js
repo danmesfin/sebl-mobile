@@ -31,26 +31,8 @@ const Stack = createStackNavigator();
 // const Drawer = createDrawerNavigator();
 
 const MainApp = () => {
-  // Set an initializing state whilst Firebase connects
-  // const [initializing, setInitializing] = useState(true);
-
   const [appReady, setAppReady] = useState(false);
   const {user} = useSelector(state => state.auth);
-  //const dispatch = useDispatch();
-  // if (firebase.auth().currentUser) {
-  //   const currentUser = firebase.auth().currentUser;
-  //   console.log('Signed in username' + currentUser.displayName);
-  // } else {
-  //   console.log('no user signed in');
-  // }
-  // firebase.auth().onAuthStateChanged(user => {
-  //   if (user) {
-  //     console.log('user is logged', user.uid);
-  //     dispatch(setUser(user));
-  //   } else {
-  //     console.log('user is not logged');
-  //   }
-  // });
 
   const dispatch = useDispatch();
 
@@ -67,7 +49,12 @@ const MainApp = () => {
         console.log('Error retrieving user from local storage:', error);
         setAppReady(true);
       });
-  }, []);
+  }, [dispatch]);
+
+  // sign out handler
+  const signOut = () => {
+    dispatch(signOutUser());
+  };
 
   if (!appReady) {
     // Render the splash screen while the app is loading

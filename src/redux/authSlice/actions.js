@@ -10,6 +10,13 @@ export const loginUser = (email, password) => async dispatch => {
       .auth()
       .signInWithEmailAndPassword(email, password);
     dispatch(setUser(user));
+    AsyncStorage.setItem('user', JSON.stringify(user))
+      .then(() => {
+        // User saved to local storage
+      })
+      .catch(error => {
+        console.log('Error saving user to local storage:', error);
+      });
   } catch (error) {
     dispatch(setError(error.message));
   }
@@ -24,7 +31,7 @@ export const setUserAction = user => dispatch => {
   // Save the user to the local storage
   AsyncStorage.setItem('user', JSON.stringify(user))
     .then(() => {
-      dispatch({type: 'auth/setUser', payload: user});
+      dispatch(setUser(user));
     })
     .catch(error => {
       dispatch(setError(error.message));
@@ -35,7 +42,7 @@ export const clearUserActoin = () => dispatch => {
   // Remove the user from the local storage
   AsyncStorage.removeItem('user')
     .then(() => {
-      dispatch({type: 'auth/clearUser'});
+      dispatch(clearUser());
     })
     .catch(error => {
       dispatch(setError(error.message));
