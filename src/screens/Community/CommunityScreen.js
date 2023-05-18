@@ -4,29 +4,14 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  Image,
   TextInput,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import Colors from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Card from '../../components/post-card';
-
-const mockPosts = [
-  {
-    id: 1,
-    image: 'https://picsum.photos/id/237/200/300',
-    postedBy: 'John Doe',
-    date: 'March 22, 2023',
-  },
-  {
-    id: 2,
-    image: 'https://picsum.photos/id/238/200/300',
-    postedBy: 'Jane Doe',
-    date: 'March 23, 2023',
-  },
-];
 
 const crops = [
   'Tomatoes',
@@ -41,12 +26,15 @@ const crops = [
 
 const CommunityScreen = ({navigation}) => {
   const [posts, setPosts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch('https://sebl.onrender.com/posts')
       .then(response => response.json())
       .then(data => setPosts(data))
       .catch(error => console.error(error));
+    setLoading(false);
   }, []);
 
   return (
@@ -69,11 +57,19 @@ const CommunityScreen = ({navigation}) => {
           ))}
         </ScrollView>
       </View>
-      <FlatList
-        data={posts}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => <Card item={item} />}
-      />
+      {isLoading ? (
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          style={styles.isLoading}
+        />
+      ) : (
+        <FlatList
+          data={posts}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => <Card item={item} />}
+        />
+      )}
       {/* <ScrollView contentContainerStyle={styles.scrollContainer}>
         {posts.map(post => (
           <View style={styles.postCard} key={post.id}>
@@ -149,6 +145,10 @@ const styles = StyleSheet.create({
   cropButtonText: {
     color: Colors.textLight,
     //fontWeight: 'bold',
+  },
+
+  isLoading: {
+    marginTop: 20,
   },
   scrollContainer: {
     padding: 16,

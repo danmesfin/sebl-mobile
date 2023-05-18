@@ -1,14 +1,17 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 
-const Card = ({item}) => {
+const Card = ({item, navigation}) => {
   return (
     <View style={styles.card}>
-      <Image source={{uri: item.post_image_url}} style={styles.cardImage} />
-      <View style={styles.cardContent}>
-        <Text style={styles.cardTitle}>{item.title}</Text>
-        <Text style={styles.cardText}>{item.content}</Text>
-      </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('view-post-in-detail', item)}>
+        <Image source={{uri: item.post_image_url}} style={styles.cardImage} />
+        <View style={styles.cardContent}>
+          <Text style={styles.cardTitle}>{item.title}</Text>
+          <Text style={styles.cardText}>{item.content}</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };

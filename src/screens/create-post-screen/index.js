@@ -53,6 +53,12 @@ const CreatePostScreen = () => {
   };
 
   const handlePost = async () => {
+    // Check if the user is authenticated
+    const user = firebase.auth().currentUser;
+    if (!user) {
+      Alert.alert('Error', 'Please sign in to post.');
+      return;
+    }
     if (!title || !content) {
       Alert.alert('Error', 'Please enter both title and description');
       return;
@@ -74,7 +80,16 @@ const CreatePostScreen = () => {
         uid: '1212',
         post_image_url: downloadURL,
       };
-      await axios.post('https://sebl.onrender.com/posts/new', post);
+
+      // Set the authorization header with the Firebase user token
+      const token = await user.getIdToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      console.log('authorization : ', headers);
+
+      await axios.post('https://sebl.onrender.com/posts/new', post, {headers});
       Alert.alert('POSTED SUCCESFULLY');
     } catch (error) {
       // handle error response
