@@ -67,7 +67,7 @@ const CommunityScreen = ({navigation}) => {
         <FlatList
           data={posts}
           keyExtractor={item => item.id}
-          renderItem={({item}) => <Card item={item} navigation={navigation} />}
+          renderItem={({item}) => <Card post={item} navigation={navigation} />}
         />
       )}
       {/* <ScrollView contentContainerStyle={styles.scrollContainer}>

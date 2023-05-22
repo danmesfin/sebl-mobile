@@ -94,7 +94,7 @@ const MainApp = () => {
               options={{headerShown: true, headerTitle: ''}}
             />
             <Stack.Screen
-              name="view-post-in-detail"
+              name="view-post"
               component={PostDetailScreen}
               options={{headerShown: true, headerTitle: ''}}
             />
