@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import {firebase} from '../firebaseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StatusBar} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 //user mang
-import {restoreUser, signOutUser} from './redux/authSlice/actions';
+import {restoreUser} from './redux/authSlice/actions';
 
 // components
 import AuthNavigator from './Navigations/AuthNavigation';
@@ -14,8 +13,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeNavigator from './Navigations/HomeNavigation';
 import CultivationTipsScreen from './screens/CultivationTipsScreen';
-
-import SplashScreen from 'react-native-splash-screen';
 
 import PlantDiseaseNavigation from './Navigations/PlantDiseaseNavigation';
 import CustomSplashScreen from './screens/SplashScreen/SplashScreen';
@@ -39,6 +36,7 @@ const MainApp = () => {
   useEffect(() => {
     // Check if there is a user in the local storage
     AsyncStorage.getItem('user')
+      // eslint-disable-next-line no-shadow
       .then(user => {
         if (user) {
           dispatch(restoreUser(JSON.parse(user)));
@@ -50,11 +48,6 @@ const MainApp = () => {
         setAppReady(true);
       });
   }, [dispatch]);
-
-  // sign out handler
-  const signOut = () => {
-    dispatch(signOutUser());
-  };
 
   if (!appReady) {
     // Render the splash screen while the app is loading

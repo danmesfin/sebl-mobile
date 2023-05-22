@@ -7,9 +7,18 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
 import theme from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {clearUserAction} from '../../redux/authSlice/actions';
+
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
+  // sign out handler
+  const signOut = () => {
+    dispatch(clearUserAction());
+  };
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -79,7 +88,7 @@ const ProfileScreen = () => {
       <TouchableOpacity style={styles.aboutButton}>
         <Text style={styles.aboutButtonText}>About</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.logoutButton}>
+      <TouchableOpacity style={styles.logoutButton} onPress={() => signOut()}>
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
     </ScrollView>
