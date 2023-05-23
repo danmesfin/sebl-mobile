@@ -11,13 +11,13 @@ import {useDispatch} from 'react-redux';
 import theme from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {clearUserAction} from '../../redux/authSlice/actions';
+import {signOutUser} from '../../redux/authSlice/actions';
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
   // sign out handler
   const signOut = () => {
-    dispatch(clearUserAction());
+    dispatch(signOutUser());
   };
   return (
     <ScrollView style={styles.container}>

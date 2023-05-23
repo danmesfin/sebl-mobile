@@ -8,16 +8,17 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
+import getFormattedTimeDifference from '../../utils/formattedTimeDifference';
 
 const PostDetailScreen = ({route}) => {
-  const [post, setPost] = useState(route.params);
+  const [post, setPost] = useState(route.params.post);
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  console.log('post', post);
+
   useEffect(() => {
     fetchPostAndComments();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [post]);
 
   const fetchPostAndComments = async () => {
     try {
@@ -48,14 +49,34 @@ const PostDetailScreen = ({route}) => {
     );
   };
 
-  const submitComment = comment => {
-    // Submit the comment to the server
+  const submitComment = async comment => {
+    try {
+      const response = await fetch('https://sebl.onrender.com/comments', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          post_id: post.id,
+          content: comment,
+        }),
+      });
+      const responseData = await response.json();
+      // Update the comments state with the new comment received from the server
+      setComments([...comments, responseData]);
+    } catch (error) {
+      console.log('Error submitting comment:', error);
+    }
   };
 
   return (
     <View style={styles.container}>
       {isLoading ? (
-        <ActivityIndicator style={styles.loadingIndicator} />
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          style={styles.loadingIndicator}
+        />
       ) : (
         <View style={styles.postContainer}>
           <Image source={{uri: post.post_image_url}} style={styles.postImage} />
@@ -63,10 +84,7 @@ const PostDetailScreen = ({route}) => {
           <View style={styles.postInfoContainer}>
             <Text style={styles.postAuthor}>By {post.author}</Text>
             <Text style={styles.postDate}>
-              {new Date(
-                post.created_at._seconds * 1000 +
-                  post.created_at._nanoseconds / 1000000,
-              ).toLocaleString()}
+              {getFormattedTimeDifference(post.created_at)}
             </Text>
           </View>
           <Text style={styles.postContent}>{post.content}</Text>
