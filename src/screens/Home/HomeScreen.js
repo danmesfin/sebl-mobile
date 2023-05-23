@@ -54,6 +54,14 @@ const HomeScreen = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('view-disease-control-methods', {
+              diseaseName: 'Wheat Rust',
+            })
+          }>
+          <Text>see control method</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.container}>
         <View style={styles.section}>

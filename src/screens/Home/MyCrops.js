@@ -1,13 +1,25 @@
 // MyCrops.js
 
 import React from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  ImageBackground,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import theme from '../../styles/theme';
 
 const MyCrops = () => {
   return (
     <View style={styles.container}>
       <View style={styles.myCrops}>
+        {/* {<ImageBackground
+          source={require('../../../assets/banner.jpg')}
+          resizeMode="cover"
+          style={styles.image}> */}
+
         <Text style={styles.sectionTitle}>My Crops</Text>
         <View style={styles.cropIconsContainer}>
           <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
@@ -35,6 +47,9 @@ const MyCrops = () => {
             />
           </TouchableOpacity>
         </View>
+        {
+          // </ImageBackground>
+        }
       </View>
     </View>
   );
@@ -43,6 +58,10 @@ const MyCrops = () => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
   },
 
   sectionTitle: {
@@ -53,14 +72,14 @@ const styles = StyleSheet.create({
   },
   myCrops: {
     backgroundColor: theme.primaryDark,
-    padding: 16,
+    padding: 8,
     height: 160,
     width: '100%',
   },
 
   cropIconsContainer: {
     flexDirection: 'row',
-    // justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   cropIcon: {
     backgroundColor: theme.secondary,

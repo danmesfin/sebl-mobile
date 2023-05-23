@@ -21,6 +21,7 @@ import SelectCropScreen from './screens/CultivationTipsScreen/select-crop-screen
 import CultivationCategorySelectionScreen from './screens/CultivationTipsScreen/select-tip-category-screen';
 import TipsViewScreen from './screens/CultivationTipsScreen/view-tip-screen';
 import PostDetailScreen from './screens/view-post-screen';
+import DiseaseControlScreen from './screens/view-disease-control-method';
 
 //import {setUser} from './redux/authSlice';
 
@@ -96,6 +97,11 @@ const MainApp = () => {
             <Stack.Screen
               name="view-post"
               component={PostDetailScreen}
+              options={{headerShown: true, headerTitle: ''}}
+            />
+            <Stack.Screen
+              name="view-disease-control-methods"
+              component={DiseaseControlScreen}
               options={{headerShown: true, headerTitle: ''}}
             />
           </>
