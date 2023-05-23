@@ -7,12 +7,14 @@ import {
   FlatList,
   ActivityIndicator,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import getFormattedTimeDifference from '../../utils/formattedTimeDifference';
 
 const PostDetailScreen = ({route}) => {
   const [post, setPost] = useState(route.params.post);
   const [comments, setComments] = useState([]);
+  const [commentInput, setCommentInput] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -93,14 +95,18 @@ const PostDetailScreen = ({route}) => {
       <View style={styles.commentSection}>
         <TextInput
           placeholder="Write a comment"
-          onChangeText={text => setComments(text)}
-          onSubmitEditing={() => {
-            submitComment(comments);
-            setComments('');
-          }}
-          value={comments}
+          onChangeText={text => setCommentInput(text)}
+          value={commentInput}
           style={styles.commentInput}
         />
+        <TouchableOpacity
+          onPress={() => {
+            submitComment(commentInput);
+            setCommentInput('');
+          }}
+          style={styles.postButton}>
+          <Text style={styles.postButtonText}>Post</Text>
+        </TouchableOpacity>
         <FlatList
           data={comments}
           renderItem={renderComment}
@@ -153,6 +159,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
+  },
+  postButton: {
+    backgroundColor: '#0084ff',
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    alignSelf: 'flex-end',
+  },
+  postButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
   commentContainer: {
     padding: 10,
