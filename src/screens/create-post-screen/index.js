@@ -87,9 +87,7 @@ const CreatePostScreen = () => {
         Authorization: `Bearer ${token}`,
       };
 
-      console.log('authorization : ', headers);
-
-      await axios.post('https://sebl.onrender.com/posts/new', post, {headers});
+      await axios.post('https://sebl.onrender.com/posts/', post, {headers});
       Alert.alert('POSTED SUCCESFULLY');
     } catch (error) {
       // handle error response

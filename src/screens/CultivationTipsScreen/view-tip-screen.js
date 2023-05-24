@@ -3,13 +3,13 @@ import {
   View,
   Text,
   ScrollView,
-  TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+//import Icon from 'react-native-vector-icons/FontAwesome';
+import {firebase} from '../../../firebaseConfig';
 import axios from 'axios';
-import colors from '../../styles/theme';
+//import colors from '../../styles/theme';
 
 const TipsViewScreen = ({route, navigation}) => {
   const {cropType, category, title} = route.params;
@@ -18,17 +18,31 @@ const TipsViewScreen = ({route, navigation}) => {
 
   useEffect(() => {
     setIsLoading(true);
-    axios
-      .get(`http://sebl.onrender.com/tips/${cropType}/${category}/${title}`)
-      .then(response => {
-        setTips(response.data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.log(error);
-        setIsLoading(false);
-      });
-  }, [category, cropType, title]);
+    fetchTipData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cropType]);
+
+  const fetchTipData = async () => {
+    const user = firebase.auth().currentUser;
+    const token = await user.getIdToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    try {
+      const response = await axios.get(
+        `https://sebl.onrender.com/tips/${cropType}/${category}/${title}`,
+        {
+          headers: headers,
+        },
+      );
+      setTips(response.data);
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -36,9 +50,7 @@ const TipsViewScreen = ({route, navigation}) => {
         <ActivityIndicator
           size="large"
           color="#0000ff"
-          style={{
-            marginTop: 120,
-          }}
+          style={{marginTop: 120}}
         />
       ) : (
         <ScrollView style={styles.scrollView}>

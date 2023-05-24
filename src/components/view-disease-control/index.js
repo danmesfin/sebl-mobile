@@ -1,16 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
-import {firebase} from '../../../firebaseConfig';
+import {firebase} from '../../utils/firebase';
 import axios from 'axios';
 
-const DiseaseControlScreen = ({route}) => {
+const DiseaseControlMethods = ({name}) => {
   const [loading, setLoading] = useState(true);
-  const [controlMethods, setControlMethods] = useState(null);
-  const {diseaseName} = route.params;
+  const [controlMethods, setControlMethods] = useState([]);
+  const {diseaseName} = 'Wheat Rust';
 
   // Check if the user is authenticated
   const user = firebase.auth().currentUser;
-
   useEffect(() => {
     const fetchData = async () => {
       const token = await user.getIdToken();
@@ -22,6 +21,7 @@ const DiseaseControlScreen = ({route}) => {
           `https://sebl.onrender.com/disease-control/${diseaseName}`,
           {headers},
         );
+        console.log('response', response);
         setControlMethods(response.data);
         setLoading(false);
       } catch (error) {
@@ -43,17 +43,18 @@ const DiseaseControlScreen = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{controlMethods.title}</Text>
-      <View style={styles.methodContainer}>
-        <Text style={styles.methodTitle}>Natural Control Method:</Text>
-        <Text>{controlMethods.naturalControl.method}</Text>
-        <Text>{controlMethods.naturalControl.description}</Text>
-      </View>
-      <View style={styles.methodContainer}>
-        <Text style={styles.methodTitle}>Chemical Control Method:</Text>
-        <Text>{controlMethods.chemicalControl.method}</Text>
-        <Text>{controlMethods.chemicalControl.description}</Text>
-      </View>
+      <Text style={styles.title}>{diseaseName}</Text>
+      {controlMethods.length > 0 ? (
+        controlMethods.map((method, index) => (
+          <View key={index} style={styles.methodContainer}>
+            <Text style={styles.methodTitle}>{method.title}</Text>
+            <Text>{method.naturalMethod}</Text>
+            <Text>{method.chemicalMethod}</Text>
+          </View>
+        ))
+      ) : (
+        <Text>No control methods available for this disease.</Text>
+      )}
     </View>
   );
 };
@@ -80,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DiseaseControlScreen;
+export default DiseaseControlMethods;

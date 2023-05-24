@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import getFormattedTimeDifference from '../../utils/formattedTimeDifference';
+import {firebase} from '../../../firebaseConfig';
 
 const PostDetailScreen = ({route}) => {
   const [post, setPost] = useState(route.params.post);
@@ -17,12 +18,19 @@ const PostDetailScreen = ({route}) => {
   const [commentInput, setCommentInput] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
+  // Check if the user is authenticated
+  const user = firebase.auth().currentUser;
+
   useEffect(() => {
     fetchPostAndComments();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [post]);
 
   const fetchPostAndComments = async () => {
+    const token = await user.getIdToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
     try {
       // const postResponse = await fetch(
       //   `https://sebl.onrender.com/posts/${post.id}`,
@@ -32,6 +40,7 @@ const PostDetailScreen = ({route}) => {
 
       const commentsResponse = await fetch(
         `https://sebl.onrender.com/comments/post/${post.id}`,
+        {headers},
       );
       const commentsData = await commentsResponse.json();
       setComments(commentsData);
