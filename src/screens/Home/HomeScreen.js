@@ -8,7 +8,6 @@ import {
   Image,
 } from 'react-native';
 import WeatherSection from '../../components/Weather';
-import CultivationTips from '../../components/Cultivation';
 import theme from '../../styles/theme';
 import MyCrops from './MyCrops';
 
@@ -67,10 +66,6 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Weather</Text>
           <WeatherSection />
-        </View>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Cultivation Tips</Text>
-          <CultivationTips />
         </View>
       </View>
     </ScrollView>

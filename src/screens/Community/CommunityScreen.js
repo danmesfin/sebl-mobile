@@ -9,6 +9,8 @@ import {
   FlatList,
   ActivityIndicator,
 } from 'react-native';
+import axios from 'axios';
+import {firebase} from '../../../firebaseConfig';
 import Colors from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Card from '../../components/post-card';
@@ -28,14 +30,25 @@ const CommunityScreen = ({navigation}) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
 
+  // Check if the user is authenticated
+  const user = firebase.auth().currentUser;
+
   useEffect(() => {
     setLoading(true);
-    fetch('https://sebl.onrender.com/posts')
+    if (!user) {
+      setLoading(false);
+    }
+    const token = user.getIdToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    axios
+      .get('https://sebl.onrender.com/posts', {headers})
       .then(response => response.json())
       .then(data => setPosts(data))
       .catch(error => console.error(error));
     setLoading(false);
-  }, []);
+  }, [user]);
 
   return (
     <View style={styles.container}>
@@ -148,7 +161,7 @@ const styles = StyleSheet.create({
   },
 
   isLoading: {
-    marginTop: 20,
+    marginTop: 120,
   },
   scrollContainer: {
     padding: 16,
