@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import axios from 'axios';
 import {firebase} from '../../../firebaseConfig';
@@ -35,19 +36,26 @@ const CommunityScreen = ({navigation}) => {
 
   useEffect(() => {
     setLoading(true);
-    if (!user) {
-      setLoading(false);
-    }
-    const token = user.getIdToken();
-    const headers = {
-      Authorization: `Bearer ${token}`,
+    const fetchPost = async () => {
+      if (!user) {
+        Alert.alert('please sign in first!');
+      }
+      const token = await user.getIdToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      try {
+        const response = await axios.get('https://sebl.onrender.com/posts', {
+          headers: headers,
+        });
+        setPosts(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
     };
-    axios
-      .get('https://sebl.onrender.com/posts', {headers})
-      .then(response => response.json())
-      .then(data => setPosts(data))
-      .catch(error => console.error(error));
-    setLoading(false);
+    fetchPost();
   }, [user]);
 
   return (

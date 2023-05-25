@@ -12,32 +12,32 @@ const cropsData = [
   {
     id: 1,
     name: 'Tomatoes',
-    image: require('../../../assets/icons/apple.png'),
+    image: require('../../../assets/icons/tomato.jpg'),
   },
   {
     id: 2,
     name: 'Corn',
-    image: require('../../../assets/icons/apple.png'),
+    image: require('../../../assets/icons/corn.png'),
   },
   {
     id: 3,
     name: 'Lettuce',
-    image: require('../../../assets/icons/apple.png'),
+    image: require('../../../assets/icons/lettuce.jpg'),
   },
   {
     id: 4,
     name: 'Broccoli',
-    image: require('../../../assets/icons/apple.png'),
+    image: require('../../../assets/icons/brocoli.png'),
   },
   {
     id: 5,
-    name: 'Bell peppers',
-    image: require('../../../assets/icons/apple.png'),
+    name: 'Wheat',
+    image: require('../../../assets/icons/wheat.jpg'),
   },
   {
     id: 6,
-    name: 'Cucumbers',
-    image: require('../../../assets/icons/apple.png'),
+    name: 'Sugarcane',
+    image: require('../../../assets/icons/sugarcane.png'),
   },
 ];
 

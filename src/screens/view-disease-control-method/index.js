@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ActivityIndicator, Alert} from 'react-native';
 import {firebase} from '../../../firebaseConfig';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import theme from '../../styles/theme';
 
 const DiseaseControlScreen = ({route}) => {
   const [loading, setLoading] = useState(true);
@@ -85,6 +87,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color: 'black',
   },
   methodContainer: {
     marginBottom: 10,
@@ -94,9 +97,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     textAlign: 'left',
+    color: 'black',
   },
   methodText: {
     textAlign: 'justify',
+    color: 'black',
   },
 });
 

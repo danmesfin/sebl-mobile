@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import axios from 'axios';
+import getWeatherIcons from '../../utils/getWeatherIcon';
+import theme from '../../styles/theme';
 
 const WeatherSection = () => {
   const [weatherData, setWeatherData] = useState(null);
@@ -27,14 +29,26 @@ const WeatherSection = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Today's Weather</Text>
-      <View style={styles.weatherInfo}>
-        <Text style={styles.temperature}>{currentWeather.temperature}°C</Text>
-        <Text style={styles.weatherDescription}>
-          Wind: {currentWeather.windspeed} km/h
-        </Text>
-        <Text style={styles.weatherDescription}>
-          Humidity: {weatherData.hourly.relativehumidity_2m[0]}%
-        </Text>
+      <View style={styles.row}>
+        <View style={styles.weatherInfo}>
+          <View style={styles.temperatureContainer}>
+            <Text style={styles.temperature}>
+              {currentWeather.temperature}°C
+            </Text>
+          </View>
+          <Text style={styles.weatherDescription}>
+            Wind: {currentWeather.windspeed} km/h
+          </Text>
+          <Text style={styles.weatherDescription}>
+            Humidity: {weatherData.hourly.relativehumidity_2m[0]}%
+          </Text>
+        </View>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={getWeatherIcons(weatherData.weathercode)}
+          />
+        </View>
       </View>
     </View>
   );
@@ -42,28 +56,54 @@ const WeatherSection = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.accent,
+    opacity: 0.7,
     borderRadius: 10,
     padding: 20,
     marginVertical: 10,
+    alignItems: 'center',
   },
   header: {
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+    textAlign: 'center',
+    color: 'black',
+  },
+  row: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   weatherInfo: {
     alignItems: 'center',
+    paddingHorizontal: 10,
+  },
+  temperatureContainer: {
+    backgroundColor: '#f2f2f2',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginBottom: 10,
   },
   temperature: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
+    color: '#000000',
   },
   weatherDescription: {
     fontSize: 16,
     color: '#000000',
     marginBottom: 5,
+  },
+  imageContainer: {
+    marginTop: 20,
+  },
+  image: {
+    height: 80,
+    width: 80,
+    aspectRatio: 1,
   },
 });
 

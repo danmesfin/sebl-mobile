@@ -20,8 +20,8 @@ const MyCrops = () => {
           resizeMode="cover"
           style={styles.image}> */}
 
-        <Text style={styles.sectionTitle}>My Crops</Text>
-        <View style={styles.cropIconsContainer}>
+        <Text style={styles.sectionTitle}>...</Text>
+        {/* <View style={styles.cropIconsContainer}>
           <TouchableOpacity style={styles.cropIcon} onPress={() => {}}>
             <Image
               source={require('../../../assets/icons/apple.png')}
@@ -46,7 +46,7 @@ const MyCrops = () => {
               style={styles.cropIconImage}
             />
           </TouchableOpacity>
-        </View>
+        </View> */}
         {
           // </ImageBackground>
         }
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   myCrops: {
-    backgroundColor: theme.primaryDark,
+    //backgroundColor: theme.primaryDark,
     padding: 8,
     height: 160,
     width: '100%',
