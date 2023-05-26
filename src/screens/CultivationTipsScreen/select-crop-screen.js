@@ -55,7 +55,7 @@ const CropCard = ({crop, navigation}) => {
 };
 
 const SelectCropScreen = ({navigation}) => {
-  const [selectedCrop, setSelectedCrop] = useState('');
+  // const [selectedCrop, setSelectedCrop] = useState('');
 
   return (
     <ScrollView style={styles.container}>
