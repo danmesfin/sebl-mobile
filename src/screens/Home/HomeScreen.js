@@ -40,11 +40,7 @@ const HomeScreen = ({navigation}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.card}
-                onPress={() =>
-                  navigation.navigate('PlantDiseaseNavigator', {
-                    screen: 'Select Image',
-                  })
-                }>
+                onPress={() => navigation.navigate('select-disease')}>
                 <Image
                   source={require('../../../assets/icons/pest-controll.png')}
                   style={styles.cardImage}
