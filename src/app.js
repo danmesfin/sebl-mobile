@@ -22,7 +22,7 @@ import CultivationCategorySelectionScreen from './screens/CultivationTipsScreen/
 import TipsViewScreen from './screens/CultivationTipsScreen/view-tip-screen';
 import PostDetailScreen from './screens/view-post-screen';
 import DiseaseControlScreen from './screens/view-disease-control-method';
-
+import PredictionScreen from './screens/yield-prediction-screen';
 //import {setUser} from './redux/authSlice';
 
 const Stack = createStackNavigator();
@@ -102,6 +102,11 @@ const MainApp = () => {
             <Stack.Screen
               name="view-disease-control-methods"
               component={DiseaseControlScreen}
+              options={{headerShown: true, headerTitle: ''}}
+            />
+            <Stack.Screen
+              name="yield-prediction"
+              component={PredictionScreen}
               options={{headerShown: true, headerTitle: ''}}
             />
           </>

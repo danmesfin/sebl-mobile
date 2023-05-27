@@ -66,11 +66,7 @@ const HomeScreen = ({navigation}) => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.card}
-                onPress={() =>
-                  navigation.navigate('PlantDiseaseNavigator', {
-                    screen: 'Select Image',
-                  })
-                }>
+                onPress={() => navigation.navigate('yield-prediction')}>
                 <Image
                   source={require('../../../assets/yield-prediction.png')}
                   style={styles.cardImage}
