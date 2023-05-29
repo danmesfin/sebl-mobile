@@ -36,25 +36,6 @@ const MyCrops = () => {
           </TouchableOpacity>
         </View>
       </View>
-      {/*Add two cards here cultivation tips and pest control */}
-      <View style={styles.container}>
-        <View style={styles.cardRow}>
-          <TouchableOpacity style={[styles.card, styles.shadowProp]}>
-            <Image
-              source={require('../../../assets/icons/cultivation-tips.png')}
-              style={styles.cardImage}
-            />
-            <Text style={styles.cardTitle}>Cultivation Tips</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.card}>
-            <Image
-              source={require('../../../assets/icons/pest-control.png')}
-              style={styles.cardImage}
-            />
-            <Text style={styles.cardTitle}>Pest Control</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
     </View>
   );
 };
@@ -62,38 +43,21 @@ const MyCrops = () => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    // backgroundColor: theme.primary,
   },
-  section: {
-    backgroundColor: theme.secondaryDark,
-    padding: 16,
-    borderRadius: 10,
-    // marginBottom: 16,
-    width: '100%',
-  },
+
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 'bold',
-    color: theme.textPrimary,
-    marginBottom: 16,
+    color: '#fff',
+    marginBottom: 8,
   },
   myCrops: {
     backgroundColor: theme.primaryDark,
     padding: 16,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    marginBottom: 16,
+    height: 160,
     width: '100%',
   },
-  diagnosePlantSection: {
-    backgroundColor: theme.secondaryDark,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: theme.PrimaryBorder,
-    borderRadius: 10,
-    marginBottom: 16,
-    width: '100%',
-  },
+
   cropIconsContainer: {
     flexDirection: 'row',
     // justifyContent: 'space-between',
@@ -113,6 +77,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   cardRow: {
+    position: 'relative',
+    top: 20,
     marginTop: 16,
     marginBottom: 8,
     flexDirection: 'row',
@@ -145,6 +111,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 3,
+    elevation: 2,
   },
 });
 

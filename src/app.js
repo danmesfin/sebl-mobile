@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import AuthNavigator from './Navigations/AuthNavigation';
 import {NavigationContainer} from '@react-navigation/native';
+// import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeNavigator from './Navigations/HomeNavigation';
 import CultivationTipsScreen from './screens/CultivationTipsScreen';
@@ -9,8 +10,10 @@ import SplashScreen from 'react-native-splash-screen';
 
 import PlantDiseaseNavigation from './Navigations/PlantDiseaseNavigation';
 import CustomSplashScreen from './screens/SplashScreen/SplashScreen';
+import CreatePostScreen from './screens/create-post-screen';
 
 const Stack = createStackNavigator();
+// const Drawer = createDrawerNavigator();
 
 const MainApp = () => {
   const [appReady, setAppReady] = useState(false);
@@ -40,11 +43,20 @@ const MainApp = () => {
         /> */}
         {user ? (
           <>
+            {/* <Drawer.Navigator initialRouteName="Home">
+              <Drawer.Screen name="Home" component={HomeNavigator} />
+              <Drawer.Screen
+                name="PlantDiseaseNavigator"
+                component={PlantDiseaseNavigation}
+              />
+              </Drawer.Navigator> */}
+
             <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
             <Stack.Screen
               name="PlantDiseaseNavigator"
               component={PlantDiseaseNavigation}
             />
+            <Stack.Screen name="create-post" component={CreatePostScreen} />
             <Stack.Screen
               name="Cultivation Tips"
               component={CultivationTipsScreen}

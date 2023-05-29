@@ -37,7 +37,7 @@ const crops = [
   'Rice',
 ];
 
-const CommunityScreen = () => {
+const CommunityScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -79,7 +79,13 @@ const CommunityScreen = () => {
           </View>
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.floatingButton}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('create-post', {
+            screen: 'create-post',
+          })
+        }
+        style={styles.floatingButton}>
         <Icon name="plus" size={24} color="#fff" />
       </TouchableOpacity>
     </View>

@@ -28,7 +28,7 @@ const SignInScreen = ({navigation}) => {
   };
 
   const handleFirebaseErrors = errorMessage => {
-    switch (errorMessage) {
+    switch (errorMessage.code) {
       case 'auth/user-not-found':
         return 'User not found. Please check your email.';
       case 'auth/wrong-password':
