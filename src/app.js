@@ -1,16 +1,30 @@
 import React, {useState, useEffect} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {StatusBar} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+
+//user mang
+import {restoreUser} from './redux/authSlice/actions';
+
+// components
 import AuthNavigator from './Navigations/AuthNavigation';
 import {NavigationContainer} from '@react-navigation/native';
 // import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeNavigator from './Navigations/HomeNavigation';
 import CultivationTipsScreen from './screens/CultivationTipsScreen';
-import {useSelector} from 'react-redux';
-import SplashScreen from 'react-native-splash-screen';
 
 import PlantDiseaseNavigation from './Navigations/PlantDiseaseNavigation';
 import CustomSplashScreen from './screens/SplashScreen/SplashScreen';
 import CreatePostScreen from './screens/create-post-screen';
+import SelectCropScreen from './screens/CultivationTipsScreen/select-crop-screen';
+import CultivationCategorySelectionScreen from './screens/CultivationTipsScreen/select-tip-category-screen';
+import TipsViewScreen from './screens/CultivationTipsScreen/view-tip-screen';
+import PostDetailScreen from './screens/view-post-screen';
+import DiseaseControlScreen from './screens/view-disease-control-method';
+import PredictionScreen from './screens/yield-prediction-screen';
+import SelectDiseaseScreen from './screens/pest-control/select-disease-screen';
+//import {setUser} from './redux/authSlice';
 
 const Stack = createStackNavigator();
 // const Drawer = createDrawerNavigator();
@@ -19,14 +33,23 @@ const MainApp = () => {
   const [appReady, setAppReady] = useState(false);
   const {user} = useSelector(state => state.auth);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      SplashScreen.hide();
-      setAppReady(true);
-    }, 3000); // 3 seconds
+  const dispatch = useDispatch();
 
-    return () => clearTimeout(timer);
-  }, []);
+  useEffect(() => {
+    // Check if there is a user in the local storage
+    AsyncStorage.getItem('user')
+      // eslint-disable-next-line no-shadow
+      .then(user => {
+        if (user) {
+          dispatch(restoreUser(JSON.parse(user)));
+        }
+        setAppReady(true);
+      })
+      .catch(error => {
+        console.log('Error retrieving user from local storage:', error);
+        setAppReady(true);
+      });
+  }, [dispatch]);
 
   if (!appReady) {
     // Render the splash screen while the app is loading
@@ -35,6 +58,7 @@ const MainApp = () => {
 
   return (
     <NavigationContainer>
+      <StatusBar barStyle="dark-content" />
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {/* <Stack.Screen
           name="Splash"
@@ -60,6 +84,36 @@ const MainApp = () => {
             <Stack.Screen
               name="Cultivation Tips"
               component={CultivationTipsScreen}
+            />
+            <Stack.Screen name="select-crop" component={SelectCropScreen} />
+            <Stack.Screen
+              name="tip-in-detail-screen"
+              component={CultivationCategorySelectionScreen}
+            />
+            <Stack.Screen
+              name="view-tip-screen"
+              component={TipsViewScreen}
+              options={{headerShown: true, headerTitle: ''}}
+            />
+            <Stack.Screen
+              name="view-post"
+              component={PostDetailScreen}
+              options={{headerShown: true, headerTitle: ''}}
+            />
+            <Stack.Screen
+              name="view-disease-control-methods"
+              component={DiseaseControlScreen}
+              options={{headerShown: true, headerTitle: ''}}
+            />
+            <Stack.Screen
+              name="yield-prediction"
+              component={PredictionScreen}
+              options={{headerShown: true, headerTitle: ''}}
+            />
+            <Stack.Screen
+              name="select-disease"
+              component={SelectDiseaseScreen}
+              options={{headerShown: true, headerTitle: ''}}
             />
           </>
         ) : (

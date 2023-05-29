@@ -6,10 +6,11 @@ import {
   StyleSheet,
   ActivityIndicator,
 } from 'react-native';
+
 import {Button} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {loginUser} from '../../../redux/authSlice';
+import {loginUser} from '../../../redux/authSlice/actions';
 import Colors from '../../../styles/theme';
 
 const SignInScreen = ({navigation}) => {

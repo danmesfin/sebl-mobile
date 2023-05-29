@@ -7,6 +7,7 @@ import Colors from '../../../styles/theme';
 
 const SignUpScreen = ({navigation}) => {
   const {isLoading} = useSelector(state => state.auth);
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfPassword] = useState('');
@@ -14,7 +15,7 @@ const SignUpScreen = ({navigation}) => {
   const dispatch = useDispatch();
 
   const handleSignUp = () => {
-    dispatch(signUpUser(email, password));
+    dispatch(signUpUser(email, password, name));
   };
 
   const handleSignInNavigation = () => {
@@ -24,6 +25,12 @@ const SignUpScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create account</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Name"
+        value={name}
+        onChangeText={value => setName(value)}
+      />
       <TextInput
         style={styles.input}
         placeholder="Email"

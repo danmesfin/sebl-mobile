@@ -7,79 +7,96 @@ import {
   Image,
   StyleSheet,
 } from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import theme from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {signOutUser} from '../../redux/authSlice/actions';
+
 const ProfileScreen = () => {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.user);
+
+  // sign out handler
+  const signOut = () => {
+    dispatch(signOutUser());
+  };
+
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.profileContainer}>
-          <Image
-            source={require('../../../assets/icons/apple.png')}
-            style={styles.profileImage}
-          />
-          <View style={styles.profileTextContainer}>
-            <Text style={styles.nameText}>John Doe</Text>
-            <Text style={styles.usernameText}>@johndoe</Text>
+      {user ? (
+        <View>
+          <View style={styles.header}>
+            <View style={styles.profileContainer}>
+              <Image
+                source={require('../../../assets/icons/apple.png')}
+                style={styles.profileImage}
+              />
+              <View style={styles.profileTextContainer}>
+                <Text style={styles.nameText}>{user.name}</Text>
+                <Text style={styles.usernameText}>@{user.username}</Text>
+              </View>
+            </View>
+            <TouchableOpacity style={styles.editButton}>
+              <Image source={''} style={styles.editButtonIcon} />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.profileInfo}>
+            <Text style={styles.infoText}>Account</Text>
+            <View style={styles.infoContainer}>
+              <Icon style={styles.icon} name="envelope" size={20} />
+              <View style={styles.infoList}>
+                <Text style={styles.infoText}>Email</Text>
+                <Text>{user.email}</Text>
+              </View>
+            </View>
+            <View style={styles.infoContainer}>
+              <Icon style={styles.icon} name="phone" size={20} />
+              <View style={styles.infoList}>
+                <Text style={styles.infoText}>Phone</Text>
+                <Text>{user.phone}</Text>
+              </View>
+            </View>
+            <View style={styles.infoContainer}>
+              <Icon style={styles.icon} name="home" size={20} />
+              <View style={styles.infoList}>
+                <Text style={styles.infoText}>Address</Text>
+                <Text>{user.address}</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.settingsContainer}>
+            <Text style={styles.infoText}>Settings</Text>
+            <View style={styles.infoContainer}>
+              <Icon style={styles.icon} name="bell" size={20} />
+              <View style={styles.infoList}>
+                <Text style={styles.infoText}>Notifications</Text>
+                <Text>{user.notifications}</Text>
+              </View>
+            </View>
+            <View style={styles.infoContainer}>
+              <Icon style={styles.icon} name="language" size={20} />
+              <View style={styles.infoList}>
+                <Text style={styles.infoText}>Language</Text>
+                <Text>{user.language}</Text>
+              </View>
+            </View>
+            <View style={styles.infoContainer}>
+              <Icon style={styles.icon} name="credit-card" size={20} />
+              <View style={styles.infoList}>
+                <Text style={styles.infoText}>Payment Method</Text>
+                <Text>{user.paymentMethod}</Text>
+              </View>
+            </View>
           </View>
         </View>
-        <TouchableOpacity style={styles.editButton}>
-          <Image source={''} style={styles.editButtonIcon} />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.profileInfo}>
-        <Text style={styles.infoText}>Account</Text>
-        <View style={styles.infoContainer}>
-          <Icon style={styles.icon} name="envelope" size={20} />
-          <View style={styles.infoList}>
-            <Text style={styles.infoText}>Email</Text>
-            <Text>johndoe@example.com</Text>
-          </View>
-        </View>
-        <View style={styles.infoContainer}>
-          <Icon style={styles.icon} name="phone" size={20} />
-          <View style={styles.infoList}>
-            <Text style={styles.infoText}>Phone</Text>
-            <Text>555-1234</Text>
-          </View>
-        </View>
-        <View style={styles.infoContainer}>
-          <Icon style={styles.icon} name="home" size={20} />
-          <View style={styles.infoList}>
-            <Text style={styles.infoText}>Address</Text>
-            <Text>123 Main St</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.settingsContainer}>
-        <Text style={styles.infoText}>Settings</Text>
-        <View style={styles.infoContainer}>
-          <Icon style={styles.icon} name="bell" size={20} />
-          <View style={styles.infoList}>
-            <Text style={styles.infoText}>Notifications</Text>
-            <Text>On</Text>
-          </View>
-        </View>
-        <View style={styles.infoContainer}>
-          <Icon style={styles.icon} name="language" size={20} />
-          <View style={styles.infoList}>
-            <Text style={styles.infoText}>Language</Text>
-            <Text>English</Text>
-          </View>
-        </View>
-        <View style={styles.infoContainer}>
-          <Icon style={styles.icon} name="credit-card" size={20} />
-          <View style={styles.infoList}>
-            <Text style={styles.infoText}>Payment Method</Text>
-            <Text>Visa **** **** **** 1234</Text>
-          </View>
-        </View>
-      </View>
-
+      ) : (
+        <Text style={styles.signupText}>Please sign up</Text>
+      )}
       <TouchableOpacity style={styles.aboutButton}>
         <Text style={styles.aboutButtonText}>About</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.logoutButton}>
+      <TouchableOpacity style={styles.logoutButton} onPress={() => signOut()}>
         <Text style={styles.logoutButtonText}>Logout</Text>
       </TouchableOpacity>
     </ScrollView>
@@ -90,8 +107,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.secondary,
-    //paddingHorizontal: 20,
-    //paddingTop: 20,
   },
   header: {
     backgroundColor: theme.primaryDark,
@@ -100,7 +115,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 160,
     paddingTop: 20,
-    //paddingBottom: 20,
     paddingHorizontal: 20,
   },
   profileContainer: {
@@ -194,6 +208,12 @@ const styles = StyleSheet.create({
   },
   logoutButtonText: {
     fontSize: 16,
+    color: theme.text,
+  },
+  signupText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 20,
     color: theme.text,
   },
 });

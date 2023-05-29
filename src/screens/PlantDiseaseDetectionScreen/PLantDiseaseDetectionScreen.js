@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {StackActions} from '@react-navigation/native';
 import Tflite from 'tflite-react-native';
 import theme from '../../styles/theme';
+import DiseaseControlMethods from '../../components/view-disease-control';
 
 const tflite = new Tflite();
 
@@ -62,6 +63,9 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
           <Text style={styles.confidence}>
             Confidence: {(result.confidence * 100).toFixed(2)}%
           </Text>
+        </View>
+        <View>
+          <DiseaseControlMethods name={result.label} />
         </View>
       </ScrollView>
       <TouchableOpacity

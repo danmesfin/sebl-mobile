@@ -1,30 +1,20 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
-  Image,
   TextInput,
   TouchableOpacity,
+  FlatList,
+  ActivityIndicator,
+  Alert,
 } from 'react-native';
+import axios from 'axios';
+import {firebase} from '../../../firebaseConfig';
 import Colors from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const mockPosts = [
-  {
-    id: 1,
-    image: 'https://picsum.photos/id/237/200/300',
-    postedBy: 'John Doe',
-    date: 'March 22, 2023',
-  },
-  {
-    id: 2,
-    image: 'https://picsum.photos/id/238/200/300',
-    postedBy: 'Jane Doe',
-    date: 'March 23, 2023',
-  },
-];
+import Card from '../../components/post-card';
 
 const crops = [
   'Tomatoes',
@@ -38,6 +28,36 @@ const crops = [
 ];
 
 const CommunityScreen = ({navigation}) => {
+  const [posts, setPosts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+
+  // Check if the user is authenticated
+  const user = firebase.auth().currentUser;
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchPost = async () => {
+      if (!user) {
+        Alert.alert('please sign in first!');
+      }
+      const token = await user.getIdToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      try {
+        const response = await axios.get('https://sebl.onrender.com/posts', {
+          headers: headers,
+        });
+        setPosts(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+    fetchPost();
+  }, [user]);
+
   return (
     <View style={styles.container}>
       <View style={styles.searchContainer}>
@@ -58,27 +78,39 @@ const CommunityScreen = ({navigation}) => {
           ))}
         </ScrollView>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {mockPosts.map(post => (
+      {isLoading ? (
+        <ActivityIndicator
+          size="large"
+          color="#0000ff"
+          style={styles.isLoading}
+        />
+      ) : (
+        <FlatList
+          data={posts}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => <Card post={item} navigation={navigation} />}
+        />
+      )}
+      {/* <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {posts.map(post => (
           <View style={styles.postCard} key={post.id}>
-            <Image source={{uri: post.image}} style={styles.postImage} />
-            <View style={styles.postInfo}>
-              <Text style={styles.postedBy}>{post.postedBy}</Text>
-              <Text style={styles.date}>{post.date}</Text>
-            </View>
-            <View style={styles.commentContainer}>
-              <TextInput
-                style={styles.commentInput}
-                placeholder="Add a comment..."
-                placeholderTextColor={Colors.textLight}
+            <TouchableOpacity style={styles.postImageContainer}>
+              <Image
+                source={{uri: post.post_image_url}}
+                style={styles.postImage}
               />
-              <TouchableOpacity style={styles.commentButton}>
-                <Text style={styles.commentButtonText}>Post</Text>
-              </TouchableOpacity>
+            </TouchableOpacity>
+            <View>
+              <Text>{post.title}</Text>
+            </View>
+            <View style={styles.postInfo}>
+              <Text style={styles.postedBy}>{post.author}</Text>
+              <Text style={styles.date}>{post.date}</Text>
             </View>
           </View>
         ))}
-      </ScrollView>
+      </ScrollView> */}
+
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('create-post', {
@@ -102,7 +134,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    marginBottom: 16,
+    marginBottom: 8,
   },
   searchInput: {
     flex: 1,
@@ -113,7 +145,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    marginBottom: 16,
+    marginBottom: 8,
   },
   filterTitle: {
     fontWeight: 'bold',
@@ -125,15 +157,19 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: Colors.primary,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: 4,
+    paddingVertical: 2,
     marginHorizontal: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
   cropButtonText: {
     color: Colors.textLight,
-    fontWeight: 'bold',
+    //fontWeight: 'bold',
+  },
+
+  isLoading: {
+    marginTop: 120,
   },
   scrollContainer: {
     padding: 16,

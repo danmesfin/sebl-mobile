@@ -6,63 +6,97 @@ import {
   TouchableOpacity,
   ScrollView,
   Image,
+  ImageBackground,
 } from 'react-native';
 import WeatherSection from '../../components/Weather';
-import CultivationTips from '../../components/Cultivation';
 import theme from '../../styles/theme';
 import MyCrops from './MyCrops';
 
 const HomeScreen = ({navigation}) => {
   return (
     <ScrollView style={styles.scrollViewContent}>
-      <MyCrops />
-      <View style={styles.topContainer}>
-        {/*Add two cards here cultivation tips and pest control */}
-        <View style={styles.container}>
-          <View style={styles.cardRow}>
-            <TouchableOpacity style={[styles.card, styles.shadowProp]}>
-              <Image
-                source={require('../../../assets/icons/cultivation-tips.png')}
-                style={styles.cardImage}
-              />
-              <Text style={styles.cardTitle}>Cultivation Tips</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.card}>
-              <Image
-                source={require('../../../assets/icons/pest-control.png')}
-                style={styles.cardImage}
-              />
-              <Text style={styles.cardTitle}>Pest Control</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-      <View style={styles.diagnoseSection}>
-        <View style={styles.diagnoseContainer}>
-          <Text style={styles.sectionTitle}>Plant Health</Text>
-          <TouchableOpacity
-            style={styles.diagnoseButton}
-            onPress={() =>
-              navigation.navigate('PlantDiseaseNavigator', {
-                screen: 'Select Image',
-              })
-            }>
-            <Text style={styles.diagnoseButtonText}>
-              Diagnose plant diseases --{'>'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-      <View style={styles.container}>
+      <ImageBackground
+        source={require('../../../assets/bg-2.jpg')}
+        resizeMode="cover"
+        style={styles.image}>
+        {/* <MyCrops /> */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Weather</Text>
           <WeatherSection />
         </View>
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Cultivation Tips</Text>
-          <CultivationTips />
+
+        <View style={styles.topContainer}>
+          {/*Add two cards here cultivation tips and pest control */}
+
+          <View style={styles.container}>
+            <View style={styles.cardRow}>
+              <TouchableOpacity
+                style={[styles.card]}
+                onPress={() => navigation.navigate('select-crop')}>
+                <Image
+                  source={require('../../../assets/icons/cultivation-tip.png')}
+                  style={styles.cardImage}
+                />
+                <Text style={styles.cardTitle}>Cultivation Tips</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.card}
+                onPress={() => navigation.navigate('select-disease')}>
+                <Image
+                  source={require('../../../assets/icons/pest-controll.png')}
+                  style={styles.cardImage}
+                />
+                <Text style={styles.cardTitle}>Pest Control</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.card}
+                onPress={() =>
+                  navigation.navigate('PlantDiseaseNavigator', {
+                    screen: 'Select Image',
+                  })
+                }>
+                <Image
+                  source={require('../../../assets/diagnose-plant.jpg')}
+                  style={styles.cardImage}
+                />
+                <Text style={styles.cardTitle}>Diagnose Plant</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.card}
+                onPress={() => navigation.navigate('yield-prediction')}>
+                <Image
+                  source={require('../../../assets/yield-prediction.png')}
+                  style={styles.cardImage}
+                />
+                <Text style={styles.cardTitle}>Yield Prediction</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-      </View>
+        {/* <View style={styles.diagnoseSection}>
+           <View style={styles.diagnoseContainer}>
+            <Text style={styles.sectionTitle}>Plant Health</Text>
+            <TouchableOpacity
+              style={styles.diagnoseButton}
+              onPress={() =>
+                navigation.navigate('PlantDiseaseNavigator', {
+                  screen: 'Select Image',
+                })
+              }>
+              <Text style={styles.diagnoseButtonText}>
+                Diagnose plant diseases --{'>'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate('view-disease-control-methods', {
+                diseaseName: 'Wheat Rust',
+              })
+            }>
+            <Text>see control method</Text>
+          </TouchableOpacity>
+        </View> */}
+      </ImageBackground>
     </ScrollView>
   );
 };
@@ -78,6 +112,10 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: '#fff',
   },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   topContainer: {
     flex: 1,
     paddingHorizontal: 16,
@@ -85,9 +123,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    borderTopWidth: 0.5,
+    elevation: 0.5,
   },
   section: {
-    backgroundColor: theme.surface,
+    // backgroundColor: theme.surface,
+
     padding: 16,
     borderRadius: 10,
     marginBottom: 16,
@@ -129,18 +170,22 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 4,
     flexDirection: 'row',
-    justifyContent: 'center',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   card: {
     backgroundColor: theme.secondary,
     marginHorizontal: 4,
-    width: '50%',
-    aspectRatio: 1.5,
+    width: '47%',
+    height: 130,
+    marginTop: 10,
+    //aspectRatio: 1.5,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    //borderWidth: 0.1,
-    //borderColor: theme.PrimaryBorder,
+    borderWidth: 0.9,
+    borderColor: theme.primaryDark,
     elevation: 10,
   },
   cardImage: {
@@ -151,7 +196,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     marginTop: 8,
     fontWeight: 'bold',
-    color: theme.orange,
+    color: theme.primaryDark,
     fontSize: 16,
   },
   diagnoseSection: {
@@ -178,6 +223,9 @@ const styles = StyleSheet.create({
   diagnoseButtonText: {
     color: '#fff',
     fontSize: 18,
+  },
+  weatherContainer: {
+    elevation: 5,
   },
 });
 
