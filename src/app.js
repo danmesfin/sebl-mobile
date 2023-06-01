@@ -4,7 +4,7 @@ import {StatusBar} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 
 //user mang
-import {restoreUser} from './redux/authSlice/actions';
+import {restoreUser} from './store/authSlice/actions';
 
 // components
 import AuthNavigator from './Navigations/AuthNavigation';

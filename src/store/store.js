@@ -1,6 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit';
 import counterReducer from '../store/slices/counterSlice';
-import authSlice from '../redux/authSlice';
+import authSlice from './authSlice';
 import detectDiseaseSlice from '../redux/PlantDiseaseDetectionSlice';
 
 const store = configureStore({

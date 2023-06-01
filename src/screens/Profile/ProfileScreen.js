@@ -11,7 +11,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import theme from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import {signOutUser} from '../../redux/authSlice/actions';
+import {signOutUser} from '../../store/authSlice/actions';
 
 const ProfileScreen = () => {
   const dispatch = useDispatch();
