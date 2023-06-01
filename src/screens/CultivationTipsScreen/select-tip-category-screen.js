@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, ScrollView, TouchableOpacity, Text} from 'react-native';
+import theme from '../../styles/theme';
 
 const categories = [
   {title: 'Crop Selection', category: 'cropSelection', icon: '🌱'},
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 18,
+    color: theme.textPrimary,
   },
 });
 

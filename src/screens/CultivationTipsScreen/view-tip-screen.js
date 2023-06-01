@@ -9,6 +9,7 @@ import {
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {firebase} from '../../../firebaseConfig';
 import axios from 'axios';
+import theme from '../../styles/theme';
 //import colors from '../../styles/theme';
 
 const TipsViewScreen = ({route, navigation}) => {
@@ -49,8 +50,8 @@ const TipsViewScreen = ({route, navigation}) => {
       {isLoading ? (
         <ActivityIndicator
           size="large"
-          color="#0000ff"
-          style={{marginTop: 120}}
+          color={theme.accent}
+          style={styles.activityIndicator}
         />
       ) : (
         <ScrollView style={styles.scrollView}>
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
+  activityIndicator: {marginTop: 120},
   tipsContainer: {
     marginBottom: 10,
     backgroundColor: 'white',
@@ -92,13 +94,13 @@ const styles = StyleSheet.create({
   },
   tipsIdText: {
     fontWeight: 'bold',
-    fontSize: 24,
-    color: 'black',
+    fontSize: 18,
+    color: theme.textPrimary,
   },
   tipsContent: {
-    fontSize: 18,
+    fontSize: 14,
     marginTop: 10,
-    color: 'black',
+    color: theme.textPrimary,
   },
 });
 
