@@ -6,8 +6,10 @@ import theme from '../../styles/theme';
 
 const WeatherSection = () => {
   const [weatherData, setWeatherData] = useState(null);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(
         'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m',
@@ -18,6 +20,7 @@ const WeatherSection = () => {
       .catch(error => {
         console.log(error);
       });
+    setLoading(false);
   }, []);
 
   if (!weatherData) {
@@ -32,18 +35,22 @@ const WeatherSection = () => {
         <View style={styles.weatherInfo}>
           <View style={styles.temperatureContainer}>
             <Text style={styles.temperature}>
-              {currentWeather.temperature}°C
+              {isLoading ? '- -' : currentWeather.temperature}°C
             </Text>
           </View>
           <Text style={styles.weatherDescription}>
-            Wind: {currentWeather.windspeed} km/h
+            Wind: {isLoading ? '- -' : currentWeather.windspeed} km/h
           </Text>
         </View>
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={getWeatherIcons(weatherData.weathercode)}
-          />
+          {isLoading ? (
+            '- -'
+          ) : (
+            <Image
+              style={styles.image}
+              source={getWeatherIcons(weatherData.weathercode)}
+            />
+          )}
           <Text style={styles.weatherDescription}>
             Humidity: {weatherData.hourly.relativehumidity_2m[0]}%
           </Text>
