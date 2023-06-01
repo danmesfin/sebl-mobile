@@ -28,7 +28,6 @@ const WeatherSection = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Today's Weather</Text>
       <View style={styles.row}>
         <View style={styles.weatherInfo}>
           <View style={styles.temperatureContainer}>
@@ -39,15 +38,15 @@ const WeatherSection = () => {
           <Text style={styles.weatherDescription}>
             Wind: {currentWeather.windspeed} km/h
           </Text>
-          <Text style={styles.weatherDescription}>
-            Humidity: {weatherData.hourly.relativehumidity_2m[0]}%
-          </Text>
         </View>
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
             source={getWeatherIcons(weatherData.weathercode)}
           />
+          <Text style={styles.weatherDescription}>
+            Humidity: {weatherData.hourly.relativehumidity_2m[0]}%
+          </Text>
         </View>
       </View>
     </View>
@@ -94,11 +93,14 @@ const styles = StyleSheet.create({
   },
   weatherDescription: {
     fontSize: 16,
+    fontWeight: 'bold',
     color: '#000000',
     marginBottom: 5,
   },
   imageContainer: {
+    flexDirection: 'row',
     marginTop: 20,
+    alignItems: 'center',
   },
   image: {
     height: 80,
