@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import theme from '../../styles/theme';
 
 const cropsData = [
   {
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '31%',
-    height: 150,
+    height: 120,
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
     marginVertical: 10,
@@ -97,6 +98,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 16,
+    color: theme.textPrimary,
     marginTop: 10,
   },
 });
