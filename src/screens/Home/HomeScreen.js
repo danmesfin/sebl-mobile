@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import WeatherSection from '../../components/Weather';
 import theme from '../../styles/theme';
-import MyCrops from './MyCrops';
 
 const HomeScreen = ({navigation}) => {
   return (
