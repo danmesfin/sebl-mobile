@@ -52,7 +52,8 @@ const WeatherSection = () => {
             />
           )}
           <Text style={styles.weatherDescription}>
-            Humidity: {weatherData.hourly.relativehumidity_2m[0]}%
+            Humidity:{' '}
+            {isLoading ? '- -' : weatherData.hourly.relativehumidity_2m[0]}%
           </Text>
         </View>
       </View>
