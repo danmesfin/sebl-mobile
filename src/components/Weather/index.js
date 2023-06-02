@@ -42,19 +42,26 @@ const WeatherSection = () => {
             Wind: {isLoading ? '- -' : currentWeather.windspeed} km/h
           </Text>
         </View>
-        <View style={styles.imageContainer}>
-          {isLoading ? (
-            '- -'
-          ) : (
+        <View style={styles.weatherInfo}>
+          <View style={styles.imageContainer}>
+            {isLoading ? (
+              '- -'
+            ) : (
+              <Image
+                style={styles.image}
+                source={getWeatherIcons(weatherData.weathercode)}
+              />
+            )}
+          </View>
+          <View style={styles.humidityInfo}>
+            <Text style={styles.weatherDescription}>
+              {isLoading ? '- -' : weatherData.hourly.relativehumidity_2m[0]}%
+            </Text>
             <Image
-              style={styles.image}
-              source={getWeatherIcons(weatherData.weathercode)}
+              style={styles.icon}
+              source={require('../../../assets/icons/humidity.png')}
             />
-          )}
-          <Text style={styles.weatherDescription}>
-            Humidity:{' '}
-            {isLoading ? '- -' : weatherData.hourly.relativehumidity_2m[0]}%
-          </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -63,19 +70,11 @@ const WeatherSection = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.accent,
-    opacity: 0.7,
+    backgroundColor: theme.yellow,
+    opacity: 1,
     borderRadius: 10,
     padding: 20,
-    marginVertical: 10,
     alignItems: 'center',
-  },
-  header: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-    color: 'black',
   },
   row: {
     flexDirection: 'row',
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   weatherInfo: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     paddingHorizontal: 10,
   },
   temperatureContainer: {
@@ -95,25 +94,36 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   temperature: {
-    fontSize: 24,
+    fontSize: 36,
     fontWeight: 'bold',
     color: '#000000',
   },
   weatherDescription: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#000000',
+    color: '#fff',
     marginBottom: 5,
   },
-  imageContainer: {
+  humidityInfo: {
     flexDirection: 'row',
-    marginTop: 20,
     alignItems: 'center',
+    marginTop: 10,
+    paddingHorizontal: 10,
+  },
+  imageContainer: {
+    marginTop: 20,
+    alignItems: 'flex-end',
   },
   image: {
     height: 80,
     width: 80,
     aspectRatio: 1,
+  },
+  icon: {
+    height: 30,
+    width: 30,
+    aspectRatio: 1,
+    marginLeft: 5,
   },
 });
 

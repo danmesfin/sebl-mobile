@@ -2,15 +2,16 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
-import {signUpUser} from '../../../store/authSlice';
+import {signUpUser} from '../../../store/authSlice/actions';
 import Colors from '../../../styles/theme';
 
 const SignUpScreen = ({navigation}) => {
   const {isLoading} = useSelector(state => state.auth);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfPassword] = useState('');
+  const {error} = useSelector(state => state.auth);
+  const [name, setName] = useState('Daniel Mesfin');
+  const [email, setEmail] = useState('danielmsfn@gmail.com');
+  const [password, setPassword] = useState('1234567890');
+  const [confirmPassword, setConfPassword] = useState('1234567890');
 
   const dispatch = useDispatch();
 
@@ -61,6 +62,7 @@ const SignUpScreen = ({navigation}) => {
       </Button>
       <View style={styles.footer}>
         <Text style={styles.orText}>
+          {error ? error : ''}
           ____________________ OR ____________________
         </Text>
         <Button

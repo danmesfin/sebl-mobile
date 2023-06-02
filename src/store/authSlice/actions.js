@@ -51,18 +51,27 @@ export const clearUserActoin = () => dispatch => {
 
 // Async action to sign up a new user
 export const signUpUser = (email, password, name) => async dispatch => {
+  console.log('register user started');
   try {
     dispatch(setLoading(true));
+    console.log('loading true', email + password);
     const {user} = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    dispatch(setUser(user));
+    console.log('register Auth user', user);
 
+    console.log('loading firestore', email + password);
     // Create a user document in the Firestore "users" collection
-    await firebase.firestore().collection('users').doc(user.user.uid).set({
-      email,
-      name,
-    });
+    const userResponse = await firebase
+      .firestore()
+      .collection('users')
+      .doc(user.uid)
+      .set({
+        Email: email,
+        Name: name,
+      });
+    console.log('created user at firestore', userResponse);
+    dispatch(setUser(user));
 
     // Registration successful
     console.log('User registered successfully!');

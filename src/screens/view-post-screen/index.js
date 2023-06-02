@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import getFormattedTimeDifference from '../../utils/formattedTimeDifference';
 import {firebase} from '../../../firebaseConfig';
+import axios from 'axios';
 
 const PostDetailScreen = ({route}) => {
   const [post, setPost] = useState(route.params.post);
@@ -61,20 +62,21 @@ const PostDetailScreen = ({route}) => {
   };
 
   const submitComment = async comment => {
+    const token = await user.getIdToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
     try {
-      const response = await fetch('https://sebl.onrender.com/comments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      const response = await axios.post(
+        'https://sebl.onrender.com/comments',
+        {
           post_id: post.id,
           content: comment,
-        }),
-      });
-      const responseData = await response.json();
+        },
+        {headers},
+      );
       // Update the comments state with the new comment received from the server
-      setComments([...comments, responseData]);
+      // setComments([...comments, response.data]);
     } catch (error) {
       console.log('Error submitting comment:', error);
     }
