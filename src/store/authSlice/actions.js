@@ -1,6 +1,7 @@
 import {firebase} from '../../../firebaseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {setUser, setLoading, setError, clearUser} from './index';
+import axios from 'axios';
 
 // Async action to log in a user
 export const loginUser = (email, password) => async dispatch => {
@@ -62,19 +63,31 @@ export const signUpUser = (email, password, name) => async dispatch => {
 
     console.log('loading firestore', email + password);
     // Create a user document in the Firestore "users" collection
-    const userResponse = await firebase
-      .firestore()
-      .collection('users')
-      .doc(user.uid)
-      .set({
-        Email: email,
-        Name: name,
-      });
-    console.log('created user at firestore', userResponse);
-    dispatch(setUser(user));
+    // const userResponse = await firebase
+    //   .firestore()
+    //   .collection('users')
+    //   .doc(user.uid)
+    //   .set({
+    //     email,
+    //     name,
+    //   });
+    const myUser = firebase.auth().currentUser;
+    if (myUser) {
+      const token = await myUser.getIdToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await axios.post(
+        'https://sebl.onrender.com/users/register',
+        {email, name},
+        {headers},
+      );
+      console.log('created user at firestore', response);
+      dispatch(setUser(user));
 
-    // Registration successful
-    console.log('User registered successfully!');
+      // Registration successful
+      console.log('User registered successfully!');
+    }
   } catch (error) {
     dispatch(setError(error.message));
   }

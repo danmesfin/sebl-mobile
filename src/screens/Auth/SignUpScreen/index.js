@@ -1,6 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
 import {Button} from 'react-native-paper';
+
 import {useDispatch, useSelector} from 'react-redux';
 import {signUpUser} from '../../../store/authSlice/actions';
 import Colors from '../../../styles/theme';
@@ -11,11 +19,21 @@ const SignUpScreen = ({navigation}) => {
   const [name, setName] = useState('Daniel Mesfin');
   const [email, setEmail] = useState('danielmsfn@gmail.com');
   const [password, setPassword] = useState('1234567890');
-  const [confirmPassword, setConfPassword] = useState('1234567890');
+  const [confirmPassword, setConfirmPassword] = useState('1234567890');
 
   const dispatch = useDispatch();
 
   const handleSignUp = () => {
+    if (!name || !email || !password || !confirmPassword) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+      return;
+    }
+
     dispatch(signUpUser(email, password, name));
   };
 
@@ -37,6 +55,8 @@ const SignUpScreen = ({navigation}) => {
         placeholder="Email"
         value={email}
         onChangeText={value => setEmail(value)}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
       <TextInput
         style={styles.input}
@@ -49,30 +69,21 @@ const SignUpScreen = ({navigation}) => {
         style={styles.input}
         placeholder="Confirm Password"
         value={confirmPassword}
-        onChangeText={value => setConfPassword(value)}
+        onChangeText={value => setConfirmPassword(value)}
         secureTextEntry={true}
       />
       <Button
         mode="contained"
         style={styles.button}
-        title="Sign Up"
         onPress={handleSignUp}
         disabled={isLoading}>
         Sign Up
       </Button>
-      <View style={styles.footer}>
-        <Text style={styles.orText}>
-          {error ? error : ''}
-          ____________________ OR ____________________
+      <TouchableOpacity onPress={handleSignInNavigation}>
+        <Text style={styles.signInText}>
+          {error} Already have an account? Sign In
         </Text>
-        <Button
-          mode="contained"
-          style={styles.button}
-          title="Sign In"
-          onPress={handleSignInNavigation}>
-          Sign In
-        </Button>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -102,16 +113,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     backgroundColor: Colors.accent,
   },
-  orText: {
-    alignContent: 'center',
-    marginHorizontal: 20,
-  },
-  footer: {
-    flexDirection: 'column',
-    width: '100%',
+  signInText: {
     marginTop: 20,
-    alignContent: 'center',
-    justifyContent: 'center',
+    color: Colors.primary,
+    textDecorationLine: 'underline',
   },
 });
 
