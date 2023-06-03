@@ -16,7 +16,7 @@ import Colors from '../../../styles/theme';
 const SignInScreen = ({navigation}) => {
   const {isLoading, error} = useSelector(state => state.auth);
   const [email, setEmail] = useState('danielmsfn@gmail.com');
-  const [password, setPassword] = useState('11112222');
+  const [password, setPassword] = useState('1234567890');
 
   const dispatch = useDispatch();
 

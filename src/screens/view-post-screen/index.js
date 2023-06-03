@@ -12,11 +12,12 @@ import {
 import getFormattedTimeDifference from '../../utils/formattedTimeDifference';
 import {firebase} from '../../../firebaseConfig';
 import axios from 'axios';
+import CommentCard from '../../components/Comment-card';
 
 const PostDetailScreen = ({route}) => {
   const [post, setPost] = useState(route.params.post);
-  const [comments, setComments] = useState([]);
-  const [commentInput, setCommentInput] = useState('');
+  const [comments, setComments] = useState();
+  const [commentInput, setCommentInput] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Check if the user is authenticated
@@ -33,50 +34,69 @@ const PostDetailScreen = ({route}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      // const postResponse = await fetch(
-      //   `https://sebl.onrender.com/posts/${post.id}`,
-      // );
-      // const postData = await postResponse.json();
-      // setPost(postData);
-
-      const commentsResponse = await fetch(
+      const commentsResponse = await axios.get(
         `https://sebl.onrender.com/comments/post/${post.id}`,
         {headers},
       );
-      const commentsData = await commentsResponse.json();
+      const commentsData = commentsResponse.data;
+      console.log(commentsData);
       setComments(commentsData);
-
       setIsLoading(false);
     } catch (error) {
       console.log('Error fetching data:', error);
     }
   };
 
-  const renderComment = ({item}) => {
+  const renderComments = ({item}) => {
+    return <CommentCard comment={item} />;
+  };
+
+  const renderComment = async ({item}) => {
+    // try {
+    //   // const authorRef = item.author;
+    //   // const authorSnapshot = await authorRef.get();
+    //   // const authorData = authorSnapshot.data();
+    //   // const authorName = authorData.name || '';
+    //   // console.log('author name', authorName);
+
+    //   return (
+    //     <View style={styles.commentContainer}>
+    //       <Text style={styles.commentAuthor}>{'Dani'}</Text>
+    //       <Text>{item.content}</Text>
+    //     </View>
+    //   );
+    // } catch (error) {
+    //   console.log('Error fetching author data:', error);
+    //   return null; // Return null or a placeholder component in case of an error
+    // }
     return (
       <View style={styles.commentContainer}>
-        <Text style={styles.commentAuthor}>{item.author}</Text>
+        <Text style={styles.commentAuthor}>Daniel Mesfin</Text>
         <Text>{item.content}</Text>
       </View>
     );
   };
 
   const submitComment = async comment => {
+    const newComment = {
+      post_id: post.id,
+      content: comment,
+    };
     const token = await user.getIdToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
     try {
+      console.log('Initialize submit coment', headers);
       const response = await axios.post(
-        'https://sebl.onrender.com/comments',
+        'https://sebl.onrender.com/comments/',
+        newComment,
         {
-          post_id: post.id,
-          content: comment,
+          headers,
         },
-        {headers},
       );
       // Update the comments state with the new comment received from the server
-      // setComments([...comments, response.data]);
+      setComments([...comments, response.data]);
     } catch (error) {
       console.log('Error submitting comment:', error);
     }
@@ -118,10 +138,11 @@ const PostDetailScreen = ({route}) => {
           style={styles.postButton}>
           <Text style={styles.postButtonText}>Post</Text>
         </TouchableOpacity>
+        {console.log('comments', comments)}
         <FlatList
           data={comments}
-          renderItem={renderComment}
           keyExtractor={item => item.id}
+          renderItem={renderComments}
         />
       </View>
     </View>
@@ -160,6 +181,7 @@ const styles = StyleSheet.create({
   postDate: {},
   postContent: {
     marginTop: 10,
+    color: 'black',
   },
   commentSection: {
     padding: 10,
@@ -187,6 +209,7 @@ const styles = StyleSheet.create({
   },
   commentAuthor: {
     fontWeight: 'bold',
+    color: 'black',
   },
 });
 
