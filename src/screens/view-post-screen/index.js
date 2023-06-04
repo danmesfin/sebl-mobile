@@ -41,7 +41,7 @@ const PostDetailScreen = ({route}) => {
         {headers},
       );
       const commentsData = commentsResponse.data;
-      console.log(commentsData);
+
       setComments(commentsData);
       setIsLoading(false);
     } catch (error) {
@@ -116,7 +116,7 @@ const PostDetailScreen = ({route}) => {
           <Image source={{uri: post.post_image_url}} style={styles.postImage} />
           <Text style={styles.postTitle}>{post.title}</Text>
           <View style={styles.postInfoContainer}>
-            <Text style={styles.postAuthor}>By {post.author}</Text>
+            <Text style={styles.postAuthor}>By {post.author.name}</Text>
             <Text style={styles.postDate}>
               {getFormattedTimeDifference(post.created_at)}
             </Text>
@@ -142,6 +142,7 @@ const PostDetailScreen = ({route}) => {
       </View>
 
       <View style={styles.commentSection}>
+        <Text style={styles.commentsText}>Comments</Text>
         {comments ? (
           <VirtualizedList
             data={comments}
@@ -198,6 +199,8 @@ const styles = StyleSheet.create({
 
   commentSection: {
     padding: 10,
+    borderTopWidth: 0.2,
+    borderTopColor: theme.borderColor,
   },
   addComment: {
     flexDirection: 'row',
@@ -225,6 +228,13 @@ const styles = StyleSheet.create({
   postButtonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  commentsText: {
+    marginLeft: 5,
+    marginVertical: 5,
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: theme.accent,
   },
   commentContainer: {
     padding: 10,

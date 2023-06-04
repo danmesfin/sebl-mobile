@@ -6,19 +6,22 @@ import theme from '../../styles/theme';
 import axios from 'axios';
 import {firebase} from '../../../firebaseConfig';
 
+const user = firebase.auth().currentUser;
+
 const CommentCard = ({comment}) => {
   const [likeCount, setLikeCount] = useState(comment.likes_count);
-  const user = firebase.auth().currentUser;
+
   const handleUpVote = async () => {
-    const token = await user.getIdToken();
-    console.log(token);
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
     try {
+      const token = await user.getIdToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      console.log('--' + comment.id + '--');
       const response = await axios.post(
         `https://sebl.onrender.com/comments/like/${comment.id}`,
-        {headers},
+        {},
+        {headers}, // Pass headers directly as an argument
       );
       setLikeCount(response.data.likes_count);
     } catch (error) {
@@ -28,8 +31,14 @@ const CommentCard = ({comment}) => {
 
   const handleDownVote = async () => {
     try {
+      const token = await user.getIdToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
       const response = await axios.post(
         `https://sebl.onrender.com/comments/dislike/${comment.id}`,
+        {},
+        {headers},
       );
       setLikeCount(response.data.likes_count);
     } catch (error) {
@@ -49,7 +58,7 @@ const CommentCard = ({comment}) => {
         </TouchableOpacity>
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.author}>{'Daniel Mesfin'}</Text>
+        <Text style={styles.author.name}>{'Daniel Mesfin'}</Text>
         <Text style={styles.date}>
           {getFormattedTimeDifference(comment.created_at)}
         </Text>
@@ -63,14 +72,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 5,
     backgroundColor: '#fff',
     borderRadius: 8,
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 1,
+    //elevation: 1,
   },
   voteButton: {
     marginRight: 10,
