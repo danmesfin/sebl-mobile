@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
+  ScrollableView,
 } from 'react-native';
 import getFormattedTimeDifference from '../../utils/formattedTimeDifference';
 import {firebase} from '../../../firebaseConfig';
@@ -103,7 +104,7 @@ const PostDetailScreen = ({route}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollableView style={styles.container}>
       {isLoading ? (
         <ActivityIndicator
           size="large"
@@ -145,7 +146,7 @@ const PostDetailScreen = ({route}) => {
           renderItem={renderComments}
         />
       </View>
-    </View>
+    </ScrollableView>
   );
 };
 
