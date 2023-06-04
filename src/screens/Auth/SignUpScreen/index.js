@@ -12,6 +12,7 @@ import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {signUpUser} from '../../../store/authSlice/actions';
 import Colors from '../../../styles/theme';
+import theme from '../../../styles/theme';
 
 const SignUpScreen = ({navigation}) => {
   const {isLoading} = useSelector(state => state.auth);
@@ -107,6 +108,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: '100%',
     borderRadius: 5,
+    color: theme.textPrimary,
   },
   button: {
     width: '100%',

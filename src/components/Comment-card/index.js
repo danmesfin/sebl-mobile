@@ -1,30 +1,59 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import getFormattedTimeDifference from '../../utils/formattedTimeDifference';
+import Icon from 'react-native-vector-icons/AntDesign';
+import theme from '../../styles/theme';
+import axios from 'axios';
+import {firebase} from '../../../firebaseConfig';
 
 const CommentCard = ({comment}) => {
-  const handleUpVote = () => {
-    // Handle upvote logic
+  const [likeCount, setLikeCount] = useState(comment.likes_count);
+  const user = firebase.auth().currentUser;
+  const handleUpVote = async () => {
+    const token = await user.getIdToken();
+    console.log(token);
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const response = await axios.post(
+        `https://sebl.onrender.com/comments/like/${comment.id}`,
+        {headers},
+      );
+      setLikeCount(response.data.likes_count);
+    } catch (error) {
+      console.log('Error upvoting comment:', error);
+    }
   };
 
-  const handleDownVote = () => {
-    // Handle downvote logic
+  const handleDownVote = async () => {
+    try {
+      const response = await axios.post(
+        `https://sebl.onrender.com/comments/dislike/${comment.id}`,
+      );
+      setLikeCount(response.data.likes_count);
+    } catch (error) {
+      console.log('Error downvoting comment:', error);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleUpVote} style={styles.voteButton}>
-        <Text style={styles.voteButtonText}>^</Text>
-      </TouchableOpacity>
+      <View style={styles.likesContainer}>
+        <TouchableOpacity onPress={handleUpVote} style={styles.voteButton}>
+          <Icon name="caretup" size={30} color={'black'} />
+        </TouchableOpacity>
+        <Text style={styles.likesCount}>{likeCount}</Text>
+        <TouchableOpacity onPress={handleDownVote} style={styles.voteButton}>
+          <Icon name="caretdown" size={30} color={'black'} />
+        </TouchableOpacity>
+      </View>
       <View style={styles.contentContainer}>
         <Text style={styles.author}>{'Daniel Mesfin'}</Text>
+        <Text style={styles.date}>
+          {getFormattedTimeDifference(comment.created_at)}
+        </Text>
         <Text style={styles.content}>{comment.content}</Text>
-        <Text style={styles.date}>{comment.created_at._seconds}</Text>
-        <View style={styles.likesContainer}>
-          <TouchableOpacity onPress={handleDownVote} style={styles.voteButton}>
-            <Text style={styles.voteButtonText}>v</Text>
-          </TouchableOpacity>
-          <Text style={styles.likesCount}>{comment.likes_count}</Text>
-        </View>
       </View>
     </View>
   );
@@ -41,11 +70,12 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 2,
+    elevation: 1,
   },
   voteButton: {
     marginRight: 10,
     padding: 5,
+    color: theme.textPrimary,
   },
   voteButtonText: {
     fontSize: 18,
@@ -53,25 +83,31 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
+    alignItems: 'flex-start',
   },
   author: {
     fontWeight: 'bold',
-    marginBottom: 5,
+    color: theme.textPrimary,
+    marginBottom: 0,
   },
   content: {
     marginBottom: 5,
+    color: theme.textPrimary,
   },
   date: {
     color: '#777',
     marginBottom: 5,
+    fontSize: 12,
   },
   likesContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
   },
   likesCount: {
-    marginLeft: 5,
+    marginLeft: 0,
     fontWeight: 'bold',
+    fontSize: 18,
+    color: theme.textPrimary,
   },
 });
 

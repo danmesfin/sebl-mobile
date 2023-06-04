@@ -4,16 +4,17 @@ import {
   Text,
   Image,
   TextInput,
-  FlatList,
+  VirtualizedList,
   ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
-  ScrollableView,
+  ScrollView,
 } from 'react-native';
 import getFormattedTimeDifference from '../../utils/formattedTimeDifference';
 import {firebase} from '../../../firebaseConfig';
 import axios from 'axios';
 import CommentCard from '../../components/Comment-card';
+import theme from '../../styles/theme';
 
 const PostDetailScreen = ({route}) => {
   const [post, setPost] = useState(route.params.post);
@@ -88,7 +89,6 @@ const PostDetailScreen = ({route}) => {
       Authorization: `Bearer ${token}`,
     };
     try {
-      console.log('Initialize submit coment', headers);
       const response = await axios.post(
         'https://sebl.onrender.com/comments/',
         newComment,
@@ -104,11 +104,11 @@ const PostDetailScreen = ({route}) => {
   };
 
   return (
-    <ScrollableView style={styles.container}>
+    <ScrollView style={styles.container}>
       {isLoading ? (
         <ActivityIndicator
           size="large"
-          color="#0000ff"
+          color={theme.accent}
           style={styles.loadingIndicator}
         />
       ) : (
@@ -124,7 +124,7 @@ const PostDetailScreen = ({route}) => {
           <Text style={styles.postContent}>{post.content}</Text>
         </View>
       )}
-      <View style={styles.commentSection}>
+      <View style={styles.addComment}>
         <TextInput
           placeholder="Write a comment"
           onChangeText={text => setCommentInput(text)}
@@ -139,14 +139,23 @@ const PostDetailScreen = ({route}) => {
           style={styles.postButton}>
           <Text style={styles.postButtonText}>Post</Text>
         </TouchableOpacity>
-        {console.log('comments', comments)}
-        <FlatList
-          data={comments}
-          keyExtractor={item => item.id}
-          renderItem={renderComments}
-        />
       </View>
-    </ScrollableView>
+
+      <View style={styles.commentSection}>
+        {comments ? (
+          <VirtualizedList
+            data={comments}
+            initialNumToRender={10}
+            renderItem={renderComments}
+            keyExtractor={item => item.id}
+            getItemCount={() => comments.length}
+            getItem={(data, index) => data[index]}
+          />
+        ) : (
+          ''
+        )}
+      </View>
+    </ScrollView>
   );
 };
 
@@ -171,6 +180,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     marginTop: 10,
+    color: theme.textPrimary,
   },
   postInfoContainer: {
     flexDirection: 'row',
@@ -178,28 +188,39 @@ const styles = StyleSheet.create({
   },
   postAuthor: {
     marginRight: 10,
+    color: theme.textPrimary,
   },
   postDate: {},
   postContent: {
     marginTop: 10,
-    color: 'black',
+    color: theme.textPrimary,
   },
+
   commentSection: {
     padding: 10,
   },
+  addComment: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 10,
+    marginVertical: 4,
+    color: theme.textPrimary,
+  },
   commentInput: {
+    flex: 1,
     borderWidth: 1,
     borderColor: '#f2f2f2',
     borderRadius: 10,
     padding: 10,
-    marginBottom: 10,
+    marginRight: 10,
+    color: theme.textPrimary,
   },
   postButton: {
-    backgroundColor: '#0084ff',
+    backgroundColor: theme.accent,
     borderRadius: 10,
     paddingVertical: 8,
     paddingHorizontal: 16,
-    alignSelf: 'flex-end',
   },
   postButtonText: {
     color: 'white',

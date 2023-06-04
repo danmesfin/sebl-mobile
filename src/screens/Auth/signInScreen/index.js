@@ -12,6 +12,8 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../../store/authSlice/actions';
 import Colors from '../../../styles/theme';
+import Icon from 'react-native-vector-icons';
+import theme from '../../../styles/theme';
 
 const SignInScreen = ({navigation}) => {
   const {isLoading, error} = useSelector(state => state.auth);
@@ -100,6 +102,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: '100%',
     borderRadius: 5,
+    color: theme.textPrimary,
   },
   button: {
     width: '100%',

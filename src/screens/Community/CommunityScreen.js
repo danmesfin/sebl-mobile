@@ -15,6 +15,7 @@ import {firebase} from '../../../firebaseConfig';
 import Colors from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Card from '../../components/post-card';
+import theme from '../../styles/theme';
 
 const crops = [
   'Tomatoes',
@@ -189,13 +190,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
+    color: theme.textPrimary,
   },
   postedBy: {
     fontWeight: 'bold',
-    color: Colors.textDark,
+    color: theme.textPrimary,
   },
   date: {
-    color: Colors.textLight,
+    color: theme.textLight,
   },
   commentContainer: {
     flexDirection: 'row',
@@ -206,7 +208,7 @@ const styles = StyleSheet.create({
   commentInput: {
     flex: 1,
     marginRight: 8,
-    backgroundColor: Colors.secondary,
+    backgroundColor: theme.textPrimary,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: Colors.primary,
