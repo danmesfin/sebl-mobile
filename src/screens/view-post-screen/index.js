@@ -53,32 +53,6 @@ const PostDetailScreen = ({route}) => {
     return <CommentCard comment={item} />;
   };
 
-  const renderComment = async ({item}) => {
-    // try {
-    //   // const authorRef = item.author;
-    //   // const authorSnapshot = await authorRef.get();
-    //   // const authorData = authorSnapshot.data();
-    //   // const authorName = authorData.name || '';
-    //   // console.log('author name', authorName);
-
-    //   return (
-    //     <View style={styles.commentContainer}>
-    //       <Text style={styles.commentAuthor}>{'Dani'}</Text>
-    //       <Text>{item.content}</Text>
-    //     </View>
-    //   );
-    // } catch (error) {
-    //   console.log('Error fetching author data:', error);
-    //   return null; // Return null or a placeholder component in case of an error
-    // }
-    return (
-      <View style={styles.commentContainer}>
-        <Text style={styles.commentAuthor}>Daniel Mesfin</Text>
-        <Text>{item.content}</Text>
-      </View>
-    );
-  };
-
   const submitComment = async comment => {
     const newComment = {
       post_id: post.id,

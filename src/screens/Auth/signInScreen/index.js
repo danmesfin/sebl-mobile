@@ -11,9 +11,8 @@ import {Button} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../../store/authSlice/actions';
-import Colors from '../../../styles/theme';
-import Icon from 'react-native-vector-icons';
 import theme from '../../../styles/theme';
+import Icon from 'react-native-vector-icons';
 
 const SignInScreen = ({navigation}) => {
   const {isLoading, error} = useSelector(state => state.auth);
@@ -61,7 +60,7 @@ const SignInScreen = ({navigation}) => {
       />
 
       {isLoading ? (
-        <ActivityIndicator size="large" color={Colors.accent} />
+        <ActivityIndicator size="large" color={theme.accent} />
       ) : (
         <Button
           mode="contained"
@@ -94,6 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: theme.textPrimary,
   },
   input: {
     borderWidth: 1,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     marginTop: 20,
-    backgroundColor: Colors.accent,
+    backgroundColor: theme.accent,
   },
   footer: {
     flexDirection: 'row',
@@ -115,9 +115,10 @@ const styles = StyleSheet.create({
   },
   footerText: {
     margin: 0,
+    color: theme.textPrimary,
   },
   footerLink: {
-    color: Colors.accent,
+    color: theme.accent,
     paddingHorizontal: 2,
   },
   error: {
