@@ -47,31 +47,35 @@ const SignUpScreen = ({navigation}) => {
       <Text style={styles.title}>Create account</Text>
       <TextInput
         style={styles.input}
-        placeholder="Name"
+        label="Name"
         value={name}
         onChangeText={value => setName(value)}
+        left={<TextInput.Icon name="account" />}
       />
       <TextInput
         style={styles.input}
-        placeholder="Email"
+        label="Email"
         value={email}
         onChangeText={value => setEmail(value)}
         keyboardType="email-address"
         autoCapitalize="none"
+        left={<TextInput.Icon name="email" />}
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        label="Password"
         value={password}
         onChangeText={value => setPassword(value)}
         secureTextEntry={true}
+        left={<TextInput.Icon name="lock" />}
       />
       <TextInput
         style={styles.input}
-        placeholder="Confirm Password"
+        label="Confirm Password"
         value={confirmPassword}
         onChangeText={value => setConfirmPassword(value)}
         secureTextEntry={true}
+        left={<TextInput.Icon name="lock" />}
       />
       <Button
         mode="contained"

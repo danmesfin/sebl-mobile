@@ -1,18 +1,10 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
-
-import {Button} from 'react-native-paper';
+import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
+import {TextInput, Button} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../../store/authSlice/actions';
 import theme from '../../../styles/theme';
-import Icon from 'react-native-vector-icons';
 
 const SignInScreen = ({navigation}) => {
   const {isLoading, error} = useSelector(state => state.auth);
@@ -47,20 +39,22 @@ const SignInScreen = ({navigation}) => {
       <Text style={styles.title}>Sign In</Text>
       <TextInput
         style={styles.input}
-        placeholder="Email"
+        label="Email"
         value={email}
         onChangeText={value => setEmail(value)}
+        left={<TextInput.Icon name="email" />}
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        label="Password"
         value={password}
         onChangeText={value => setPassword(value)}
         secureTextEntry={true}
+        left={<TextInput.Icon name="lock" />}
       />
 
       {isLoading ? (
-        <ActivityIndicator size="large" color={theme.accent} />
+        <ActivityIndicator size="large" />
       ) : (
         <Button
           mode="contained"
