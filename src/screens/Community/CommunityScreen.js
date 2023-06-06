@@ -16,6 +16,7 @@ import Colors from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Card from '../../components/post-card';
 import theme from '../../styles/theme';
+import {useSelector} from 'react-redux';
 
 const crops = [
   'Tomatoes',
@@ -33,7 +34,8 @@ const CommunityScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
 
   // Check if the user is authenticated
-  const user = firebase.auth().currentUser;
+  // const user = firebase.auth().currentUser;
+  const user = useSelector(state => state.auth.user);
 
   useEffect(() => {
     setLoading(true);

@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {Button, TextInput} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../../store/authSlice/actions';
 import theme from '../../../styles/theme';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SignInScreen = ({navigation}) => {
   const {isLoading, error} = useSelector(state => state.auth);
@@ -37,20 +38,22 @@ const SignInScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign In</Text>
+
       <TextInput
         style={styles.input}
         label="Email"
         value={email}
         onChangeText={value => setEmail(value)}
-        left={<TextInput.Icon name="email" />}
+        right={<TextInput.Icon icon="account" style={styles.icon} />}
       />
+
       <TextInput
         style={styles.input}
         label="Password"
         value={password}
         onChangeText={value => setPassword(value)}
         secureTextEntry={true}
-        left={<TextInput.Icon name="lock" />}
+        right={<TextInput.Icon icon="lock" style={styles.icon} />}
       />
 
       {isLoading ? (
@@ -91,12 +94,18 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
+    borderColor: theme.accent,
+    borderRadius: 10,
+    padding: 0,
+    color: theme.textPrimary,
+    backgroundColor: '#fff',
     marginBottom: 10,
     width: '100%',
-    borderRadius: 5,
-    color: theme.textPrimary,
+  },
+  icon: {
+    marginRight: 10,
+    color: theme.accent,
+    opacity: 0.6,
   },
   button: {
     width: '100%',
@@ -120,4 +129,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
 export default SignInScreen;

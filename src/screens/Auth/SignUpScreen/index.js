@@ -1,13 +1,6 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-} from 'react-native';
-import {Button} from 'react-native-paper';
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {TextInput, Button} from 'react-native-paper';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {signUpUser} from '../../../store/authSlice/actions';
@@ -50,8 +43,9 @@ const SignUpScreen = ({navigation}) => {
         label="Name"
         value={name}
         onChangeText={value => setName(value)}
-        left={<TextInput.Icon name="account" />}
+        right={<TextInput.Icon style={styles.icon} icon="account" />}
       />
+
       <TextInput
         style={styles.input}
         label="Email"
@@ -59,7 +53,7 @@ const SignUpScreen = ({navigation}) => {
         onChangeText={value => setEmail(value)}
         keyboardType="email-address"
         autoCapitalize="none"
-        left={<TextInput.Icon name="email" />}
+        right={<TextInput.Icon style={styles.icon} icon="email" />}
       />
       <TextInput
         style={styles.input}
@@ -67,7 +61,7 @@ const SignUpScreen = ({navigation}) => {
         value={password}
         onChangeText={value => setPassword(value)}
         secureTextEntry={true}
-        left={<TextInput.Icon name="lock" />}
+        right={<TextInput.Icon style={styles.icon} icon="lock" />}
       />
       <TextInput
         style={styles.input}
@@ -75,7 +69,7 @@ const SignUpScreen = ({navigation}) => {
         value={confirmPassword}
         onChangeText={value => setConfirmPassword(value)}
         secureTextEntry={true}
-        left={<TextInput.Icon name="lock" />}
+        right={<TextInput.Icon style={styles.icon} icon="lock" />}
       />
       <Button
         mode="contained"
@@ -107,17 +101,23 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
+    borderColor: theme.accent,
+    borderRadius: 10,
+    padding: 0,
+    color: theme.textPrimary,
+    backgroundColor: '#fff',
     marginBottom: 10,
     width: '100%',
-    borderRadius: 5,
-    color: theme.textPrimary,
   },
   button: {
     width: '100%',
     marginTop: 20,
     backgroundColor: Colors.accent,
+  },
+  icon: {
+    marginRight: 10,
+    color: theme.accent,
+    opacity: 0.6,
   },
   signInText: {
     marginTop: 20,

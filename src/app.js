@@ -55,6 +55,7 @@ const MainApp = () => {
     // Render the splash screen while the app is loading
     return <CustomSplashScreen />;
   }
+  console.log('app-js user', user);
 
   return (
     <NavigationContainer>

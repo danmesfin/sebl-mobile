@@ -77,7 +77,6 @@ const CreatePostScreen = () => {
       const post = {
         title,
         content,
-        uid: '1212',
         post_image_url: downloadURL,
       };
 
