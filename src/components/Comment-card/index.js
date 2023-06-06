@@ -13,10 +13,12 @@ const CommentCard = ({comment}) => {
 
   const handleUpVote = async () => {
     try {
+      // Set the authorization header with the Firebase user token
       const token = await user.getIdToken();
       const headers = {
         Authorization: `Bearer ${token}`,
       };
+
       console.log('--' + comment.id + '--');
       const response = await axios.post(
         `https://sebl.onrender.com/comments/like/${comment.id}`,

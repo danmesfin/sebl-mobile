@@ -47,7 +47,10 @@ const CropCard = ({crop, navigation}) => {
     <TouchableOpacity
       style={styles.card}
       onPress={() =>
-        navigation.navigate('tip-in-detail-screen', {cropType: crop.name})
+        navigation.navigate('tip-in-detail-screen', {
+          cropType: crop.name,
+          icon: crop.image,
+        })
       }>
       <Image source={crop.image} style={styles.image} />
       <Text style={styles.title}>{crop.name}</Text>
@@ -60,6 +63,9 @@ const SelectCropScreen = ({navigation}) => {
 
   return (
     <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Select crop</Text>
+      </View>
       <View style={styles.row}>
         {cropsData.map(crop => (
           <CropCard key={crop.id} crop={crop} navigation={navigation} />
@@ -72,7 +78,19 @@ const SelectCropScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.primaryLight,
+  },
+  header: {
+    paddingVertical: 10,
+    height: 100,
+    alignItems: 'flex-start',
+    //backgroundColor: theme.primaryDark,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    margin: 10,
   },
   row: {
     flexDirection: 'row',

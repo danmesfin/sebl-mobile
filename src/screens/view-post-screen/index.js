@@ -87,7 +87,11 @@ const PostDetailScreen = ({route}) => {
         />
       ) : (
         <View style={styles.postContainer}>
-          <Image source={{uri: post.post_image_url}} style={styles.postImage} />
+          <Image
+            resizeMethod="resize"
+            source={{uri: post.post_image_url}}
+            style={styles.postImage}
+          />
           <Text style={styles.postTitle}>{post.title}</Text>
           <View style={styles.postInfoContainer}>
             <Text style={styles.postAuthor}>By {post.author.name}</Text>
@@ -148,8 +152,10 @@ const styles = StyleSheet.create({
   },
   postImage: {
     width: '100%',
-    height: 200,
+    height: 300,
     borderRadius: 10,
+    resizeMode: 'contain',
+    backgroundColor: 'black',
   },
   postTitle: {
     fontWeight: 'bold',

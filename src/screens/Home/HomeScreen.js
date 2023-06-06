@@ -103,7 +103,7 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
-    backgroundColor: theme.primaryDark,
+    backgroundColor: '#fff',
   },
   container: {
     flex: 1,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   cardRow: {
     position: 'relative',
-    top: -40,
+    top: 20,
     marginTop: 0,
     marginBottom: 4,
     flexDirection: 'row',

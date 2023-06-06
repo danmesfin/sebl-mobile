@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StatusBar} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import theme from './styles/theme';
 
 //user mang
 import {restoreUser} from './store/authSlice/actions';
-
 // components
 import AuthNavigator from './Navigations/AuthNavigation';
 import {NavigationContainer} from '@react-navigation/native';
+import CustomHeader from './components/Custom-header';
 // import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeNavigator from './Navigations/HomeNavigation';
@@ -55,7 +56,6 @@ const MainApp = () => {
     // Render the splash screen while the app is loading
     return <CustomSplashScreen />;
   }
-  console.log('app-js user', user);
 
   return (
     <NavigationContainer>
@@ -86,11 +86,33 @@ const MainApp = () => {
               name="Cultivation Tips"
               component={CultivationTipsScreen}
             />
-            <Stack.Screen name="select-crop" component={SelectCropScreen} />
+            <Stack.Screen
+              name="select-crop"
+              component={SelectCropScreen}
+              options={{
+                headerShown: true,
+                headerTitle: 'Select crop',
+                headerStyle: {
+                  backgroundColor: theme.primaryDark,
+                },
+                headerTintColor: '#fff',
+              }}
+            />
             <Stack.Screen
               name="tip-in-detail-screen"
               component={CultivationCategorySelectionScreen}
+              options={({navigation, route}) => ({
+                headerShown: true,
+                headerLeft: () => (
+                  <CustomHeader
+                    navigation={navigation}
+                    imageSource={route.params.icon}
+                  />
+                ),
+                headerTitle: route.params.cropType,
+              })}
             />
+
             <Stack.Screen
               name="view-tip-screen"
               component={TipsViewScreen}

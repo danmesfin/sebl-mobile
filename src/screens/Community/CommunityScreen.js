@@ -34,8 +34,8 @@ const CommunityScreen = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
 
   // Check if the user is authenticated
-  // const user = firebase.auth().currentUser;
-  const user = useSelector(state => state.auth.user);
+  const user = firebase.auth().currentUser;
+  // const user = useSelector(state => state.auth.user);
 
   useEffect(() => {
     setLoading(true);
