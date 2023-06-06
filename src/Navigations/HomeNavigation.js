@@ -12,43 +12,37 @@ const Tab = createMaterialBottomTabNavigator();
 
 const HomeNavigator = () => {
   return (
-    <View style={{flex: 1}}>
-      <Tab.Navigator
-        barStyle={{backgroundColor: theme.secondary}}
-        activeColor={Color.primary}
-        inactiveColor={Color.secondaryLight}>
-        <Tab.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            tabBarLabel: 'Home',
-            tabBarIcon: ({color}) => (
-              <Icon name="home" color={color} size={24} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Community"
-          component={CommunityScreen}
-          options={{
-            tabBarLabel: 'Community',
-            tabBarIcon: ({color}) => (
-              <Icon name="users" color={color} size={24} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Profile"
-          component={ProfileScreen}
-          options={{
-            tabBarLabel: 'Profile',
-            tabBarIcon: ({color}) => (
-              <Icon name="user" color={color} size={24} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </View>
+    <Tab.Navigator
+      barStyle={{backgroundColor: '#fff'}}
+      activeColor={theme.primaryDark}
+      inactiveColor={Color.secondaryLight}>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({color}) => <Icon name="home" color={color} size={24} />,
+        }}
+      />
+      <Tab.Screen
+        name="Community"
+        component={CommunityScreen}
+        options={{
+          tabBarLabel: 'Community',
+          tabBarIcon: ({color}) => (
+            <Icon name="users" color={color} size={24} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({color}) => <Icon name="user" color={color} size={24} />,
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 

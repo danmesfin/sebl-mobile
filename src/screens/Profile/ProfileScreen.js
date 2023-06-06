@@ -1,26 +1,73 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   ScrollView,
   Text,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
   StyleSheet,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import theme from '../../styles/theme';
+import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import theme from '../../styles/theme';
 import {signOutUser} from '../../store/authSlice/actions';
-
-const ProfileScreen = () => {
+import {firebase} from '../../../firebaseConfig';
+const ProfileScreen = ({navigation}) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.auth.user);
+  //const user = useSelector(state => state.auth.user);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUserData] = useState(null);
 
-  // sign out handler
+  useEffect(() => {
+    // Fetch user profile data from API
+    const fetchUserProfile = async () => {
+      try {
+        const token = await firebase.auth().currentUser.getIdToken();
+        const response = await axios.get('https://sebl.onrender.com/users', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setUserData(response.data[0]);
+        console.log('user', user);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  // Sign out handler
   const signOut = () => {
     dispatch(signOutUser());
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={theme.primary} />
+      </View>
+    );
+  }
+
+  if (!user) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.signupText}>Please sign in</Text>
+        <TouchableOpacity
+          style={styles.signInButton}
+          onPress={() => navigation.navigate('SignInScreen')}>
+          <Text style={styles.signInButtonText}>Sign In</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -34,7 +81,7 @@ const ProfileScreen = () => {
               />
               <View style={styles.profileTextContainer}>
                 <Text style={styles.nameText}>{user.name}</Text>
-                <Text style={styles.usernameText}>@{user.username}</Text>
+                <Text style={styles.usernameText}>@d123</Text>
               </View>
             </View>
             <TouchableOpacity style={styles.editButton}>
@@ -108,6 +155,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.secondary,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.secondary,
+  },
   header: {
     backgroundColor: theme.primaryDark,
     flexDirection: 'row',
@@ -136,7 +189,7 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: theme.secondary,
   },
   usernameText: {
     fontSize: 16,
@@ -172,11 +225,13 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 16,
+    fontWeight: 'bold',
     color: theme.text,
     marginBottom: 0,
   },
   icon: {
     marginHorizontal: 10,
+    color: theme.accent,
   },
   infoContainer: {
     borderRadius: 10,
@@ -184,7 +239,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   infoList: {
-    paddingVertical: 5,
+    paddingTop: 10,
   },
   aboutButton: {
     backgroundColor: '#fff',
@@ -192,11 +247,13 @@ const styles = StyleSheet.create({
     elevation: 1,
     paddingVertical: 10,
     borderRadius: 5,
-    marginTop: 20,
+    marginTop: 10,
   },
   aboutButtonText: {
     fontSize: 16,
+    fontWeight: 'bold',
     color: theme.text,
+    marginHorizontal: 10,
   },
   logoutButton: {
     backgroundColor: '#fff',
@@ -208,7 +265,9 @@ const styles = StyleSheet.create({
   },
   logoutButtonText: {
     fontSize: 16,
+    fontWeight: 'bold',
     color: theme.text,
+    marginHorizontal: 10,
   },
   signupText: {
     fontSize: 18,

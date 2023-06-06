@@ -92,10 +92,10 @@ const MainApp = () => {
               options={{
                 headerShown: true,
                 headerTitle: 'Select crop',
-                headerStyle: {
-                  backgroundColor: theme.primaryDark,
-                },
-                headerTintColor: '#fff',
+                // headerStyle: {
+                //   backgroundColor: theme.primaryDark,
+                // },
+                // headerTintColor: '#fff',
               }}
             />
             <Stack.Screen

@@ -63,9 +63,7 @@ const SelectCropScreen = ({navigation}) => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Select crop</Text>
-      </View>
+      <View style={styles.header} />
       <View style={styles.row}>
         {cropsData.map(crop => (
           <CropCard key={crop.id} crop={crop} navigation={navigation} />
@@ -78,7 +76,7 @@ const SelectCropScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.primaryLight,
+    //backgroundColor: theme.primaryLight,
   },
   header: {
     paddingVertical: 10,
