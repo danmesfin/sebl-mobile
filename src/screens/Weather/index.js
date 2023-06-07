@@ -1,3 +1,4 @@
+/* eslint-disable no-catch-shadow */
 import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, StyleSheet} from 'react-native';
 import axios from 'axios';
@@ -58,7 +59,6 @@ const WeatherScreen = () => {
         <View>
           <CurrentWeather weather={currentWeather} />
           <ForecastWeather weather={forecastWeather} />
-          {/* Forecast Weather Component */}
         </View>
       )}
     </View>
