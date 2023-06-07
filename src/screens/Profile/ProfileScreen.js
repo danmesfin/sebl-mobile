@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   StyleSheet,
 } from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import theme from '../../styles/theme';
@@ -41,6 +41,7 @@ const ProfileScreen = ({navigation}) => {
     };
 
     fetchUserProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Sign out handler
@@ -62,7 +63,7 @@ const ProfileScreen = ({navigation}) => {
         <Text style={styles.signupText}>Please sign in</Text>
         <TouchableOpacity
           style={styles.signInButton}
-          onPress={() => navigation.navigate('SignInScreen')}>
+          onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.signInButtonText}>Sign In</Text>
         </TouchableOpacity>
       </View>

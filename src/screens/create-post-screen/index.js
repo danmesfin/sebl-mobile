@@ -129,8 +129,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-
+  selectImageText: {
+    color: theme.textPrimary,
+  },
   titleInput: {
+    color: theme.textPrimary,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
@@ -138,6 +141,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   descriptionInput: {
+    color: theme.textPrimary,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
@@ -157,12 +161,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   uploadingContainer: {
+    color: theme.textPrimary,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
   },
   uploadingText: {
+    color: theme.textPrimary,
     marginLeft: 10,
     fontSize: 16,
   },
