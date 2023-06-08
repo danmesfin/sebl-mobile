@@ -25,6 +25,7 @@ import PostDetailScreen from './screens/view-post-screen';
 import DiseaseControlScreen from './screens/view-disease-control-method';
 import PredictionScreen from './screens/yield-prediction-screen';
 import SelectDiseaseScreen from './screens/pest-control/select-disease-screen';
+import WeatherScreen from './screens/Weather';
 //import {setUser} from './redux/authSlice';
 
 const Stack = createStackNavigator();
@@ -136,6 +137,11 @@ const MainApp = () => {
             <Stack.Screen
               name="select-disease"
               component={SelectDiseaseScreen}
+              options={{headerShown: true, headerTitle: ''}}
+            />
+            <Stack.Screen
+              name="Weather-screen"
+              component={WeatherScreen}
               options={{headerShown: true, headerTitle: ''}}
             />
           </>

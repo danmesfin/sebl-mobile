@@ -1,7 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import Icon from 'react-native-vector-icons/Icon';
+import {View, Text, StyleSheet, Image} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 import getWeatherIcon from '../../../utils/getWeatherIcon';
+import theme from '../../../styles/theme';
+import getFormattedTimeDifference from '../../../utils/formattedTimeDifference';
 
 const CurrentWeather = ({weatherData, loading}) => {
   if (loading) {
@@ -23,10 +25,11 @@ const CurrentWeather = ({weatherData, loading}) => {
       <Text style={styles.temperature}>
         {Math.round(weatherData.main.temp - 273.15)}°C
       </Text>
-      <Icon
-        name={getWeatherIcon(weatherData.weather[0].icon)}
-        size={100}
-        color="black"
+      <Image
+        source={getWeatherIcon(weatherData.weather[0].icon)}
+        style={styles.weatherIcon}
+        //size={100}
+        //color="black"
       />
       <Text style={styles.description}>
         {weatherData.weather[0].description}
@@ -57,7 +60,10 @@ const CurrentWeather = ({weatherData, loading}) => {
           <Text style={styles.detailsValue}>{weatherData.wind.speed} m/s</Text>
         </View>
       </View>
-      {/* <Text style={styles.timestamp}>Last updated: {formatDate(weatherData.dt)}</Text> */}
+      {/* {
+        <Text style={styles.timestamp}>
+          Last updated: {getFormattedTimeDifference(weatherData.dt)}
+        </Text> */}
     </View>
   );
 };
@@ -66,6 +72,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginVertical: 10,
+    borderRadius: 10,
+    elevation: 2,
+    //borderWidth: 0.5,
+    //borderColor: theme.primaryLight,
   },
   title: {
     fontSize: 24,
@@ -91,18 +101,25 @@ const styles = StyleSheet.create({
   },
   detailsItem: {
     alignItems: 'center',
+    marginHorizontal: 4,
   },
   detailsLabel: {
     fontSize: 14,
     marginTop: 5,
+    color: theme.primaryDark,
   },
   detailsValue: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: theme.textPrimary,
   },
   timestamp: {
     fontSize: 12,
     marginTop: 10,
+  },
+  weatherIcon: {
+    height: 100,
+    width: 100,
   },
 });
 

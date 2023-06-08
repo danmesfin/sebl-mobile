@@ -65,6 +65,11 @@ const ProfileScreen = ({navigation}) => {
           style={styles.signInButton}
           onPress={() => navigation.navigate('SignUp')}>
           <Text style={styles.signInButtonText}>Sign In</Text>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={() => signOut()}>
+            <Text style={styles.logoutButtonText}>Logout</Text>
+          </TouchableOpacity>
         </TouchableOpacity>
       </View>
     );
@@ -139,7 +144,9 @@ const ProfileScreen = ({navigation}) => {
           </View>
         </View>
       ) : (
-        <Text style={styles.signupText}>Please sign up</Text>
+        <View>
+          <Text style={styles.signupText}>Please sign up</Text>
+        </View>
       )}
       <TouchableOpacity style={styles.aboutButton}>
         <Text style={styles.aboutButtonText}>About</Text>
@@ -257,7 +264,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   logoutButton: {
-    backgroundColor: '#fff',
+    backgroundColor: theme.primaryLight,
     paddingHorizontal: 20,
     elevation: 1,
     paddingVertical: 10,
@@ -267,7 +274,7 @@ const styles = StyleSheet.create({
   logoutButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: theme.text,
+    color: theme.textPrimary,
     marginHorizontal: 10,
   },
   signupText: {

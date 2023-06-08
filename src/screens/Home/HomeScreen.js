@@ -68,6 +68,15 @@ const HomeScreen = ({navigation}) => {
                 />
                 <Text style={styles.cardTitle}>Yield Prediction</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.card}
+                onPress={() => navigation.navigate('Weather-screen')}>
+                <Image
+                  source={require('../../../assets/yield-prediction.png')}
+                  style={styles.cardImage}
+                />
+                <Text style={styles.cardTitle}>Weather</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
