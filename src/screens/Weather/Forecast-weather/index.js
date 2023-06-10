@@ -226,6 +226,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: theme.textPrimary,
   },
   chart: {
     marginVertical: 8,

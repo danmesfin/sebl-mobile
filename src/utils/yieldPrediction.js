@@ -1,6 +1,6 @@
 // utils/tflite.js
 
-import {Tflite} from 'tflite-react-native';
+import Tflite from 'tflite-react-native';
 
 const tflite = new Tflite();
 
@@ -8,7 +8,7 @@ const tflite = new Tflite();
 const loadModel = async () => {
   try {
     await tflite.loadModel({
-      model: 'path/to/your/model.tflite',
+      model: 'yield_prediction_model.tflite',
     });
     console.log('TFLite model loaded successfully');
   } catch (error) {
@@ -17,10 +17,18 @@ const loadModel = async () => {
 };
 
 // Run the TFLite model with input parameters
-const runModel = (soilPh, rainfall, temperature, fertilizerAmount) => {
-  const inputs = [soilPh, rainfall, temperature, fertilizerAmount];
+const runModel = async (soilPh, rainfall, temperature, fertilizerAmount) => {
+  const inputs = [
+    1990, 1485.0, 121.0, 16.37, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+  ];
+  console.log(inputs.length);
+  await loadModel();
   try {
-    const outputs = tflite.runModelOnBinary({
+    const outputs = tflite.predict({
       input: inputs,
     });
     console.log('TFLite model ran successfully');

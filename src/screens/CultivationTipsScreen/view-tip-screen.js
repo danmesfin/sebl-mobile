@@ -44,7 +44,6 @@ const TipsViewScreen = ({route, navigation}) => {
       setIsLoading(false);
     }
   };
-
   return (
     <View style={styles.container}>
       {isLoading ? (
@@ -59,7 +58,11 @@ const TipsViewScreen = ({route, navigation}) => {
             <View style={styles.tipsId}>
               <Text style={styles.tipsIdText}>{tips.id}</Text>
             </View>
-            <Text style={styles.tipsContent}>{tips.content}</Text>
+            {tips.content.tips.map((tip, index) => (
+              <Text style={styles.tipsContent} key={index}>
+                {tip}
+              </Text>
+            ))}
           </View>
         </ScrollView>
       )}
@@ -70,11 +73,6 @@ const TipsViewScreen = ({route, navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: 10,
   },
   scrollView: {
     flex: 1,

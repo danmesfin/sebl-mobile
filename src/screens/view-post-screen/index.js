@@ -213,8 +213,8 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginVertical: 5,
     fontWeight: 'bold',
-    fontSize: 18,
-    color: theme.accent,
+    fontSize: 16,
+    color: theme.textPrimary,
   },
   commentContainer: {
     padding: 10,

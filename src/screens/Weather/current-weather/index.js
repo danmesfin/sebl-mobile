@@ -3,24 +3,15 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import getWeatherIcon from '../../../utils/getWeatherIcon';
 import theme from '../../../styles/theme';
-import getFormattedTimeDifference from '../../../utils/formattedTimeDifference';
 
 const CurrentWeather = ({weatherData, loading}) => {
   if (loading) {
     return <Text>Loading...</Text>;
   }
 
-  const getWeatherIconn = iconCode => {
-    // ... code for getting weather icons
-  };
-
-  const formatDate = timestamp => {
-    // ... code for formatting the timestamp
-  };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Current Weather</Text>
+      {/* <Text style={styles.title}>Current Weather</Text> */}
       <Text style={styles.location}>{weatherData.name}</Text>
       <Text style={styles.temperature}>
         {Math.round(weatherData.main.temp - 273.15)}°C
@@ -28,8 +19,6 @@ const CurrentWeather = ({weatherData, loading}) => {
       <Image
         source={getWeatherIcon(weatherData.weather[0].icon)}
         style={styles.weatherIcon}
-        //size={100}
-        //color="black"
       />
       <Text style={styles.description}>
         {weatherData.weather[0].description}
@@ -80,6 +69,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: theme.textPrimary,
   },
   location: {
     fontSize: 20,
@@ -89,6 +79,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     marginVertical: 10,
+    color: theme.textPrimary,
   },
   description: {
     fontSize: 16,
@@ -118,8 +109,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   weatherIcon: {
-    height: 100,
+    height: 80,
     width: 100,
+    resizeMode: 'contain',
   },
 });
 
