@@ -103,3 +103,17 @@ export const signOutUser = () => async dispatch => {
     dispatch(setError(error.message));
   }
 };
+
+export const resetPassword = email => async dispatch => {
+  try {
+    dispatch(setLoading(true));
+
+    await firebase.auth().sendPasswordResetEmail(email);
+
+    dispatch(setSuccess(true));
+  } catch (error) {
+    dispatch(setError(error.message));
+  } finally {
+    dispatch(setLoading(false));
+  }
+};

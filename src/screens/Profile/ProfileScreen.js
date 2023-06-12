@@ -25,13 +25,16 @@ const ProfileScreen = ({navigation}) => {
     const fetchUserProfile = async () => {
       try {
         const token = await firebase.auth().currentUser.getIdToken();
-        const response = await axios.get('https://sebl.onrender.com/users', {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const response = await axios.get(
+          'https://sebl.onrender.com/users/profile',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
-        setUserData(response.data[0]);
+        setUserData(response.data);
         console.log('user', user);
         setIsLoading(false);
       } catch (error) {

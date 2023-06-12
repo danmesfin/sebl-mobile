@@ -72,7 +72,7 @@ const HomeScreen = ({navigation}) => {
                 style={styles.card}
                 onPress={() => navigation.navigate('Weather-screen')}>
                 <Image
-                  source={require('../../../assets/yield-prediction.png')}
+                  source={require('../../../assets/icons/weather.png')}
                   style={styles.cardImage}
                 />
                 <Text style={styles.cardTitle}>Weather</Text>

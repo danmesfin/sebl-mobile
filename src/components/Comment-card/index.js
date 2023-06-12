@@ -60,7 +60,7 @@ const CommentCard = ({comment}) => {
         </TouchableOpacity>
       </View>
       <View style={styles.contentContainer}>
-        <Text style={styles.author.name}>{'Daniel Mesfin'}</Text>
+        <Text style={styles.author}>{comment.author.name}</Text>
         <Text style={styles.date}>
           {getFormattedTimeDifference(comment.created_at)}
         </Text>

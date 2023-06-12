@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator, Image} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
@@ -37,6 +37,12 @@ const SignInScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.logo}>
+        <Image
+          source={require('../../../../assets/sebl-logo.png')}
+          style={styles.logo}
+        />
+      </View>
       <Text style={styles.title}>Sign In</Text>
 
       <TextInput
@@ -69,12 +75,17 @@ const SignInScreen = ({navigation}) => {
         </Button>
       )}
       {error && <Text style={styles.error}>{handleFirebaseErrors(error)}</Text>}
+
       <View style={styles.footer}>
         <Text style={styles.footerText}>Don't have an account?</Text>
         <TouchableOpacity onPress={handleSignUpNavigation}>
           <Text style={styles.footerLink}>Sign Up</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('reset-password-screen')}>
+        <Text style={styles.forgotPassword}>Forgot Password?</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -85,6 +96,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+  },
+  logo: {
+    //backgroundColor: theme.primaryDark,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    //marginTop: 20,
+    resizeMode: 'contain',
+    width: 150,
+    height: 150,
   },
   title: {
     fontSize: 24,
@@ -111,6 +131,10 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
     backgroundColor: theme.accent,
+  },
+  forgotPassword: {
+    marginTop: 16,
+    color: theme.textPrimary,
   },
   footer: {
     flexDirection: 'row',

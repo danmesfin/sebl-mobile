@@ -6,7 +6,6 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  KeyboardAvoidingView,
   Alert,
   ActivityIndicator,
 } from 'react-native';
@@ -77,13 +76,16 @@ const PredictionScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <ScrollView style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Enter data</Text>
+      </View>
       {isLoading ? (
         <ActivityIndicator size={'large'} />
       ) : (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Crop</Text>
+            <Text style={styles.inputLabel}>Crop type</Text>
             <View style={styles.selectField}>
               <Picker
                 selectedValue={crop}
@@ -101,7 +103,7 @@ const PredictionScreen = () => {
             </View>
           </View>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Rainfall</Text>
+            <Text style={styles.inputLabel}>Rainfall {'(mm per year)'}</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter rainfall"
@@ -111,7 +113,7 @@ const PredictionScreen = () => {
             />
           </View>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Temperature</Text>
+            <Text style={styles.inputLabel}>Temperature {' (°C)'}</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter temperature"
@@ -121,7 +123,7 @@ const PredictionScreen = () => {
             />
           </View>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Fertilizer Amount</Text>
+            <Text style={styles.inputLabel}>Pesticide {'( tones)'}</Text>
             <TextInput
               style={styles.inputField}
               placeholder="Enter fertilizer amount"
@@ -147,7 +149,7 @@ const PredictionScreen = () => {
           )}
         </ScrollView>
       )}
-    </KeyboardAvoidingView>
+    </ScrollView>
   );
 };
 
@@ -155,7 +157,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.secondary,
-    padding: 16,
+  },
+  header: {
+    height: 140,
+    width: '100%',
+    justifyContent: 'center',
+    backgroundColor: theme.primaryDark,
+    marginBottom: 20,
+  },
+  headerText: {
+    alignSelf: 'center',
+    fontWeight: 'bold',
+    fontSize: 24,
   },
   scrollContainer: {
     flexGrow: 1,
@@ -192,7 +205,7 @@ const styles = StyleSheet.create({
     color: theme.textPrimary,
   },
   submitButton: {
-    backgroundColor: Colors.primary,
+    backgroundColor: Colors.primaryDark,
     borderRadius: 4,
     paddingHorizontal: 16,
     paddingVertical: 8,
@@ -200,7 +213,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   submitButtonText: {
-    color: Colors.white,
+    color: theme.secondary,
     fontWeight: 'bold',
     fontSize: 16,
   },
