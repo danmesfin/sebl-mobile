@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput, Button, ActivityIndicator} from 'react-native-paper';
 
 import {useDispatch, useSelector} from 'react-redux';
 import {signUpUser} from '../../../store/authSlice/actions';
@@ -38,6 +38,7 @@ const SignUpScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create account</Text>
+      {error ? <Text style={styles.errorMessage}>{error}</Text> : ''}
       <TextInput
         style={styles.input}
         label="Name"
@@ -76,12 +77,10 @@ const SignUpScreen = ({navigation}) => {
         style={styles.button}
         onPress={handleSignUp}
         disabled={isLoading}>
-        Sign Up
+        {isLoading ? <ActivityIndicator size={'small'} /> : ''} Sign Up
       </Button>
       <TouchableOpacity onPress={handleSignInNavigation}>
-        <Text style={styles.signInText}>
-          {error} Already have an account? Sign In
-        </Text>
+        <Text style={styles.signInText}>Already have an account? Sign In</Text>
       </TouchableOpacity>
     </View>
   );
@@ -98,6 +97,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: theme.textPrimary,
   },
   input: {
     borderWidth: 1,
@@ -123,6 +123,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: Colors.primary,
     textDecorationLine: 'underline',
+  },
+  errorMessage: {
+    color: theme.orange,
   },
 });
 

@@ -1,4 +1,5 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
+import theme from '../../styles/theme';
 
 const ImagePreview = ({imageUri}) => {
   if (imageUri) {
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
   placeholderText: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: theme.textPrimary,
   },
 });
 

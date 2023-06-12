@@ -60,7 +60,10 @@ const CommunityScreen = ({navigation}) => {
       const response = await axios.get('https://sebl.onrender.com/posts', {
         headers: headers,
       });
-      setPosts(response.data);
+
+      const reversedPosts = response.data.reverse();
+      setPosts(reversedPosts);
+      // setPosts(response.data);
       setLoading(false);
       setRefreshing(false);
     } catch (error) {

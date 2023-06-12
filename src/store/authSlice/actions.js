@@ -1,6 +1,6 @@
 import {firebase} from '../../../firebaseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setUser, setLoading, setError, clearUser} from './index';
+import {setUser, setLoading, setError, clearUser, setSuccess} from './index';
 import axios from 'axios';
 
 // Async action to log in a user

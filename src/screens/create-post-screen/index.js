@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   titleInput: {
     color: theme.textPrimary,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: 'black',
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
@@ -179,20 +179,20 @@ const styles = StyleSheet.create({
   descriptionInput: {
     color: theme.textPrimary,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: 'black',
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
   },
   postButton: {
-    backgroundColor: theme.accent,
+    backgroundColor: theme.primary,
     borderRadius: 5,
     padding: 10,
     alignItems: 'center',
     marginBottom: 20,
   },
   postButtonText: {
-    color: '#fff',
+    color: theme.secondary,
     fontWeight: 'bold',
     fontSize: 16,
   },

@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   button: {
     width: '100%',
     marginTop: 20,
-    backgroundColor: theme.accent,
+    backgroundColor: theme.primary,
   },
   forgotPassword: {
     marginTop: 16,

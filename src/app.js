@@ -82,7 +82,18 @@ const MainApp = () => {
               name="PlantDiseaseNavigator"
               component={PlantDiseaseNavigation}
             />
-            <Stack.Screen name="create-post" component={CreatePostScreen} />
+            <Stack.Screen
+              name="create-post"
+              component={CreatePostScreen}
+              options={{
+                headerShown: true,
+                headerTitle: 'create post',
+                headerStyle: {
+                  backgroundColor: theme.primaryDark,
+                },
+                headerTintColor: '#fff',
+              }}
+            />
             <Stack.Screen
               name="Cultivation Tips"
               component={CultivationTipsScreen}
