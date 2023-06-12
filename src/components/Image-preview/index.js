@@ -8,6 +8,10 @@ const ImagePreview = ({imageUri}) => {
     return (
       <View style={styles.placeholderContainer}>
         <Text style={styles.placeholderText}>Select Image</Text>
+        <Image
+          source={require('../../../assets/icons/attach-image.png')}
+          style={styles.icon}
+        />
       </View>
     );
   }
@@ -17,18 +21,20 @@ const styles = StyleSheet.create({
   imagePreview: {
     width: '100%',
     height: 300,
-    resizeMode: 'cover',
+    resizeMode: 'contain',
     marginBottom: 20,
   },
   placeholderContainer: {
     width: '100%',
     height: 300,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: theme.accent,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
   },
   placeholderText: {
+    padding: 5,
     fontSize: 20,
     fontWeight: 'bold',
     color: theme.textPrimary,
