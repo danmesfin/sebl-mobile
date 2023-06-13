@@ -1,36 +1,35 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet, ActivityIndicator, Alert} from 'react-native';
-import {firebase} from '../../../firebaseConfig';
+import {
+  View,
+  ScrollView,
+  Text,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
+import {firebase} from '../../utils/firebase';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Card} from 'react-native-paper';
 import theme from '../../styles/theme';
 
-const DiseaseControlScreen = ({route}) => {
+const DiseaseControlMethods = ({name, route}) => {
   const [loading, setLoading] = useState(true);
-  const [controlMethods, setControlMethods] = useState(null);
+  const [controlMethods, setControlMethods] = useState({});
   const {diseaseName} = route.params;
 
   // Check if the user is authenticated
   const user = firebase.auth().currentUser;
-
   useEffect(() => {
-    setLoading(true);
     const fetchData = async () => {
-      if (!user) {
-        Alert.alert('You need to sign in');
-        return;
-      }
-
       const token = await user.getIdToken();
       const headers = {
         Authorization: `Bearer ${token}`,
       };
-
       try {
         const response = await axios.get(
           `https://sebl.onrender.com/disease-control/${diseaseName}`,
           {headers},
         );
+        console.log('response', response.data);
         setControlMethods(response.data);
         setLoading(false);
       } catch (error) {
@@ -45,64 +44,107 @@ const DiseaseControlScreen = ({route}) => {
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color={theme.accent} />
       </View>
     );
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{controlMethods.title}</Text>
-      <View style={styles.methodContainer}>
-        <Text style={styles.methodTitle}>Natural Control Method:</Text>
-        <Text style={styles.methodText}>
-          {controlMethods.naturalControl.method}
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>{diseaseName}</Text>
+
+      <Card style={styles.card}>
+        <Text style={styles.sectionTitle}>Introduction</Text>
+        <Text>{controlMethods.additionalInfo?.introduction}</Text>
+      </Card>
+
+      <Card style={styles.card}>
+        <Text style={styles.sectionTitle}>Symptoms</Text>
+        <Text>{controlMethods.additionalInfo?.symptoms}</Text>
+      </Card>
+
+      <Card style={styles.card}>
+        <Text style={styles.sectionTitle}>Biology</Text>
+        <Text>{controlMethods.additionalInfo?.biology}</Text>
+      </Card>
+
+      <Card style={styles.card}>
+        <Text style={styles.sectionTitle}>Control Methods</Text>
+        <Text style={styles.methodTitle}>
+          {controlMethods.naturalMethods?.culturalControl?.method}
         </Text>
-        <Text style={styles.methodText}>
-          {controlMethods.naturalControl.description}
+        <Text>
+          {controlMethods.naturalMethods?.culturalControl?.description}
         </Text>
-      </View>
-      <View style={styles.methodContainer}>
-        <Text style={styles.methodTitle}>Chemical Control Method:</Text>
-        <Text style={styles.methodText}>
-          {controlMethods.chemicalControl.method}
+        <Text style={styles.methodTitle}>
+          {controlMethods.naturalMethods?.chemicalControl?.method}
         </Text>
-        <Text style={styles.methodText}>
-          {controlMethods.chemicalControl.description}
+        <Text>
+          {controlMethods.naturalMethods?.chemicalControl?.description}
         </Text>
-      </View>
-    </View>
+      </Card>
+
+      <Card style={styles.card}>
+        <Text style={styles.sectionTitle}>Pesticide Recommendations</Text>
+        {controlMethods.pesticideRecommendations?.map(
+          (recommendation, index) => (
+            <View key={index}>
+              <Text style={styles.methodTitle}>{recommendation.pesticide}</Text>
+              <Text>Dosage: {recommendation.dosage}</Text>
+              <Text>
+                Application Timing: {recommendation.applicationTiming}
+              </Text>
+              <Text>
+                Preharvest Interval: {recommendation.preharvestInterval}
+              </Text>
+              <Text>Reentry Interval: {recommendation.reentryInterval}</Text>
+            </View>
+          ),
+        )}
+      </Card>
+
+      <Card style={styles.card}>
+        <Text style={styles.sectionTitle}>Monitoring and Management</Text>
+        <Text>{controlMethods.additionalInfo?.monitoringAndManagement}</Text>
+      </Card>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    //justifyContent: 'center',
     padding: 20,
+    backgroundColor: '#fff',
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    textAlign: 'center',
-    color: 'black',
+    color: theme.textPrimary,
   },
-  methodContainer: {
-    marginBottom: 10,
+  card: {
+    marginBottom: 20,
+    padding: 16,
+    borderRadius: 10,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
   },
-  methodTitle: {
+  sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
-    textAlign: 'left',
-    color: 'black',
+    marginBottom: 10,
+    color: theme.textPrimary,
   },
-  methodText: {
-    textAlign: 'justify',
-    color: 'black',
+  methodTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 10,
+    color: theme.textPrimary,
   },
 });
 
-export default DiseaseControlScreen;
+export default DiseaseControlMethods;

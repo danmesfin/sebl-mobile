@@ -17,6 +17,7 @@ const diseaseList = [
   'corn cercospora leaf spot',
   'corn common rust',
   'corn maize northern leaf blight',
+  'coffee leaf rust',
   'grape black rot',
   'grape esca black measles',
   'grape leaf blight isariopsis leaf spot',
@@ -28,6 +29,7 @@ const diseaseList = [
   'raspberry healthy',
   'squash powdery mildew',
   'strawberry leaf scorch',
+  'teff leaf spot',
   'tomato bacterial spot',
   'tomato early blight',
   'tomato late blight',
@@ -37,6 +39,7 @@ const diseaseList = [
   'tomato target spot',
   'tomato tomato yellow leaf curl virus',
   'tomato tomato mosaic virus',
+  'wheat stem rust',
 ];
 
 const SelectDiseaseScreen = ({navigation}) => {
@@ -44,7 +47,7 @@ const SelectDiseaseScreen = ({navigation}) => {
   const [filteredDiseases, setFilteredDiseases] = useState(diseaseList);
 
   const selectDisease = disease => {
-    navigation.navigate('ControlMethodsScreen', {disease});
+    navigation.navigate('view-disease-control-methods', {diseaseName: disease});
   };
 
   const handleSearch = text => {

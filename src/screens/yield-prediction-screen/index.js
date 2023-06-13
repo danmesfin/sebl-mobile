@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 20,
   },
   inputContainer: {
     marginBottom: 16,
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
   inputField: {
     width: 200,
     height: 40,
-    borderColor: Colors.primary,
+    borderColor: theme.primary,
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: 8,
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
   selectField: {
     width: 200,
     height: 40,
-    borderColor: Colors.primary,
+    borderColor: theme.primary,
     borderWidth: 1,
     borderRadius: 4,
     paddingHorizontal: 8,
@@ -210,6 +211,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginTop: 16,
+    marginBottom: 20,
     alignSelf: 'center',
   },
   submitButtonText: {

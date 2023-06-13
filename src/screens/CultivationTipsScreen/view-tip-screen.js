@@ -5,6 +5,7 @@ import {
   ScrollView,
   ActivityIndicator,
   StyleSheet,
+  Image,
 } from 'react-native';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {firebase} from '../../../firebaseConfig';
@@ -59,9 +60,13 @@ const TipsViewScreen = ({route, navigation}) => {
               <Text style={styles.tipsIdText}>{tips.id}</Text>
             </View>
             {tips.content.tips.map((tip, index) => (
-              <Text style={styles.tipsContent} key={index}>
-                {tip}
-              </Text>
+              <View style={styles.tipContent} key={index}>
+                <Image
+                  source={require('../../../assets/icons/bullet.png')}
+                  style={styles.icon}
+                />
+                <Text style={styles.tipsContent}>{tip}</Text>
+              </View>
             ))}
           </View>
         </ScrollView>
@@ -90,15 +95,24 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     elevation: 5,
   },
+  tipContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   tipsIdText: {
     fontWeight: 'bold',
     fontSize: 18,
     color: theme.textPrimary,
   },
   tipsContent: {
-    fontSize: 14,
+    paddingHorizontal: 8,
+    fontSize: 16,
     marginTop: 10,
     color: theme.textPrimary,
+  },
+  icon: {
+    width: 20,
+    height: 20,
   },
 });
 

@@ -138,7 +138,14 @@ const MainApp = () => {
             <Stack.Screen
               name="view-disease-control-methods"
               component={DiseaseControlScreen}
-              options={{headerShown: true, headerTitle: ''}}
+              options={{
+                headerShown: true,
+                headerTitle: '',
+                headerStyle: {
+                  backgroundColor: theme.primaryDark,
+                },
+                headerTintColor: '#fff',
+              }}
             />
             <Stack.Screen
               name="yield-prediction"
@@ -148,7 +155,14 @@ const MainApp = () => {
             <Stack.Screen
               name="select-disease"
               component={SelectDiseaseScreen}
-              options={{headerShown: true, headerTitle: ''}}
+              options={{
+                headerShown: true,
+                headerTitle: 'select plant disease',
+                headerStyle: {
+                  backgroundColor: theme.primaryDark,
+                },
+                headerTintColor: '#fff',
+              }}
             />
             <Stack.Screen
               name="Weather-screen"

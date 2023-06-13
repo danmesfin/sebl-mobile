@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from 'react-native';
 import theme from '../../styles/theme';
-
 const cropsData = [
   {
     id: 1,
@@ -33,12 +32,37 @@ const cropsData = [
   {
     id: 5,
     name: 'Wheat',
-    image: require('../../../assets/icons/wheat.jpg'),
+    image: require('../../../assets/icons/wheat.png'),
   },
   {
     id: 6,
     name: 'Sugarcane',
     image: require('../../../assets/icons/sugarcane.png'),
+  },
+  {
+    id: 7,
+    name: 'Barley',
+    image: require('../../../assets/icons/barley.jpg'),
+  },
+  {
+    id: 8,
+    name: 'Millet',
+    image: require('../../../assets/icons/millet.jpg'),
+  },
+  {
+    id: 9,
+    name: 'Niger',
+    image: require('../../../assets/icons/niger.jpg'),
+  },
+  {
+    id: 10,
+    name: 'Sorghum',
+    image: require('../../../assets/icons/sorghum.jpg'),
+  },
+  {
+    id: 11,
+    name: 'Teff',
+    image: require('../../../assets/icons/teff.jpg'),
   },
 ];
 
