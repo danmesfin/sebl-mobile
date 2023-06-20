@@ -9,12 +9,15 @@ import {
   FlatList,
   ActivityIndicator,
   Alert,
+  RefreshControl,
 } from 'react-native';
 import axios from 'axios';
 import {firebase} from '../../../firebaseConfig';
 import Colors from '../../styles/theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Card from '../../components/post-card';
+import theme from '../../styles/theme';
+import {useSelector} from 'react-redux';
 
 const crops = [
   'Tomatoes',
@@ -30,33 +33,50 @@ const crops = [
 const CommunityScreen = ({navigation}) => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [isRefreshing, setRefreshing] = useState(false);
 
   // Check if the user is authenticated
   const user = firebase.auth().currentUser;
+  // const user = useSelector(state => state.auth.user);
 
   useEffect(() => {
     setLoading(true);
-    const fetchPost = async () => {
-      if (!user) {
-        Alert.alert('please sign in first!');
-      }
-      const token = await user.getIdToken();
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-      try {
-        const response = await axios.get('https://sebl.onrender.com/posts', {
-          headers: headers,
-        });
-        setPosts(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
+    fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const fetchPosts = async () => {
+    if (!user) {
+      Alert.alert('Please sign in first!');
+      return;
+    }
+
+    const token = await user.getIdToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
     };
-    fetchPost();
-  }, [user]);
+
+    try {
+      const response = await axios.get('https://sebl.onrender.com/posts', {
+        headers: headers,
+      });
+
+      const reversedPosts = response.data.reverse();
+      setPosts(reversedPosts);
+      // setPosts(response.data);
+      setLoading(false);
+      setRefreshing(false);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+      setRefreshing(false);
+    }
+  };
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    fetchPosts();
+  };
 
   return (
     <View style={styles.container}>
@@ -81,7 +101,7 @@ const CommunityScreen = ({navigation}) => {
       {isLoading ? (
         <ActivityIndicator
           size="large"
-          color="#0000ff"
+          color={theme.accent}
           style={styles.isLoading}
         />
       ) : (
@@ -89,28 +109,14 @@ const CommunityScreen = ({navigation}) => {
           data={posts}
           keyExtractor={item => item.id}
           renderItem={({item}) => <Card post={item} navigation={navigation} />}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={handleRefresh}
+            />
+          }
         />
       )}
-      {/* <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {posts.map(post => (
-          <View style={styles.postCard} key={post.id}>
-            <TouchableOpacity style={styles.postImageContainer}>
-              <Image
-                source={{uri: post.post_image_url}}
-                style={styles.postImage}
-              />
-            </TouchableOpacity>
-            <View>
-              <Text>{post.title}</Text>
-            </View>
-            <View style={styles.postInfo}>
-              <Text style={styles.postedBy}>{post.author}</Text>
-              <Text style={styles.date}>{post.date}</Text>
-            </View>
-          </View>
-        ))}
-      </ScrollView> */}
-
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('create-post', {
@@ -189,13 +195,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 16,
+    color: theme.textPrimary,
   },
   postedBy: {
     fontWeight: 'bold',
-    color: Colors.textDark,
+    color: theme.textPrimary,
   },
   date: {
-    color: Colors.textLight,
+    color: theme.textLight,
   },
   commentContainer: {
     flexDirection: 'row',
@@ -206,7 +213,7 @@ const styles = StyleSheet.create({
   commentInput: {
     flex: 1,
     marginRight: 8,
-    backgroundColor: Colors.secondary,
+    backgroundColor: theme.textPrimary,
     borderRadius: 20,
     borderWidth: 1,
     borderColor: Colors.primary,

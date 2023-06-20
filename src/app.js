@@ -2,13 +2,14 @@ import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {StatusBar} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import theme from './styles/theme';
 
 //user mang
-import {restoreUser} from './redux/authSlice/actions';
-
+import {restoreUser} from './store/authSlice/actions';
 // components
 import AuthNavigator from './Navigations/AuthNavigation';
 import {NavigationContainer} from '@react-navigation/native';
+import CustomHeader from './components/Custom-header';
 // import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeNavigator from './Navigations/HomeNavigation';
@@ -24,6 +25,7 @@ import PostDetailScreen from './screens/view-post-screen';
 import DiseaseControlScreen from './screens/view-disease-control-method';
 import PredictionScreen from './screens/yield-prediction-screen';
 import SelectDiseaseScreen from './screens/pest-control/select-disease-screen';
+import WeatherScreen from './screens/Weather';
 //import {setUser} from './redux/authSlice';
 
 const Stack = createStackNavigator();
@@ -80,16 +82,49 @@ const MainApp = () => {
               name="PlantDiseaseNavigator"
               component={PlantDiseaseNavigation}
             />
-            <Stack.Screen name="create-post" component={CreatePostScreen} />
+            <Stack.Screen
+              name="create-post"
+              component={CreatePostScreen}
+              options={{
+                headerShown: true,
+                headerTitle: 'create post',
+                headerStyle: {
+                  backgroundColor: theme.primaryDark,
+                },
+                headerTintColor: '#fff',
+              }}
+            />
             <Stack.Screen
               name="Cultivation Tips"
               component={CultivationTipsScreen}
             />
-            <Stack.Screen name="select-crop" component={SelectCropScreen} />
+            <Stack.Screen
+              name="select-crop"
+              component={SelectCropScreen}
+              options={{
+                headerShown: true,
+                headerTitle: 'Select crop',
+                // headerStyle: {
+                //   backgroundColor: theme.primaryDark,
+                // },
+                // headerTintColor: '#fff',
+              }}
+            />
             <Stack.Screen
               name="tip-in-detail-screen"
               component={CultivationCategorySelectionScreen}
+              options={({navigation, route}) => ({
+                headerShown: true,
+                headerLeft: () => (
+                  <CustomHeader
+                    navigation={navigation}
+                    imageSource={route.params.icon}
+                  />
+                ),
+                headerTitle: route.params.cropType,
+              })}
             />
+
             <Stack.Screen
               name="view-tip-screen"
               component={TipsViewScreen}
@@ -103,7 +138,14 @@ const MainApp = () => {
             <Stack.Screen
               name="view-disease-control-methods"
               component={DiseaseControlScreen}
-              options={{headerShown: true, headerTitle: ''}}
+              options={{
+                headerShown: true,
+                headerTitle: '',
+                headerStyle: {
+                  backgroundColor: theme.primaryDark,
+                },
+                headerTintColor: '#fff',
+              }}
             />
             <Stack.Screen
               name="yield-prediction"
@@ -113,6 +155,18 @@ const MainApp = () => {
             <Stack.Screen
               name="select-disease"
               component={SelectDiseaseScreen}
+              options={{
+                headerShown: true,
+                headerTitle: 'select plant disease',
+                headerStyle: {
+                  backgroundColor: theme.primaryDark,
+                },
+                headerTintColor: '#fff',
+              }}
+            />
+            <Stack.Screen
+              name="Weather-screen"
+              component={WeatherScreen}
               options={{headerShown: true, headerTitle: ''}}
             />
           </>

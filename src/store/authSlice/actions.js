@@ -1,6 +1,7 @@
 import {firebase} from '../../../firebaseConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setUser, setLoading, setError, clearUser} from './index';
+import {setUser, setLoading, setError, clearUser, setSuccess} from './index';
+import axios from 'axios';
 
 // Async action to log in a user
 export const loginUser = (email, password) => async dispatch => {
@@ -51,21 +52,42 @@ export const clearUserActoin = () => dispatch => {
 
 // Async action to sign up a new user
 export const signUpUser = (email, password, name) => async dispatch => {
+  console.log('register user started');
   try {
     dispatch(setLoading(true));
+    console.log('loading true', email + password);
     const {user} = await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password);
-    dispatch(setUser(user));
+    console.log('register Auth user', user);
 
+    console.log('loading firestore', email + password);
     // Create a user document in the Firestore "users" collection
-    await firebase.firestore().collection('users').doc(user.user.uid).set({
-      email,
-      name,
-    });
+    // const userResponse = await firebase
+    //   .firestore()
+    //   .collection('users')
+    //   .doc(user.uid)
+    //   .set({
+    //     email,
+    //     name,
+    //   });
+    const myUser = firebase.auth().currentUser;
+    if (myUser) {
+      const token = await myUser.getIdToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await axios.post(
+        'https://sebl.onrender.com/users/register',
+        {email, name},
+        {headers},
+      );
+      console.log('created user at firestore', response);
+      dispatch(setUser(user));
 
-    // Registration successful
-    console.log('User registered successfully!');
+      // Registration successful
+      console.log('User registered successfully!');
+    }
   } catch (error) {
     dispatch(setError(error.message));
   }
@@ -79,5 +101,19 @@ export const signOutUser = () => async dispatch => {
     dispatch(clearUser());
   } catch (error) {
     dispatch(setError(error.message));
+  }
+};
+
+export const resetPassword = email => async dispatch => {
+  try {
+    dispatch(setLoading(true));
+
+    await firebase.auth().sendPasswordResetEmail(email);
+
+    dispatch(setSuccess(true));
+  } catch (error) {
+    dispatch(setError(error.message));
+  } finally {
+    dispatch(setLoading(false));
   }
 };

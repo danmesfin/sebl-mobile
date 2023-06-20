@@ -1,12 +1,12 @@
 import React from 'react';
 import {StyleSheet, ScrollView, TouchableOpacity, Text} from 'react-native';
+import theme from '../../styles/theme';
 
 const categories = [
   {title: 'Crop Selection', category: 'cropSelection', icon: '🌱'},
   {title: 'Soil Preparation', category: 'soilPreparation', icon: '🌱'},
-  {title: 'Seed Selection', category: 'seedSelection', icon: '🌱'},
-  {title: 'Seed Sowing', category: 'seedSowing', icon: '🌱'},
-  {title: 'Irrigation', category: 'irrigation', icon: '🌱'},
+  // {title: 'Seed Sowing', category: 'seedSowing', icon: '🌱'},
+  {title: 'irrigation', category: 'irrigation', icon: '🌱'},
   {title: 'Fertilizers', category: 'fertilizers', icon: '🌱'},
   {title: 'Weed Management', category: 'weedManagement', icon: '🌱'},
   {title: 'Harvesting', category: 'harvesting', icon: '🌱'},
@@ -16,7 +16,6 @@ const CultivationCategorySelectionScreen = ({route, navigation}) => {
   const {cropType} = route.params;
 
   const handleCategoryPress = (crop, category, title) => {
-    console.log(crop + category + title);
     navigation.navigate('view-tip-screen', {
       cropType: crop,
       category,
@@ -61,6 +60,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: 'bold',
     fontSize: 18,
+    color: theme.textPrimary,
   },
 });
 

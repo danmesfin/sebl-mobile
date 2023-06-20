@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:797901349085:android:bca9c11457c5076da9bb34",
+        "android_client_info": {
+          "package_name": "com.farmassistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "797901349085-litvo5lfvhtf6a7sa90isplli9tou5ag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_TDUFwwNC6ibTj29pr7kmOtxbgQ60PZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "797901349085-ks8qid6c5u0j2rvl5iedv2fle5n1vsog.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:797901349085:android:27e279580239571ba9bb34",
         "android_client_info": {
           "package_name": "com.seblfarmassist"
@@ -19,6 +48,14 @@
           "android_info": {
             "package_name": "com.seblfarmassist",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "797901349085-d442q9hmbah1epjf2dffcve2roveliqt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.seblfarmassist",
+            "certificate_hash": "a9cbb80f88bf362d92603a9d3e28753a3af33695"
           }
         },
         {

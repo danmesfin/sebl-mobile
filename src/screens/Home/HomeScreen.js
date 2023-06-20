@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import WeatherSection from '../../components/Weather';
 import theme from '../../styles/theme';
-import MyCrops from './MyCrops';
 
 const HomeScreen = ({navigation}) => {
   return (
@@ -69,6 +68,15 @@ const HomeScreen = ({navigation}) => {
                 />
                 <Text style={styles.cardTitle}>Yield Prediction</Text>
               </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.card}
+                onPress={() => navigation.navigate('Weather-screen')}>
+                <Image
+                  source={require('../../../assets/icons/weather.png')}
+                  style={styles.cardImage}
+                />
+                <Text style={styles.cardTitle}>Weather</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -104,7 +112,7 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   scrollViewContent: {
     flexGrow: 1,
-    backgroundColor: theme.primaryDark,
+    backgroundColor: '#fff',
   },
   container: {
     flex: 1,
@@ -166,7 +174,7 @@ const styles = StyleSheet.create({
   },
   cardRow: {
     position: 'relative',
-    top: -40,
+    top: 20,
     marginTop: 0,
     marginBottom: 4,
     flexDirection: 'row',

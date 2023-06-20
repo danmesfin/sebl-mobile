@@ -1,20 +1,33 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
-import {Button} from 'react-native-paper';
+import {View, Text, StyleSheet, TouchableOpacity, Alert} from 'react-native';
+import {TextInput, Button, ActivityIndicator} from 'react-native-paper';
+
 import {useDispatch, useSelector} from 'react-redux';
-import {signUpUser} from '../../../redux/authSlice';
+import {signUpUser} from '../../../store/authSlice/actions';
 import Colors from '../../../styles/theme';
+import theme from '../../../styles/theme';
 
 const SignUpScreen = ({navigation}) => {
   const {isLoading} = useSelector(state => state.auth);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfPassword] = useState('');
+  const {error} = useSelector(state => state.auth);
+  const [name, setName] = useState('Daniel Mesfin');
+  const [email, setEmail] = useState('danielmsfn@gmail.com');
+  const [password, setPassword] = useState('1234567890');
+  const [confirmPassword, setConfirmPassword] = useState('1234567890');
 
   const dispatch = useDispatch();
 
   const handleSignUp = () => {
+    if (!name || !email || !password || !confirmPassword) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+      return;
+    }
+
     dispatch(signUpUser(email, password, name));
   };
 
@@ -25,52 +38,50 @@ const SignUpScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create account</Text>
+      {error ? <Text style={styles.errorMessage}>{error}</Text> : ''}
       <TextInput
         style={styles.input}
-        placeholder="Name"
+        label="Name"
         value={name}
         onChangeText={value => setName(value)}
+        right={<TextInput.Icon style={styles.icon} icon="account" />}
       />
+
       <TextInput
         style={styles.input}
-        placeholder="Email"
+        label="Email"
         value={email}
         onChangeText={value => setEmail(value)}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        right={<TextInput.Icon style={styles.icon} icon="email" />}
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        label="Password"
         value={password}
         onChangeText={value => setPassword(value)}
         secureTextEntry={true}
+        right={<TextInput.Icon style={styles.icon} icon="lock" />}
       />
       <TextInput
         style={styles.input}
-        placeholder="Confirm Password"
+        label="Confirm Password"
         value={confirmPassword}
-        onChangeText={value => setConfPassword(value)}
+        onChangeText={value => setConfirmPassword(value)}
         secureTextEntry={true}
+        right={<TextInput.Icon style={styles.icon} icon="lock" />}
       />
       <Button
         mode="contained"
         style={styles.button}
-        title="Sign Up"
         onPress={handleSignUp}
         disabled={isLoading}>
-        Sign Up
+        {isLoading ? <ActivityIndicator size={'small'} /> : ''} Sign Up
       </Button>
-      <View style={styles.footer}>
-        <Text style={styles.orText}>
-          ____________________ OR ____________________
-        </Text>
-        <Button
-          mode="contained"
-          style={styles.button}
-          title="Sign In"
-          onPress={handleSignInNavigation}>
-          Sign In
-        </Button>
-      </View>
+      <TouchableOpacity onPress={handleSignInNavigation}>
+        <Text style={styles.signInText}>Already have an account? Sign In</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -86,30 +97,35 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: theme.textPrimary,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10,
+    borderColor: theme.accent,
+    borderRadius: 10,
+    padding: 0,
+    color: theme.textPrimary,
+    backgroundColor: '#fff',
     marginBottom: 10,
     width: '100%',
-    borderRadius: 5,
   },
   button: {
     width: '100%',
     marginTop: 20,
     backgroundColor: Colors.accent,
   },
-  orText: {
-    alignContent: 'center',
-    marginHorizontal: 20,
+  icon: {
+    marginRight: 10,
+    color: theme.accent,
+    opacity: 0.6,
   },
-  footer: {
-    flexDirection: 'column',
-    width: '100%',
+  signInText: {
     marginTop: 20,
-    alignContent: 'center',
-    justifyContent: 'center',
+    color: Colors.primary,
+    textDecorationLine: 'underline',
+  },
+  errorMessage: {
+    color: theme.orange,
   },
 });
 
