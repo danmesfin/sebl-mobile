@@ -7,16 +7,15 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-//import Icon from 'react-native-vector-icons/FontAwesome';
 import {firebase} from '../../../firebaseConfig';
 import axios from 'axios';
 import theme from '../../styles/theme';
-//import colors from '../../styles/theme';
 
 const TipsViewScreen = ({route, navigation}) => {
   const {cropType, category, title} = route.params;
   const [tips, setTips] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -38,39 +37,57 @@ const TipsViewScreen = ({route, navigation}) => {
           headers: headers,
         },
       );
-      setTips(response.data);
-      setIsLoading(false);
+      if (response.data) {
+        setTips(response.data);
+      } else {
+        setError('Data not available right now. Please try again later.');
+      }
     } catch (error) {
       console.log(error);
+      setError('An error occurred. Please try again later.');
+    } finally {
       setIsLoading(false);
     }
   };
-  return (
-    <View style={styles.container}>
-      {isLoading ? (
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
         <ActivityIndicator
           size="large"
           color={theme.accent}
           style={styles.activityIndicator}
         />
-      ) : (
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.tipsContainer}>
-            <View style={styles.tipsId}>
-              <Text style={styles.tipsIdText}>{tips.id}</Text>
-            </View>
-            {tips.content.tips.map((tip, index) => (
-              <View style={styles.tipContent} key={index}>
-                <Image
-                  source={require('../../../assets/icons/bullet.png')}
-                  style={styles.icon}
-                />
-                <Text style={styles.tipsContent}>{tip}</Text>
-              </View>
-            ))}
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.container}>
+        <Text>{error}</Text>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.tipsContainer}>
+          <View style={styles.tipsId}>
+            <Text style={styles.tipsIdText}>{tips.id}</Text>
           </View>
-        </ScrollView>
-      )}
+          {tips.content.tips.map((tip, index) => (
+            <View style={styles.tipContent} key={index}>
+              <Image
+                source={require('../../../assets/icons/bullet.png')}
+                style={styles.icon}
+              />
+              <Text style={styles.tipsContent}>{tip}</Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };

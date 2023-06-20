@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondary,
   },
   header: {
-    height: 140,
+    height: 80,
     width: '100%',
     justifyContent: 'center',
     backgroundColor: theme.primaryDark,
@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontWeight: 'bold',
     fontSize: 24,
+    color: theme.secondary,
   },
   scrollContainer: {
     flexGrow: 1,

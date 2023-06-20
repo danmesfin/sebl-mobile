@@ -11,44 +11,42 @@ import theme from '../../styles/theme';
 const cropsData = [
   {
     id: 1,
-    name: 'Tomatoes',
-    image: require('../../../assets/icons/tomato.jpg'),
+    name: 'Millet',
+    image: require('../../../assets/icons/millet.jpg'),
   },
   {
     id: 2,
-    name: 'Corn',
-    image: require('../../../assets/icons/corn.png'),
+    name: 'Teff',
+    image: require('../../../assets/icons/teff.jpg'),
   },
   {
     id: 3,
-    name: 'Lettuce',
-    image: require('../../../assets/icons/lettuce.jpg'),
+    name: 'Corn',
+    image: require('../../../assets/icons/corn.png'),
   },
-  {
-    id: 4,
-    name: 'Broccoli',
-    image: require('../../../assets/icons/brocoli.png'),
-  },
+
+  // {
+  //   id: 4,
+  //   name: 'Broccoli',
+  //   image: require('../../../assets/icons/brocoli.png'),
+  // },
   {
     id: 5,
     name: 'Wheat',
     image: require('../../../assets/icons/wheat.png'),
   },
-  {
-    id: 6,
-    name: 'Sugarcane',
-    image: require('../../../assets/icons/sugarcane.png'),
-  },
+  // {
+  //   id: 6,
+  //   name: 'Sugarcane',
+  //   image: require('../../../assets/icons/sugarcane.png'),
+  // },
+
   {
     id: 7,
     name: 'Barley',
     image: require('../../../assets/icons/barley.jpg'),
   },
-  {
-    id: 8,
-    name: 'Millet',
-    image: require('../../../assets/icons/millet.jpg'),
-  },
+
   {
     id: 9,
     name: 'Niger',
@@ -61,8 +59,13 @@ const cropsData = [
   },
   {
     id: 11,
-    name: 'Teff',
-    image: require('../../../assets/icons/teff.jpg'),
+    name: 'Lettuce',
+    image: require('../../../assets/icons/lettuce.jpg'),
+  },
+  {
+    id: 8,
+    name: 'Tomatoes',
+    image: require('../../../assets/icons/tomato.jpg'),
   },
 ];
 
@@ -87,7 +90,7 @@ const SelectCropScreen = ({navigation}) => {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.header} />
+      {/* <View style={styles.header} /> */}
       <View style={styles.row}>
         {cropsData.map(crop => (
           <CropCard key={crop.id} crop={crop} navigation={navigation} />
@@ -134,6 +137,7 @@ const styles = StyleSheet.create({
   image: {
     width: 60,
     height: 60,
+    borderRadius: 50,
   },
   title: {
     fontWeight: 'bold',

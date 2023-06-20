@@ -6957,6 +6957,11 @@ react-native-gradle-plugin@^0.71.17:
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.17.tgz"
   integrity sha512-OXXYgpISEqERwjSlaCiaQY6cTY5CH6j73gdkWpK0hedxtiWMWgH+i5TOi4hIGYitm9kQBeyDu+wim9fA8ROFJA==
 
+react-native-image-crop-picker@^0.38.1:
+  version "0.38.1"
+  resolved "https://registry.npmjs.org/react-native-image-crop-picker/-/react-native-image-crop-picker-0.38.1.tgz"
+  integrity sha512-cF5UQnWplzHCeiCO+aiGS/0VomWaLmFf3nSsgTMPfY+8+99h8N/eHQvVdSF7RsGw50B8394wGeGyqHjjp8YRWw==
+
 react-native-image-picker@^5.3.1:
   version "5.3.1"
   resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-5.3.1.tgz"
@@ -7023,7 +7028,7 @@ react-native-vector-icons@*, react-native-vector-icons@^9.2.0, "react-native-vec
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", react-native@^0.41.2, "react-native@>= 0.50.0", react-native@>=0.57, react-native@>=0.57.0, react-native@>=0.59, react-native@0.71.6:
+react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", react-native@^0.41.2, "react-native@>= 0.50.0", react-native@>=0.40.0, react-native@>=0.57, react-native@>=0.57.0, react-native@>=0.59, react-native@0.71.6:
   version "0.71.6"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.71.6.tgz"
   integrity sha512-gHrDj7qaAaiE41JwaFCh3AtvOqOLuRgZtHKzNiwxakG/wvPAYmG73ECfWHGxjxIx/QT17Hp37Da3ipCei/CayQ==

@@ -43,7 +43,6 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
               if (err) {
                 console.log(error);
               } else {
-                console.log('run', response);
                 setResult(response[0]);
               }
             },
@@ -65,7 +64,7 @@ const PlantDiseaseDetectionScreen = ({route, navigation}) => {
           </Text>
         </View>
         <View>
-          <DiseaseControlMethods name={result.label} />
+          {result.label ? <DiseaseControlMethods name={result.label} /> : ''}
         </View>
       </ScrollView>
       <TouchableOpacity

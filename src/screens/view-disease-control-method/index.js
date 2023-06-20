@@ -55,32 +55,38 @@ const DiseaseControlMethods = ({name, route}) => {
 
       <Card style={styles.card}>
         <Text style={styles.sectionTitle}>Introduction</Text>
-        <Text>{controlMethods.additionalInfo?.introduction}</Text>
+        <Text style={styles.sectionContent}>
+          {controlMethods.additionalInfo?.introduction}
+        </Text>
       </Card>
 
       <Card style={styles.card}>
         <Text style={styles.sectionTitle}>Symptoms</Text>
-        <Text>{controlMethods.additionalInfo?.symptoms}</Text>
+        <Text style={styles.sectionContent}>
+          {controlMethods.additionalInfo?.symptoms}
+        </Text>
       </Card>
 
       <Card style={styles.card}>
         <Text style={styles.sectionTitle}>Biology</Text>
-        <Text>{controlMethods.additionalInfo?.biology}</Text>
+        <Text style={styles.sectionContent}>
+          {controlMethods.additionalInfo?.biology}
+        </Text>
       </Card>
 
       <Card style={styles.card}>
         <Text style={styles.sectionTitle}>Control Methods</Text>
         <Text style={styles.methodTitle}>
-          {controlMethods.naturalMethods?.culturalControl?.method}
+          {controlMethods.controlMethods.naturalControl?.method}
         </Text>
-        <Text>
-          {controlMethods.naturalMethods?.culturalControl?.description}
+        <Text style={styles.sectionContent}>
+          {controlMethods.controlMethods.naturalControl?.description}
         </Text>
         <Text style={styles.methodTitle}>
-          {controlMethods.naturalMethods?.chemicalControl?.method}
+          {controlMethods.controlMethods.chemicalControl?.method}
         </Text>
-        <Text>
-          {controlMethods.naturalMethods?.chemicalControl?.description}
+        <Text style={styles.sectionContent}>
+          {controlMethods.controlMethods.chemicalControl?.description}
         </Text>
       </Card>
 
@@ -90,14 +96,18 @@ const DiseaseControlMethods = ({name, route}) => {
           (recommendation, index) => (
             <View key={index}>
               <Text style={styles.methodTitle}>{recommendation.pesticide}</Text>
-              <Text>Dosage: {recommendation.dosage}</Text>
-              <Text>
+              <Text style={styles.sectionContent}>
+                Dosage: {recommendation.dosage}
+              </Text>
+              <Text style={styles.sectionContent}>
                 Application Timing: {recommendation.applicationTiming}
               </Text>
-              <Text>
+              <Text style={styles.sectionContent}>
                 Preharvest Interval: {recommendation.preharvestInterval}
               </Text>
-              <Text>Reentry Interval: {recommendation.reentryInterval}</Text>
+              <Text style={styles.sectionContent}>
+                Reentry Interval: {recommendation.reentryInterval}
+              </Text>
             </View>
           ),
         )}
@@ -105,7 +115,9 @@ const DiseaseControlMethods = ({name, route}) => {
 
       <Card style={styles.card}>
         <Text style={styles.sectionTitle}>Monitoring and Management</Text>
-        <Text>{controlMethods.additionalInfo?.monitoringAndManagement}</Text>
+        <Text style={styles.sectionContent}>
+          {controlMethods.additionalInfo?.monitoringAndManagement}
+        </Text>
       </Card>
     </ScrollView>
   );
@@ -143,6 +155,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginTop: 10,
+    color: theme.textPrimary,
+  },
+  sectionContent: {
     color: theme.textPrimary,
   },
 });

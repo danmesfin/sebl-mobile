@@ -5,7 +5,7 @@ import theme from '../../styles/theme';
 const categories = [
   {title: 'Crop Selection', category: 'cropSelection', icon: '🌱'},
   {title: 'Soil Preparation', category: 'soilPreparation', icon: '🌱'},
-  {title: 'Seed Sowing', category: 'seedSowing', icon: '🌱'},
+  // {title: 'Seed Sowing', category: 'seedSowing', icon: '🌱'},
   {title: 'irrigation', category: 'irrigation', icon: '🌱'},
   {title: 'Fertilizers', category: 'fertilizers', icon: '🌱'},
   {title: 'Weed Management', category: 'weedManagement', icon: '🌱'},

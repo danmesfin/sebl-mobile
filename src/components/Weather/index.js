@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import axios from 'axios';
 import getWeatherIcons from '../../utils/getWeatherIcon';
-import theme from '../../styles/theme';
-
 const WeatherSection = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -12,118 +10,109 @@ const WeatherSection = () => {
     setLoading(true);
     axios
       .get(
-        'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current_weather=true&hourly=temperature_2m,relativehumidity_2m,windspeed_10m',
+        'https://api.openweathermap.org/data/2.5/weather?lat=9.02&lon=38.75&appid=335678deab421377846a489f801c380e',
       )
       .then(response => {
         setWeatherData(response.data);
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    setLoading(false);
   }, []);
 
   if (!weatherData) {
     return null;
   }
 
-  const currentWeather = weatherData.current_weather;
+  const {main, weather, wind, rain, name} = weatherData;
+  const temperature = isLoading ? '- -' : Math.round(main.temp - 273.15);
+  const weatherDescription = isLoading ? '- -' : weather[0].description;
+  const humidity = isLoading ? '- -' : main.humidity;
+  const rainAmount = isLoading ? '- -' : rain?.['1h'] || 0;
+  const windSpeed = isLoading ? '- -' : wind.speed;
 
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <View style={styles.weatherInfo}>
-          <View style={styles.temperatureContainer}>
-            <Text style={styles.temperature}>
-              {isLoading ? '- -' : currentWeather.temperature}°C
-            </Text>
-          </View>
-          <Text style={styles.weatherDescription}>
-            Wind: {isLoading ? '- -' : currentWeather.windspeed} km/h
-          </Text>
-        </View>
-        <View style={styles.weatherInfo}>
-          <View style={styles.imageContainer}>
-            {isLoading ? (
-              '- -'
-            ) : (
-              <Image
-                style={styles.image}
-                source={getWeatherIcons(weatherData.weathercode)}
-              />
-            )}
-          </View>
-          <View style={styles.humidityInfo}>
-            <Text style={styles.weatherDescription}>
-              {isLoading ? '- -' : weatherData.hourly.relativehumidity_2m[0]}%
-            </Text>
-            <Image
-              style={styles.icon}
-              source={require('../../../assets/icons/humidity.png')}
-            />
-          </View>
-        </View>
+      <View style={styles.weatherInfo}>
+        <Image
+          style={styles.weatherIcon}
+          source={getWeatherIcons(weather[0].icon)}
+        />
+        <Text style={styles.temperature}>{temperature}°C</Text>
       </View>
+      <Text style={styles.city}>{name}</Text>
+      <Text style={styles.weatherDescription}>{weatherDescription}</Text>
+      {/* <View style={styles.details}>
+        <View style={styles.detail}>
+          <Text style={styles.detailLabel}>Humidity</Text>
+          <Text style={styles.detailValue}>{humidity}%</Text>
+        </View>
+        <View style={styles.detail}>
+          <Text style={styles.detailLabel}>Rain</Text>
+          <Text style={styles.detailValue}>{rainAmount} mm/h</Text>
+        </View>
+        <View style={styles.detail}>
+          <Text style={styles.detailLabel}>Wind</Text>
+          <Text style={styles.detailValue}>{windSpeed} km/h</Text>
+        </View>
+      </View> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.yellow,
-    opacity: 1,
+    backgroundColor: '#F3F6FA',
     borderRadius: 10,
     padding: 20,
     alignItems: 'center',
   },
-  row: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
   weatherInfo: {
-    alignItems: 'flex-start',
-    paddingHorizontal: 10,
-  },
-  temperatureContainer: {
-    backgroundColor: '#f2f2f2',
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 10,
+  },
+  weatherIcon: {
+    width: 64,
+    height: 64,
+    marginRight: 10,
   },
   temperature: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: '#000000',
+    color: '#212529',
+  },
+  city: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#212529',
+    marginBottom: 10,
   },
   weatherDescription: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 5,
+    color: '#212529',
+    marginBottom: 20,
   },
-  humidityInfo: {
+  details: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  detail: {
     alignItems: 'center',
-    marginTop: 10,
-    paddingHorizontal: 10,
   },
-  imageContainer: {
-    marginTop: 20,
-    alignItems: 'flex-end',
+  detailLabel: {
+    fontSize: 16,
+    color: '#212529',
   },
-  image: {
-    height: 80,
-    width: 80,
-    aspectRatio: 1,
-  },
-  icon: {
-    height: 30,
-    width: 30,
-    aspectRatio: 1,
-    marginLeft: 5,
+  detailValue: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#212529',
   },
 });
 
